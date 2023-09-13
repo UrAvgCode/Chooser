@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name" translatable="false">Chooser</string>
+    <string name="count" translatable="false">1</string>
+</resources>

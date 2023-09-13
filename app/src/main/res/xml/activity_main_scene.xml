@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="400">
+        <KeyFrameSet>
+        </KeyFrameSet>
+        <OnSwipe motion:maxVelocity="2.7"
+            motion:maxAcceleration="9.37" />
+        <OnClick />
+    </Transition>
+
+    <Transition
+        motion:constraintSetEnd="@+id/hideCounter"
+        motion:constraintSetStart="@id/start"
+        motion:duration="300">
+        <KeyFrameSet>
+        </KeyFrameSet>
+        <OnSwipe motion:maxVelocity="2.67" />
+        <OnClick />
+    </Transition>
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/hideCounter"
+        motion:duration="300">
+        <KeyFrameSet>
+        </KeyFrameSet>
+        <OnSwipe motion:maxVelocity="2.67" />
+        <OnClick />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:layout_height="50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="@+id/chooser"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.044"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:id="@+id/settings"
+            motion:layout_constraintVertical_bias="0.023" />
+        <Constraint
+            android:layout_height="50dp"
+            motion:layout_constraintStart_toStartOf="@+id/chooser"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:id="@+id/count"
+            motion:layout_constraintHorizontal_bias="0.955"
+            motion:layout_constraintTop_toTopOf="@+id/chooser"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintVertical_bias="0.023"
+            android:layout_marginTop="0dp" />
+        <Constraint
+            motion:layout_constraintVertical_bias="0.0"
+            android:layout_height="match_parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:id="@+id/chooser" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/hideCounter">
+        <Constraint
+            motion:layout_constraintVertical_bias="0.0"
+            android:layout_height="match_parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:id="@+id/chooser" />
+        <Constraint
+            android:layout_height="50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintHorizontal_bias="0.044"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:id="@+id/settings"
+            motion:layout_constraintBottom_toBottomOf="@+id/chooser"
+            motion:layout_constraintVertical_bias="0.023" />
+        <Constraint
+            android:layout_height="50dp"
+            motion:layout_constraintStart_toStartOf="@+id/chooser"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:id="@+id/count"
+            motion:layout_constraintHorizontal_bias="0.955"
+            motion:layout_constraintBottom_toTopOf="parent"
+            android:layout_marginBottom="8dp" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            motion:layout_constraintVertical_bias="0.0"
+            android:layout_height="match_parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintHorizontal_bias="0.0"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="match_parent"
+            android:id="@+id/chooser" />
+        <Constraint
+            android:layout_height="50dp"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintHorizontal_bias="0.044"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:id="@+id/settings"
+            motion:layout_constraintBottom_toTopOf="parent"
+            android:layout_marginBottom="8dp" />
+        <Constraint
+            android:layout_height="50dp"
+            motion:layout_constraintStart_toStartOf="@+id/chooser"
+            motion:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="50dp"
+            android:id="@+id/count"
+            motion:layout_constraintHorizontal_bias="0.955"
+            motion:layout_constraintBottom_toTopOf="parent"
+            android:layout_marginBottom="8dp" />
+    </ConstraintSet>
+</MotionScene>

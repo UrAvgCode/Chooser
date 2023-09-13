@@ -1,0 +1,7 @@
+<resources>
+    <style name="Base.Theme.Chooser" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimary">@color/gray</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="Theme.Chooser" parent="Base.Theme.Chooser" />
+</resources>
