@@ -3,7 +3,7 @@ package com.uravgcode.chooser.circle
 import android.graphics.Color
 import androidx.core.graphics.ColorUtils
 
-class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, radius, color) {
+class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
 
     override fun removeFinger() {
         hasFinger = false

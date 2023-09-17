@@ -33,7 +33,6 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     var motionLayout: MotionLayout? = null
 
     private val handler = Handler(Looper.getMainLooper())
-    private val colorGen = ColorGenerator()
 
     private var mapOfCircles = mutableMapOf<Int, Circle>()
     private var listOfDeadCircles = mutableListOf<Circle>()
@@ -105,9 +104,9 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                     hideMenu(true)
                     val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
                     mapOfCircles[pointerId] = when (mode) {
-                        Mode.SINGLE -> Circle(pos.x, pos.y, 50f * scale, colorGen.nextColor())
+                        Mode.SINGLE -> Circle(pos.x, pos.y, 50f * scale)
                         Mode.GROUP -> GroupCircle(pos.x, pos.y, 50f * scale)
-                        Mode.ORDER -> OrderCircle(pos.x, pos.y, 50f * scale, colorGen.nextColor())
+                        Mode.ORDER -> OrderCircle(pos.x, pos.y, 50f * scale)
                     }
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({ selectWinner() }, 3000)
@@ -128,7 +127,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
                 removeCircle(pointerId)
                 if (mapOfCircles.isEmpty()) {
-                    colorGen.newColorPalette(5)
+                    ColorGenerator.newColorPalette(5)
                     if (winnerChosen) {
                         handler.postDelayed({
                             blackDir = -1
@@ -186,12 +185,12 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         val teamSize = mapOfCircles.size / count
         var remainder = mapOfCircles.size % count
 
-        colorGen.newColorPalette(count)
+        ColorGenerator.newColorPalette(count)
         for (i in 0..<count) {
             val size = if (remainder > 0) teamSize + 1 else teamSize
             remainder--
 
-            val color = colorGen.nextColor()
+            val color = ColorGenerator.nextColor()
             for (a in 0..<size) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]

@@ -5,12 +5,13 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Handler
 import android.os.Looper
+import com.uravgcode.chooser.utils.ColorGenerator
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
 import kotlin.random.Random
 
-open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
+open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = ColorGenerator.nextColor()) {
 
     val center = RectF()
     val ring = RectF()
