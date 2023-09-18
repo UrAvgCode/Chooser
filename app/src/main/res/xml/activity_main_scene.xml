@@ -43,14 +43,14 @@
             motion:layout_constraintHorizontal_bias="0.044"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
-            android:id="@+id/settings"
+            android:id="@+id/btnMode"
             motion:layout_constraintVertical_bias="0.023" />
         <Constraint
             android:layout_height="50dp"
             motion:layout_constraintStart_toStartOf="@+id/chooser"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
-            android:id="@+id/count"
+            android:id="@+id/btnCount"
             motion:layout_constraintHorizontal_bias="0.955"
             motion:layout_constraintTop_toTopOf="@+id/chooser"
             motion:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
             motion:layout_constraintHorizontal_bias="0.044"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
-            android:id="@+id/settings"
+            android:id="@+id/btnMode"
             motion:layout_constraintBottom_toBottomOf="@+id/chooser"
             motion:layout_constraintVertical_bias="0.023" />
         <Constraint
@@ -94,7 +94,7 @@
             motion:layout_constraintStart_toStartOf="@+id/chooser"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
-            android:id="@+id/count"
+            android:id="@+id/btnCount"
             motion:layout_constraintHorizontal_bias="0.955"
             motion:layout_constraintBottom_toTopOf="parent"
             android:layout_marginBottom="8dp" />
@@ -117,7 +117,7 @@
             motion:layout_constraintHorizontal_bias="0.044"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
-            android:id="@+id/settings"
+            android:id="@+id/btnMode"
             motion:layout_constraintBottom_toTopOf="parent"
             android:layout_marginBottom="8dp" />
         <Constraint
@@ -125,7 +125,7 @@
             motion:layout_constraintStart_toStartOf="@+id/chooser"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="50dp"
-            android:id="@+id/count"
+            android:id="@+id/btnCount"
             motion:layout_constraintHorizontal_bias="0.955"
             motion:layout_constraintBottom_toTopOf="parent"
             android:layout_marginBottom="8dp" />

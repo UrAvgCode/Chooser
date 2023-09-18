@@ -17,33 +17,27 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.chooser.motionLayout = binding.motionLayout
-    }
 
-    fun buttonMode(view: View) {
-        binding.chooser.nextMode()
-        binding.chooser.hideMenu(false)
-
-        val drawable: Int
-        when (binding.chooser.mode) {
-            Chooser.Mode.SINGLE -> {
-                drawable = R.drawable.single_icon
-            }
-            Chooser.Mode.GROUP -> {
-                drawable = R.drawable.group_icon
-                binding.chooser.count = 2
-            }
-            Chooser.Mode.ORDER -> {
-                drawable = R.drawable.number_icon
-                binding.chooser.count = 1
-            }
+        binding.btnCount.setOnClickListener {
+            binding.chooser.nextCount()
+            binding.btnCount.text = binding.chooser.count.toString()
         }
 
-        view.foreground = AppCompatResources.getDrawable(this, drawable)
-        binding.count.text = binding.chooser.count.toString()
-    }
+        binding.btnMode.setOnClickListener {
+            binding.chooser.apply {
+                nextMode()
+                hideMenu(false)
+                count = if (mode == Chooser.Mode.GROUP) 2 else 1
 
-    fun buttonCount(view: View) {
-        binding.chooser.nextCount()
-        (view as TextView).text = binding.chooser.count.toString()
+                val drawable = when (mode) {
+                    Chooser.Mode.SINGLE -> R.drawable.single_icon
+                    Chooser.Mode.GROUP -> R.drawable.group_icon
+                    Chooser.Mode.ORDER -> R.drawable.number_icon
+                }
+
+                binding.btnMode.foreground = AppCompatResources.getDrawable(context, drawable)
+                binding.btnCount.text = binding.chooser.count.toString()
+            }
+        }
     }
 }

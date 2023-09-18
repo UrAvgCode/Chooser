@@ -18,12 +18,11 @@
         app:layout_constraintBottom_toBottomOf="parent" />
 
     <Button
-        android:id="@+id/settings"
+        android:id="@+id/btnMode"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/button_background"
         android:foreground="@drawable/single_icon"
-        android:onClick="buttonMode"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.044"
@@ -33,15 +32,15 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/count"
+        android:id="@+id/btnCount"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/button_background"
-        android:onClick="buttonCount"
+        android:includeFontPadding="false"
         android:padding="0sp"
         android:text="1"
         android:textColor="#FFFFFF"
-        android:textSize="30sp"
+        android:textSize="32sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.955"
