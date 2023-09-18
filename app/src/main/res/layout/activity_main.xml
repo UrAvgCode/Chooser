@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layoutDescription="@xml/activity_main_scene"
-    tools:context="com.github.chooser.com.uravgcode.chooser.MainActivity"
+    tools:context=".MainActivity"
     android:id="@+id/motion_layout">
 
     <com.uravgcode.chooser.Chooser
@@ -39,7 +39,7 @@
         android:background="@drawable/button_background"
         android:onClick="buttonCount"
         android:padding="0sp"
-        android:text="@string/count"
+        android:text="1"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -48,6 +48,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.023"
-        tools:ignore="TextSizeCheck" />
+        tools:ignore="HardcodedText,TextSizeCheck" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>
