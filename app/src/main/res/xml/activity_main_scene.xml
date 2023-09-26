@@ -17,7 +17,7 @@
     <Transition
         motion:constraintSetEnd="@+id/hideCounter"
         motion:constraintSetStart="@id/start"
-        motion:duration="300">
+        motion:duration="400">
         <KeyFrameSet>
         </KeyFrameSet>
         <OnSwipe motion:maxVelocity="2.67" />
@@ -27,7 +27,7 @@
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/hideCounter"
-        motion:duration="300">
+        motion:duration="400">
         <KeyFrameSet>
         </KeyFrameSet>
         <OnSwipe motion:maxVelocity="2.67" />
