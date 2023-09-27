@@ -30,7 +30,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     var winnerCircle = false
     var hasFinger = true
 
-    private var frames = 0
+    private var time = 0
 
     init {
         paint.color = color
@@ -45,8 +45,8 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         strokePaintLight.strokeCap = Paint.Cap.ROUND
     }
 
-    fun updateValues(fps: Int) {
-        val radius = coreRadius + radiusVariance * sin(frames / (0.17 * fps)).toFloat()
+    fun updateValues(deltaTime: Int) {
+        val radius = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
         val innerRadius = radius * 0.6f
         val strokeWidth = radius * 0.19f
 
@@ -57,15 +57,15 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         strokePaint.strokeWidth = strokeWidth
         strokePaintLight.strokeWidth = strokeWidth
 
-        startAngle = (startAngle + 300 / fps) % 360
-        if (sweepAngle <= 360) sweepAngle += 450 / fps
+        startAngle = (startAngle + deltaTime * 0.3f) % 360
+        if (sweepAngle <= 360) sweepAngle += deltaTime * 0.45f
 
         coreRadius = when (hasFinger) {
-            true -> min(coreRadius + 600f / fps, defaultRadius)
-            false -> max(coreRadius - 600f / fps, 0f)
+            true -> min(coreRadius + deltaTime * 0.6f, defaultRadius)
+            false -> max(coreRadius - deltaTime * 0.6f, 0f)
         }
 
-        frames++
+        time += deltaTime
     }
 
     open fun removeFinger() {

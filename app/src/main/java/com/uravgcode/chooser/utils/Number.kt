@@ -14,10 +14,10 @@ class Number(var x: Float, var y: Float, color: Int, val number: Int, private va
         textPaint.textSize = size
     }
 
-    fun updateValues(fps: Int) {
+    fun updateValues(deltaTime: Int) {
         textPaint.alpha = alpha.coerceIn(0f, 100f).toInt()
-        alpha -= 3000f / (fps * abs(alpha))
-        x += sin(alpha / 15f) * (size / 200f)
-        y -= 60f / fps.toFloat()
+        alpha -= (deltaTime * 3f) / abs(alpha)
+        x += sin(alpha / 15f) * deltaTime * 0.1f
+        y -= deltaTime * 0.06f
     }
 }

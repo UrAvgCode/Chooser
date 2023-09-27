@@ -16,20 +16,22 @@ import android.os.VibratorManager
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import android.view.WindowManager
 import androidx.constraintlayout.motion.widget.MotionLayout
 import androidx.core.graphics.ColorUtils
-import com.uravgcode.chooser.circle.*
+import com.uravgcode.chooser.circle.Circle
+import com.uravgcode.chooser.circle.GroupCircle
+import com.uravgcode.chooser.circle.OrderCircle
 import com.uravgcode.chooser.utils.ColorGenerator
 import com.uravgcode.chooser.utils.Number
 import kotlin.math.max
+import kotlin.math.sign
 import kotlin.random.Random
 
 class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
-    private var fps = refreshRate()
+    private var lastTime = System.nanoTime()
     var motionLayout: MotionLayout? = null
 
     private val handler = Handler(Looper.getMainLooper())
@@ -42,7 +44,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val blackPaint = Paint()
     private var blackRadius = 0f
-    private var blackDir = 1
+    private var blackSpeed = 1f
 
     enum class Mode {
         SINGLE, GROUP, ORDER
@@ -57,26 +59,36 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     override fun onDraw(canvas: Canvas) {
-        if (winnerChosen && mode == Mode.SINGLE) {
-            blackRadius -= 3000 * screenHeight * blackDir / (blackRadius * fps)
-            blackRadius = max(blackRadius, 105 * scale)
 
-            for (circle in listOfDeadCircles)
-                canvas.drawCircle(circle.x, circle.y, blackRadius, blackPaint)
+        val time = System.nanoTime()
+        val deltaTime = ((System.nanoTime() - lastTime) / 1000000).toInt()
+        lastTime = time
+
+        if (winnerChosen && mode == Mode.SINGLE) {
+
+            blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
+            blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
+            blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
+
+            for (circle in listOfDeadCircles) {
+                val radius = blackRadius * circle.coreRadius / (50f * scale)
+                canvas.drawCircle(circle.x, circle.y, radius, blackPaint)
+            }
+
             for (circle in mapOfCircles.values)
                 canvas.drawCircle(circle.x, circle.y, blackRadius, blackPaint)
         }
 
         for (circle in listOfDeadCircles.reversed()) {
-            drawCircle(canvas, circle)
+            drawCircle(canvas, circle, deltaTime)
             if (circle.coreRadius <= 0) listOfDeadCircles.remove(circle)
         }
 
         for (circle in mapOfCircles.values)
-            drawCircle(canvas, circle)
+            drawCircle(canvas, circle, deltaTime)
 
         for (number in listOfNumbers.reversed()) {
-            number.updateValues(fps)
+            number.updateValues(deltaTime)
             canvas.drawText(number.number.toString(), number.x, number.y, number.textPaint)
             if (number.alpha <= 0) listOfNumbers.remove(number)
         }
@@ -84,9 +96,9 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         invalidate()
     }
 
-    private fun drawCircle(canvas: Canvas, cir: Circle) {
-        cir.updateValues(fps)
-        if (mode == Mode.GROUP) (cir as GroupCircle).fadeColor(fps)
+    private fun drawCircle(canvas: Canvas, cir: Circle, deltaTime: Int) {
+        cir.updateValues(deltaTime)
+        if (mode == Mode.GROUP) (cir as GroupCircle).fadeColor(deltaTime)
         canvas.drawOval(cir.center, cir.paint)
         canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle, false, cir.strokePaint)
         canvas.drawArc(cir.center, cir.startAngle + 180f, cir.sweepAngle / 2f, false, cir.strokePaintLight)
@@ -130,7 +142,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                     ColorGenerator.newColorPalette(5)
                     if (winnerChosen) {
                         handler.postDelayed({
-                            blackDir = -1
+                            blackSpeed = 1f
                             handler.postDelayed({
                                 hideMenu(false)
                                 winnerChosen = false
@@ -175,7 +187,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         for (circle in mapOfCircles.values)
             color = ColorUtils.blendARGB(circle.color, color, 0.5f)
 
-        blackDir = 1
+        blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
         setBackgroundColor(color)
     }
@@ -256,15 +268,6 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             @Suppress("DEPRECATION")
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
-        }
-    }
-
-    private fun refreshRate(): Int {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            return context!!.display?.refreshRate?.toInt()!!
-        } else {
-            @Suppress("DEPRECATION")
-            return (context!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay.refreshRate.toInt()
         }
     }
 }
