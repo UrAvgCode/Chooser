@@ -9,7 +9,7 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
     private var blend = 0f
 
     init {
-        strokePaintLight.color = Color.GRAY
+        strokePaintLight.color = Color.rgb(180, 180, 180)
     }
 
     fun fadeColor(deltaTime: Int) {
@@ -18,7 +18,7 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
             blend = min(blend + deltaTime * 0.01f, 1f)
             paint.color = newColor
             strokePaint.color = newColor
-            strokePaintLight.color = ColorUtils.blendARGB(Color.GRAY, Color.argb(65, 255, 255, 255), blend)
+            strokePaintLight.color = ColorUtils.blendARGB(Color.rgb(180, 180, 180), Color.argb(65, 255, 255, 255), blend)
         }
     }
 }
