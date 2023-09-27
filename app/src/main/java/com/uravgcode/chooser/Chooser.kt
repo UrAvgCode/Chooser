@@ -31,7 +31,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
-    private var lastTime = System.nanoTime()
+    private var lastTime = System.currentTimeMillis()
     var motionLayout: MotionLayout? = null
 
     private val handler = Handler(Looper.getMainLooper())
@@ -59,31 +59,36 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     override fun onDraw(canvas: Canvas) {
-        val time = System.nanoTime()
-        val deltaTime = ((System.nanoTime() - lastTime) / 1000000).toInt()
+        val time = System.currentTimeMillis()
+        val deltaTime = (time - lastTime).toInt()
         lastTime = time
+
+        for (circle in listOfDeadCircles.reversed())
+            if (circle.coreRadius <= 0) listOfDeadCircles.remove(circle)
+
+        val circles = mapOfCircles.values.plus(listOfDeadCircles)
 
         if (winnerChosen && mode == Mode.SINGLE) {
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
             blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
 
-            for (circle in listOfDeadCircles) {
-                val radius = blackRadius * circle.coreRadius / (50f * scale)
-                canvas.drawCircle(circle.x, circle.y, radius, blackPaint)
+            for (cir in circles) {
+                if(cir.winnerCircle) {
+                    val radius = if(mapOfCircles.isEmpty()) blackRadius else blackRadius * cir.coreRadius / (50f * scale)
+                    canvas.drawCircle(cir.x, cir.y, radius, blackPaint)
+                }
             }
-
-            for (circle in mapOfCircles.values)
-                canvas.drawCircle(circle.x, circle.y, blackRadius, blackPaint)
         }
 
-        for (circle in listOfDeadCircles.reversed()) {
-            drawCircle(canvas, circle, deltaTime)
-            if (circle.coreRadius <= 0) listOfDeadCircles.remove(circle)
+        for(cir in circles) {
+            cir.updateValues(deltaTime)
+            if (mode == Mode.GROUP) (cir as GroupCircle).fadeColor(deltaTime)
+            canvas.drawOval(cir.center, cir.paint)
+            canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle, false, cir.strokePaint)
+            canvas.drawArc(cir.center, cir.startAngle + 180f, cir.sweepAngle / 2f, false, cir.strokePaintLight)
+            canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle / 2f, false, cir.strokePaintLight)
         }
-
-        for (circle in mapOfCircles.values)
-            drawCircle(canvas, circle, deltaTime)
 
         for (number in listOfNumbers.reversed()) {
             number.updateValues(deltaTime)
@@ -92,15 +97,6 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         }
 
         invalidate()
-    }
-
-    private fun drawCircle(canvas: Canvas, cir: Circle, deltaTime: Int) {
-        cir.updateValues(deltaTime)
-        if (mode == Mode.GROUP) (cir as GroupCircle).fadeColor(deltaTime)
-        canvas.drawOval(cir.center, cir.paint)
-        canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle, false, cir.strokePaint)
-        canvas.drawArc(cir.center, cir.startAngle + 180f, cir.sweepAngle / 2f, false, cir.strokePaintLight)
-        canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle / 2f, false, cir.strokePaintLight)
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -145,7 +141,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                                 hideMenu(false)
                                 winnerChosen = false
                                 setBackgroundColor(Color.BLACK)
-                            }, 100)
+                            }, 150)
                         }, 1000)
                     } else {
                         hideMenu(false)
