@@ -59,13 +59,11 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     override fun onDraw(canvas: Canvas) {
-
         val time = System.nanoTime()
         val deltaTime = ((System.nanoTime() - lastTime) / 1000000).toInt()
         lastTime = time
 
         if (winnerChosen && mode == Mode.SINGLE) {
-
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
             blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
