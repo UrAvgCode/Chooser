@@ -36,8 +36,8 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val handler = Handler(Looper.getMainLooper())
 
-    private var mapOfCircles = mutableMapOf<Int, Circle>()
-    private var listOfDeadCircles = mutableListOf<Circle>()
+    private val mapOfCircles = mutableMapOf<Int, Circle>()
+    private val listOfDeadCircles = mutableListOf<Circle>()
     private val listOfNumbers = mutableListOf<Number>()
 
     private var winnerChosen = false
@@ -107,7 +107,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         when (event.actionMasked) {
             MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
                 if (!winnerChosen) {
-                    hideMenu(true)
+                    setButtonVisibility(false)
                     val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
                     mapOfCircles[pointerId] = when (mode) {
                         Mode.SINGLE -> Circle(pos.x, pos.y, 50f * scale)
@@ -138,13 +138,13 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                         handler.postDelayed({
                             blackSpeed = 1f
                             handler.postDelayed({
-                                hideMenu(false)
+                                setButtonVisibility(true)
                                 winnerChosen = false
                                 setBackgroundColor(Color.BLACK)
                             }, 150)
                         }, 1000)
                     } else {
-                        hideMenu(false)
+                        setButtonVisibility(true)
                     }
                 }
             }
@@ -235,22 +235,13 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         }
     }
 
-    fun hideMenu(hide: Boolean) {
-        val state = if (hide) R.id.end else if (mode == Mode.ORDER) R.id.hideCounter else R.id.start
-        motionLayout?.transitionToState(state)
-    }
-
-    fun nextMode() {
-        if (mapOfCircles.isEmpty()) mode = when (mode) {
-            Mode.SINGLE -> Mode.GROUP
-            Mode.GROUP -> Mode.ORDER
-            Mode.ORDER -> Mode.SINGLE
-        }
-    }
-
-    fun nextCount() {
-        if (mode != Mode.ORDER) count = count % 5 + 1
-        if (mode == Mode.GROUP) count = max(count, 2)
+    private fun setButtonVisibility(visible: Boolean) {
+        motionLayout?.transitionToState(
+            if (visible) when (mode) {
+                Mode.SINGLE, Mode.GROUP -> R.id.start
+                Mode.ORDER -> R.id.hideCounter
+            } else R.id.end
+        )
     }
 
     private fun vibrate() {

@@ -16,24 +16,37 @@ class MainActivity : AppCompatActivity() {
         binding.chooser.motionLayout = binding.motionLayout
 
         binding.btnCount.setOnClickListener {
-            binding.chooser.nextCount()
-            binding.btnCount.text = binding.chooser.count.toString()
+            binding.chooser.apply {
+                count = when(mode) {
+                    Chooser.Mode.SINGLE -> count % 5 + 1
+                    Chooser.Mode.GROUP -> (count - 1) % 4 + 2
+                    Chooser.Mode.ORDER -> 1
+                }
+                binding.btnCount.text = count.toString()
+            }
         }
 
         binding.btnMode.setOnClickListener {
-            binding.chooser.apply {
-                nextMode()
-                hideMenu(false)
-                count = if (mode == Chooser.Mode.GROUP) 2 else 1
+            if (binding.motionLayout.currentState != -1) {
+                binding.chooser.apply {
 
-                val drawable = when (mode) {
-                    Chooser.Mode.SINGLE -> R.drawable.single_icon
-                    Chooser.Mode.GROUP -> R.drawable.group_icon
-                    Chooser.Mode.ORDER -> R.drawable.number_icon
+                    mode = when (mode) {
+                        Chooser.Mode.SINGLE -> Chooser.Mode.GROUP
+                        Chooser.Mode.GROUP -> Chooser.Mode.ORDER
+                        Chooser.Mode.ORDER -> Chooser.Mode.SINGLE
+                    }
+
+                    val drawable = when (mode) {
+                        Chooser.Mode.SINGLE -> R.drawable.single_icon
+                        Chooser.Mode.GROUP -> R.drawable.group_icon
+                        Chooser.Mode.ORDER -> R.drawable.number_icon
+                    }
+
+                    count = if (mode == Chooser.Mode.GROUP) 2 else 1
+                    binding.motionLayout.transitionToState(if (mode == Chooser.Mode.ORDER) R.id.hideCounter else R.id.start)
+                    binding.btnMode.foreground = AppCompatResources.getDrawable(context, drawable)
+                    binding.btnCount.text = count.toString()
                 }
-
-                binding.btnMode.foreground = AppCompatResources.getDrawable(context, drawable)
-                binding.btnCount.text = binding.chooser.count.toString()
             }
         }
     }
