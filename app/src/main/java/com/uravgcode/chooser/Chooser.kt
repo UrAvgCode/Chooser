@@ -17,6 +17,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
+import com.uravgcode.chooser.Chooser.Mode.*
 import com.uravgcode.chooser.circle.Circle
 import com.uravgcode.chooser.circle.GroupCircle
 import com.uravgcode.chooser.circle.OrderCircle
@@ -49,7 +50,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         SINGLE, GROUP, ORDER
     }
 
-    var mode = Mode.SINGLE
+    var mode = SINGLE
     var count = 1
 
     init {
@@ -67,7 +68,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
         val circles = mapOfCircles.values.plus(listOfDeadCircles)
 
-        if (winnerChosen && mode == Mode.SINGLE) {
+        if (winnerChosen && mode == SINGLE) {
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
             blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
@@ -82,7 +83,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
         for(cir in circles) {
             cir.updateValues(deltaTime)
-            if (mode == Mode.GROUP) (cir as GroupCircle).fadeColor(deltaTime)
+            if (mode == GROUP) (cir as GroupCircle).fadeColor(deltaTime)
             canvas.drawOval(cir.center, cir.paint)
             canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle, false, cir.strokePaint)
             canvas.drawArc(cir.center, cir.startAngle + 180f, cir.sweepAngle / 2f, false, cir.strokePaintLight)
@@ -109,9 +110,9 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                     setButtonVisibility(false)
                     val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
                     mapOfCircles[pointerId] = when (mode) {
-                        Mode.SINGLE -> Circle(pos.x, pos.y, 50f * scale)
-                        Mode.GROUP -> GroupCircle(pos.x, pos.y, 50f * scale)
-                        Mode.ORDER -> OrderCircle(pos.x, pos.y, 50f * scale)
+                        SINGLE -> Circle(pos.x, pos.y, 50f * scale)
+                        GROUP -> GroupCircle(pos.x, pos.y, 50f * scale)
+                        ORDER -> OrderCircle(pos.x, pos.y, 50f * scale)
                     }
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({ selectWinner() }, 3000)
@@ -154,9 +155,9 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private fun selectWinner() {
         if (mapOfCircles.size > count) {
             when (mode) {
-                Mode.SINGLE -> chooseFinger()
-                Mode.GROUP -> chooseGroup()
-                Mode.ORDER -> chooseOrder()
+                SINGLE -> chooseFinger()
+                GROUP -> chooseGroup()
+                ORDER -> chooseOrder()
             }
             vibrate()
             winnerChosen = true
@@ -236,8 +237,8 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private fun setButtonVisibility(visible: Boolean) {
         motionLayout?.transitionToState(
             if (visible) when (mode) {
-                Mode.SINGLE, Mode.GROUP -> R.id.start
-                Mode.ORDER -> R.id.hideCounter
+                SINGLE, GROUP -> R.id.start
+                ORDER -> R.id.hideCounter
             } else R.id.end
         )
     }
