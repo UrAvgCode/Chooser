@@ -17,7 +17,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
-import androidx.core.graphics.ColorUtils
 import com.uravgcode.chooser.circle.Circle
 import com.uravgcode.chooser.circle.GroupCircle
 import com.uravgcode.chooser.circle.OrderCircle
@@ -177,13 +176,12 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             }
         }
 
-        var color = mapOfCircles[indexList[0]]!!.color
-        for (circle in mapOfCircles.values)
-            color = ColorUtils.blendARGB(circle.color, color, 0.5f)
+        val colors = mutableListOf<Int>()
+        for (circle in mapOfCircles.values) colors.add(circle.color)
+        setBackgroundColor(ColorGenerator.averageColor(colors))
 
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
-        setBackgroundColor(color)
     }
 
     private fun chooseGroup() {
