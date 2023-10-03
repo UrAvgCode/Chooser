@@ -12,7 +12,9 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
         strokePaintLight.color = Color.rgb(180, 180, 180)
     }
 
-    fun fadeColor(deltaTime: Int) {
+    override fun updateValues(deltaTime: Int) {
+        super.updateValues(deltaTime)
+
         if (color != paint.color && blend <= 1) {
             val newColor = ColorUtils.blendARGB(Color.WHITE, color, blend)
             blend = min(blend + deltaTime * 0.01f, 1f)

@@ -83,7 +83,6 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
         for(cir in circles) {
             cir.updateValues(deltaTime)
-            if (mode == GROUP) (cir as GroupCircle).fadeColor(deltaTime)
             canvas.drawOval(cir.center, cir.paint)
             canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle, false, cir.strokePaint)
             canvas.drawArc(cir.center, cir.startAngle + 180f, cir.sweepAngle / 2f, false, cir.strokePaintLight)

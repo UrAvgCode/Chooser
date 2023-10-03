@@ -45,7 +45,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         strokePaintLight.strokeCap = Paint.Cap.ROUND
     }
 
-    fun updateValues(deltaTime: Int) {
+    open fun updateValues(deltaTime: Int) {
         val radius = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
         val innerRadius = radius * 0.6f
         val strokeWidth = radius * 0.19f
