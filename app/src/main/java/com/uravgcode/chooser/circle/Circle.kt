@@ -1,5 +1,6 @@
 package com.uravgcode.chooser.circle
 
+import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
@@ -13,15 +14,15 @@ import kotlin.random.Random
 
 open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = ColorGenerator.nextColor()) {
 
-    val center = RectF()
-    val ring = RectF()
+    private val center = RectF()
+    private val ring = RectF()
 
-    val paint = Paint()
-    val strokePaint = Paint()
-    val strokePaintLight = Paint()
+    protected val paint = Paint()
+    protected val strokePaint = Paint()
+    protected val strokePaintLight = Paint()
 
-    var startAngle = Random.nextInt(360).toFloat()
-    var sweepAngle = Random.nextInt(-360, 0).toFloat()
+    private var startAngle = Random.nextInt(360).toFloat()
+    private var sweepAngle = Random.nextInt(-360, 0).toFloat()
 
     var coreRadius = 0f
     private val defaultRadius = radius
@@ -45,7 +46,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         strokePaintLight.strokeCap = Paint.Cap.ROUND
     }
 
-    open fun updateValues(deltaTime: Int) {
+    open fun update(deltaTime: Int) {
         val radius = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
         val innerRadius = radius * 0.6f
         val strokeWidth = radius * 0.19f
@@ -66,6 +67,13 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         }
 
         time += deltaTime
+    }
+
+    open fun draw(canvas: Canvas) {
+        canvas.drawOval(center, paint)
+        canvas.drawArc(ring, startAngle, sweepAngle, false, strokePaint)
+        canvas.drawArc(center, startAngle + 180f, sweepAngle / 2f, false, strokePaintLight)
+        canvas.drawArc(ring, startAngle, sweepAngle / 2f, false, strokePaintLight)
     }
 
     open fun removeFinger() {

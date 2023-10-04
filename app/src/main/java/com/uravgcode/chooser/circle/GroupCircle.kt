@@ -12,8 +12,8 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
         strokePaintLight.color = Color.rgb(180, 180, 180)
     }
 
-    override fun updateValues(deltaTime: Int) {
-        super.updateValues(deltaTime)
+    override fun update(deltaTime: Int) {
+        super.update(deltaTime)
 
         if (color != paint.color && blend <= 1) {
             val newColor = ColorUtils.blendARGB(Color.WHITE, color, blend)

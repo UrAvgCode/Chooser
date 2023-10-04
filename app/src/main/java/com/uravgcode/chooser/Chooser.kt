@@ -81,17 +81,14 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             }
         }
 
-        for(cir in circles) {
-            cir.updateValues(deltaTime)
-            canvas.drawOval(cir.center, cir.paint)
-            canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle, false, cir.strokePaint)
-            canvas.drawArc(cir.center, cir.startAngle + 180f, cir.sweepAngle / 2f, false, cir.strokePaintLight)
-            canvas.drawArc(cir.ring, cir.startAngle, cir.sweepAngle / 2f, false, cir.strokePaintLight)
+        for(circle in circles) {
+            circle.update(deltaTime)
+            circle.draw(canvas)
         }
 
         for (number in listOfNumbers.reversed()) {
-            number.updateValues(deltaTime)
-            canvas.drawText(number.number.toString(), number.x, number.y, number.textPaint)
+            number.update(deltaTime)
+            number.draw(canvas)
             if (number.alpha <= 0) listOfNumbers.remove(number)
         }
 
