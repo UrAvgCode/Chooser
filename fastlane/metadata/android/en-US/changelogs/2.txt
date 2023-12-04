@@ -1,0 +1,10 @@
+Fixed
+ - screen refresh rate problems
+ - button text alignment
+ - button animation speed
+ - average color of more than two colors
+ 
+Development
+ - sdk 34
+ - material 1.10
+ - application version 8.1.2
