@@ -182,12 +182,11 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         var remainder = mapOfCircles.size % count
 
         ColorGenerator.newColorPalette(count)
-        for (i in 0..<count) {
-            val size = if (remainder > 0) teamSize + 1 else teamSize
-            remainder--
+        repeat(count) {
+            val size = if (remainder-- > 0) teamSize + 1 else teamSize
 
             val color = ColorGenerator.nextColor()
-            for (a in 0..<size) {
+            repeat (size) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]
                 circle!!.color = color
