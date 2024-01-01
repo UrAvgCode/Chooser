@@ -159,19 +159,17 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private fun chooseFinger() {
         val indexList = mapOfCircles.keys.toMutableList()
+        indexList.shuffle()
 
-        for (i in indexList.size - 1 downTo 0) {
-            if (i >= count) {
-                val randomIndex = Random.nextInt(indexList.size)
-                removeCircle(indexList[randomIndex])
-                indexList.removeAt(randomIndex)
-            } else {
-                mapOfCircles[indexList[i]]!!.winnerCircle = true
-            }
+        indexList.takeLast(count).forEach { index ->
+            mapOfCircles[index]!!.winnerCircle = true
         }
 
-        val colors = mutableListOf<Int>()
-        for (circle in mapOfCircles.values) colors.add(circle.color)
+        indexList.dropLast(count).forEach { index ->
+            removeCircle(index)
+        }
+
+        val colors = mapOfCircles.values.map { it.color }
         setBackgroundColor(ColorGenerator.averageColor(colors))
 
         blackSpeed = -1f
