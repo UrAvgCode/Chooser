@@ -102,21 +102,15 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                 if (!winnerChosen) {
                     setButtonVisibility(false)
                     val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
-                    mapOfCircles[pointerId] = when (mode) {
-                        SINGLE -> Circle(pos.x, pos.y, 50f * scale)
-                        GROUP -> GroupCircle(pos.x, pos.y, 50f * scale)
-                        ORDER -> OrderCircle(pos.x, pos.y, 50f * scale)
-                    }
+                    mapOfCircles[pointerId] = createCircle(pos.x, pos.y)
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({ selectWinner() }, 3000)
                 }
             }
 
             MotionEvent.ACTION_MOVE -> {
-                for (index in 0..<event.pointerCount) {
-                    val id = event.getPointerId(index)
-                    val circle = mapOfCircles[id]
-                    if (circle != null) {
+                for (index in 0 until event.pointerCount) {
+                    mapOfCircles[event.getPointerId(index)]?.let { circle ->
                         circle.x = event.getX(index)
                         circle.y = event.getY(index)
                     }
@@ -125,24 +119,32 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
                 removeCircle(pointerId)
-                if (mapOfCircles.isEmpty()) {
-                    ColorGenerator.newColorPalette(5)
-                    if (winnerChosen) {
-                        handler.postDelayed({
-                            blackSpeed = 1f
-                            handler.postDelayed({
-                                setButtonVisibility(true)
-                                winnerChosen = false
-                                setBackgroundColor(Color.BLACK)
-                            }, 150)
-                        }, 1000)
-                    } else {
-                        setButtonVisibility(true)
-                    }
-                }
+                if (mapOfCircles.isEmpty()) resetGame()
             }
         }
         return true
+    }
+
+    private fun createCircle(x: Float, y: Float) = when (mode) {
+        SINGLE -> Circle(x, y, 50f * scale)
+        GROUP -> GroupCircle(x, y, 50f * scale)
+        ORDER -> OrderCircle(x, y, 50f * scale)
+    }
+
+    private fun resetGame() {
+        ColorGenerator.newColorPalette(5)
+        if (winnerChosen) {
+            handler.postDelayed({
+                blackSpeed = 1f
+                handler.postDelayed({
+                    setButtonVisibility(true)
+                    winnerChosen = false
+                    setBackgroundColor(Color.BLACK)
+                }, 150)
+            }, 1000)
+        } else {
+            setButtonVisibility(true)
+        }
     }
 
     private fun selectWinner() {
