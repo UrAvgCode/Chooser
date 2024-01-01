@@ -59,37 +59,34 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     override fun onDraw(canvas: Canvas) {
-        val time = System.currentTimeMillis()
-        val deltaTime = (time - lastTime).toInt()
-        lastTime = time
+        val deltaTime = (System.currentTimeMillis() - lastTime).toInt()
+        lastTime = System.currentTimeMillis()
 
-        for (circle in listOfDeadCircles.reversed())
-            if (circle.coreRadius <= 0) listOfDeadCircles.remove(circle)
+        listOfDeadCircles.removeIf { it.coreRadius <= 0 }
 
-        val circles = mapOfCircles.values.plus(listOfDeadCircles)
+        val circles = mapOfCircles.values + listOfDeadCircles
 
         if (winnerChosen && mode == SINGLE) {
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
             blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
 
-            for (cir in circles) {
-                if(cir.winnerCircle) {
-                    val radius = if(mapOfCircles.isEmpty()) blackRadius else blackRadius * cir.coreRadius / (50f * scale)
-                    canvas.drawCircle(cir.x, cir.y, radius, blackPaint)
-                }
+            circles.filter { it.winnerCircle }.forEach { circle ->
+                var radius = blackRadius
+                if (mapOfCircles.isNotEmpty()) radius *= circle.coreRadius / (50f * scale)
+                canvas.drawCircle(circle.x, circle.y, radius, blackPaint)
             }
         }
 
-        for(circle in circles) {
+        circles.forEach { circle ->
             circle.update(deltaTime)
             circle.draw(canvas)
         }
 
-        for (number in listOfNumbers.reversed()) {
+        listOfNumbers.removeIf { number ->
             number.update(deltaTime)
             number.draw(canvas)
-            if (number.alpha <= 0) listOfNumbers.remove(number)
+            number.alpha <= 0
         }
 
         invalidate()
