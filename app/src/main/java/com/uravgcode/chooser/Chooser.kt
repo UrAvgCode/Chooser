@@ -215,10 +215,9 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun removeCircle(pointerId: Int) {
-        val removedCircle: Circle? = mapOfCircles[pointerId]
-        if (removedCircle != null) {
-            removedCircle.removeFinger()
-            listOfDeadCircles.add(removedCircle)
+        mapOfCircles[pointerId]?.let { circle ->
+            circle.removeFinger()
+            listOfDeadCircles.add(circle)
             mapOfCircles.remove(pointerId)
         }
     }
