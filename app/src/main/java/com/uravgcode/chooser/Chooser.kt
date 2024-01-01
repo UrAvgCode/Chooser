@@ -197,20 +197,19 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun chooseOrder(number: Int = 1) {
-        val indexList = mapOfCircles.keys.toList()
-        val randomIndex: Int = indexList[Random.nextInt(indexList.size)]
-        val circle: Circle = mapOfCircles[randomIndex]!!
+        val randomIndex = mapOfCircles.keys.random()
+        val circle = mapOfCircles[randomIndex]!!
 
         circle.winnerCircle = true
         removeCircle(randomIndex)
         listOfNumbers.add(Number(circle.x, circle.y - 50 * scale, circle.color, number, 50 * scale))
 
         handler.postDelayed({
-            if (mapOfCircles.isEmpty()) {
-                winnerChosen = false
-            } else {
+            if (mapOfCircles.isNotEmpty()) {
                 chooseOrder(number + 1)
                 vibrate()
+            } else {
+                winnerChosen = false
             }
         }, 1000)
     }
