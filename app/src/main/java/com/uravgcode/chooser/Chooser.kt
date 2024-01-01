@@ -186,7 +186,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             val size = if (remainder-- > 0) teamSize + 1 else teamSize
 
             val color = ColorGenerator.nextColor()
-            repeat (size) {
+            repeat(size) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]
                 circle!!.color = color
@@ -232,14 +232,15 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun vibrate() {
+        val effect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-            val effect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
             vibratorManager.vibrate(CombinedVibration.createParallel(effect))
         } else {
             @Suppress("DEPRECATION")
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE))
+            vibrator.vibrate(effect)
         }
     }
 }
