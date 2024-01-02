@@ -61,9 +61,10 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         startAngle = (startAngle + deltaTime * 0.3f) % 360
         if (sweepAngle <= 360) sweepAngle += deltaTime * 0.45f
 
-        coreRadius = when (hasFinger) {
-            true -> min(coreRadius + deltaTime * 0.6f, defaultRadius)
-            false -> max(coreRadius - deltaTime * 0.6f, 0f)
+        coreRadius = if (hasFinger) {
+            min(coreRadius + deltaTime * 0.6f, defaultRadius)
+        } else {
+            max(coreRadius - deltaTime * 0.6f, 0f)
         }
 
         time += deltaTime
