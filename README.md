@@ -19,7 +19,6 @@ alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/a
 
 ## Screenshots
 
-| Fingers on screen                 | Multiple fingers selected         | Group Mode                        | Order Mode                        |
-| --------------------------------- | --------------------------------- | --------------------------------- | --------------------------------- |
-| ![](gifs/single-mode.gif) | ![](fastlane/metadata/android/en-US/images/phoneScreenshots/2.png) | ![](fastlane/metadata/android/en-US/images/phoneScreenshots/3.png) | ![](fastlane/metadata/android/en-US/images/phoneScreenshots/4.png) |
-
+| Finger Selection          | Group Mode               | Order Mode               |
+|---------------------------|--------------------------|--------------------------|
+| ![](gifs/single-mode.gif) | ![](gifs/group-mode.gif) | ![](gifs/order-mode.gif) |
