@@ -1,6 +1,8 @@
 <resources>
-    <style name="Base.Theme.Chooser" parent="Theme.AppCompat.NoActionBar">
+    <style name="Chooser">
         <item name="colorPrimary">@color/gray</item>
+        <item name="android:windowActionBar">false</item>
+        <item name = "android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 </resources>
