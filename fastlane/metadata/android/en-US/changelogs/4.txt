@@ -1,0 +1,9 @@
+Improved
+ - new order icon
+ - smaller app size
+
+Development
+ - shrink resources
+ - removed material dependency
+ - removed appcompat dependency
+ - removed dependencies info
