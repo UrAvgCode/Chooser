@@ -40,7 +40,7 @@ class MainActivity : Activity() {
                     val drawable = when (mode) {
                         SINGLE -> R.drawable.single_icon
                         GROUP -> R.drawable.group_icon
-                        ORDER -> R.drawable.number_icon
+                        ORDER -> R.drawable.order_icon
                     }
 
                     count = if (mode == GROUP) 2 else 1
