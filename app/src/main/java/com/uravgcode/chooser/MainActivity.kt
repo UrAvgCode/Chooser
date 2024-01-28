@@ -1,15 +1,13 @@
 package com.uravgcode.chooser
 
+import android.app.Activity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.content.res.AppCompatResources
 import com.uravgcode.chooser.Chooser.Mode.GROUP
 import com.uravgcode.chooser.Chooser.Mode.ORDER
 import com.uravgcode.chooser.Chooser.Mode.SINGLE
 import com.uravgcode.chooser.databinding.ActivityMainBinding
 
-class MainActivity : AppCompatActivity() {
-
+class MainActivity : Activity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
                     count = if (mode == GROUP) 2 else 1
                     binding.motionLayout.transitionToState(if (mode == ORDER) R.id.hideCounter else R.id.start)
-                    binding.btnMode.foreground = AppCompatResources.getDrawable(context, drawable)
+                    binding.btnMode.foreground = context.getDrawable(drawable)
                     binding.btnCount.text = count.toString()
                 }
             }
