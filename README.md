@@ -1,4 +1,4 @@
-# Chooser
+# Chooser LOL
 
 Chooser is an Android app for selecting random fingers on the screen to decide who should pay when you're at the
 checkout, who starts a game, or which teams to play in.
