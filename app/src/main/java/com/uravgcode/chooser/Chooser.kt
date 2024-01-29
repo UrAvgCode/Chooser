@@ -6,7 +6,6 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
-import android.media.MediaPlayer
 import android.os.Build
 import android.os.CombinedVibration
 import android.os.Handler
@@ -24,6 +23,7 @@ import com.uravgcode.chooser.circle.GroupCircle
 import com.uravgcode.chooser.circle.OrderCircle
 import com.uravgcode.chooser.utils.ColorGenerator
 import com.uravgcode.chooser.utils.Number
+import com.uravgcode.chooser.utils.SoundManager
 import kotlin.math.max
 import kotlin.math.sign
 import kotlin.random.Random
@@ -33,13 +33,11 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
     private var lastTime = System.currentTimeMillis()
+
     var motionLayout: MotionLayout? = null
+    val soundManager = SoundManager(context!!)
 
     private val handler = Handler(Looper.getMainLooper())
-
-    private val fingerUpSound = MediaPlayer.create(context, R.raw.finger_up)
-    private val fingerDownSound = MediaPlayer.create(context, R.raw.finger_down)
-    private val fingerChosenSound = MediaPlayer.create(context, R.raw.finger_chosen)
 
     private val mapOfCircles = mutableMapOf<Int, Circle>()
     private val listOfDeadCircles = mutableListOf<Circle>()
@@ -108,7 +106,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                     setButtonVisibility(false)
                     val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
 
-                    fingerDownSound.start()
+                    soundManager.playFingerDown()
                     mapOfCircles[pointerId] = createCircle(pos.x, pos.y)
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({ selectWinner() }, 3000)
@@ -126,7 +124,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
                 removeCircle(pointerId)
-                if (!winnerChosen) fingerUpSound.start()
+                if (!winnerChosen) soundManager.playFingerUp()
                 if (mapOfCircles.isEmpty()) resetGame()
             }
         }
@@ -184,7 +182,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
-        fingerChosenSound.start()
+        soundManager.playFingerChosen()
     }
 
     private fun chooseGroup() {
@@ -214,7 +212,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         circle.winnerCircle = true
         removeCircle(randomIndex)
         listOfNumbers.add(Number(circle.x, circle.y - 50 * scale, circle.color, number, 50 * scale))
-        fingerUpSound.start()
+        soundManager.playFingerUp()
 
         handler.postDelayed({
             if (mapOfCircles.isNotEmpty()) {

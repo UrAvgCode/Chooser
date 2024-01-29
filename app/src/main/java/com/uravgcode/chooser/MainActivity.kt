@@ -50,5 +50,11 @@ class MainActivity : Activity() {
                 }
             }
         }
+
+        binding.btnMode.setOnLongClickListener {
+            binding.chooser.soundManager.toggleSound()
+            true
+        }
+
     }
 }
