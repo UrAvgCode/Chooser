@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.CombinedVibration
 import android.os.Handler
@@ -35,6 +36,10 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     var motionLayout: MotionLayout? = null
 
     private val handler = Handler(Looper.getMainLooper())
+
+    private val fingerUpSound = MediaPlayer.create(context, R.raw.finger_up)
+    private val fingerDownSound = MediaPlayer.create(context, R.raw.finger_down)
+    private val fingerChosenSound = MediaPlayer.create(context, R.raw.finger_chosen)
 
     private val mapOfCircles = mutableMapOf<Int, Circle>()
     private val listOfDeadCircles = mutableListOf<Circle>()
@@ -102,6 +107,8 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                 if (!winnerChosen) {
                     setButtonVisibility(false)
                     val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
+
+                    fingerDownSound.start()
                     mapOfCircles[pointerId] = createCircle(pos.x, pos.y)
                     handler.removeCallbacksAndMessages(null)
                     handler.postDelayed({ selectWinner() }, 3000)
@@ -119,6 +126,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
             MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
                 removeCircle(pointerId)
+                if (!winnerChosen) fingerUpSound.start()
                 if (mapOfCircles.isEmpty()) resetGame()
             }
         }
@@ -176,6 +184,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
+        fingerChosenSound.start()
     }
 
     private fun chooseGroup() {
@@ -205,6 +214,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         circle.winnerCircle = true
         removeCircle(randomIndex)
         listOfNumbers.add(Number(circle.x, circle.y - 50 * scale, circle.color, number, 50 * scale))
+        fingerUpSound.start()
 
         handler.postDelayed({
             if (mapOfCircles.isNotEmpty()) {
