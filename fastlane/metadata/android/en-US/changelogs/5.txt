@@ -1,0 +1,5 @@
+Features
+- added some test sounds for proof of concept
+- turn sounds on and off by long pressing the mode button
+
+(the sounds will most likely change until full release)
