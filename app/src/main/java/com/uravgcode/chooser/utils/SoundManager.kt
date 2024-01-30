@@ -5,7 +5,7 @@ import android.media.MediaPlayer
 import android.widget.Toast
 import com.uravgcode.chooser.R
 
-class SoundManager(val context: Context) {
+class SoundManager(private val context: Context) {
     private val fingerUpSound = MediaPlayer.create(context, R.raw.finger_up)
     private val fingerDownSound = MediaPlayer.create(context, R.raw.finger_down)
     private val fingerChosenSound = MediaPlayer.create(context, R.raw.finger_chosen)
