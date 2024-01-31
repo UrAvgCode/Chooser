@@ -1,0 +1,10 @@
+Behobene Fehler
+ - Probleme mit der Bildschirmaktualisierungsrate
+ - Textausrichtung der Tasten
+ - Geschwindigkeit der Tastenanimation
+ - Durchschnittlicher Farbwert von mehr als zwei Farben
+ 
+Entwicklung
+ - sdk 34
+ - material 1.10
+ - application version 8.1.2
