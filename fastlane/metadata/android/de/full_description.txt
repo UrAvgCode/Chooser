@@ -1,0 +1,8 @@
+Chooser ist eine Android-App um zufällig Finger auf dem Bildschirm auszuwählen, um zu entscheiden, wer an der Kasse bezahlen muss, wer bei einem Spiel anfängt, oder in welchen Teams man spielt.
+
+Funktionen
+
+- Wähle eine zufällige Person aus
+- Wähle mehrere Personen aus
+- Teile Personen in Gruppen ein
+- Zähle durch eine Gruppe durch
