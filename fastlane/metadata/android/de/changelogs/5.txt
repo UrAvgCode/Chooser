@@ -1,0 +1,5 @@
+Funktionen
+- Einige Testsounds hinzugefügt
+- Die Sounds lassen sich durch langes Drücken der Modustaste ein und ausschalten
+
+(Die Sounds werden sich höchstwahrscheinlich bis zur fertigen nächsten Version noch ändern)
