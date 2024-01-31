@@ -1,0 +1,4 @@
+Entwicklung
+ - Code Vereinfachungen
+ - material 1.11
+ - com.android.application 8.2.1
