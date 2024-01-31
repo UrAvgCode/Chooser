@@ -1,0 +1,5 @@
+Aggiunto:
+- Aggiunti alcuni suoni di test come proof of concept
+- Attiva e disattiva i suoni tenendo premuto il bottone della modalità
+
+(i suoni potrebbero cambiare entro la pubblicazione principale)
