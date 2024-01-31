@@ -1,0 +1,9 @@
+Verbesserungen
+ - Neues Symbol für den Durchzählmodus
+ - Geringerer App Speicherplatzverbrauch
+
+Entwicklung
+ - Ressourcen verkleinern
+ - material dependency entfernt
+ - appcompat dependency entfernt
+ - dependencies info entfernt
