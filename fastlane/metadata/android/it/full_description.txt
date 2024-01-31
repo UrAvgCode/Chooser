@@ -1,4 +1,4 @@
-Chooser è un'app per Android per selezionare in maniera casuale delle dita posizionate sullo schermo così da decidere chi deve pagare in cassa, chi deve incominciare una partita o come formare una squadra.
+Sceglitore (Chooser) è un'app per Android per selezionare in maniera casuale delle dita posizionate sullo schermo così da decidere chi deve pagare in cassa, chi deve incominciare una partita o come formare una squadra.
 
 Caratteristiche:
 - Sceglie una persona casuale
