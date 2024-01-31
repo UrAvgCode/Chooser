@@ -1,0 +1,10 @@
+Sistemato:
+ - Problemi con il tasso di ricarica dello schermo
+ - Allineamento dei testi nei bottoni
+ - Velocità dell'animazione dei bottoni
+ - Colore medio di più di due colori
+ 
+Sviluppo:
+ - SDK 34
+ - Material 1.10
+ - Versione dell'applicazione 8.1.2
