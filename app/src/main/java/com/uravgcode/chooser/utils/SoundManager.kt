@@ -10,7 +10,8 @@ class SoundManager(private val context: Context) {
     private val fingerDownSound = MediaPlayer.create(context, R.raw.finger_down)
     private val fingerChosenSound = MediaPlayer.create(context, R.raw.finger_chosen)
 
-    private var soundEnabled = context.getSharedPreferences("Settings", Context.MODE_PRIVATE).getBoolean("soundEnabled", true)
+    private val preferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
+    private var soundEnabled = preferences.getBoolean("soundEnabled", true)
 
     fun playFingerUp() {
         if (soundEnabled) fingerUpSound.start()
@@ -26,7 +27,7 @@ class SoundManager(private val context: Context) {
 
     fun toggleSound() {
         soundEnabled = !soundEnabled
+        preferences.edit().putBoolean("soundEnabled", soundEnabled).apply()
         Toast.makeText(context, "Sound ${if (soundEnabled) "enabled" else "disabled"}", Toast.LENGTH_SHORT).show()
-        context.getSharedPreferences("Settings", Context.MODE_PRIVATE).edit().putBoolean("soundEnabled", soundEnabled).apply()
     }
 }
