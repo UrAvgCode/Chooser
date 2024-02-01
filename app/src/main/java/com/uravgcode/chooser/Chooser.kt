@@ -25,6 +25,7 @@ import com.uravgcode.chooser.utils.ColorGenerator
 import com.uravgcode.chooser.utils.Number
 import com.uravgcode.chooser.utils.SoundManager
 import kotlin.math.max
+import kotlin.math.min
 import kotlin.math.sign
 import kotlin.random.Random
 
@@ -225,7 +226,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             } else {
                 OrderCircle.counter = 0
             }
-        }, (3000 / mapOfCircles.size).toLong())
+        }, (min(3000 / mapOfCircles.size, 1000).toLong()))
     }
 
     private fun removeCircle(pointerId: Int) {
