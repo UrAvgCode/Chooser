@@ -36,6 +36,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     var motionLayout: MotionLayout? = null
     val soundManager = SoundManager(context!!)
+    private val colorGenerator = ColorGenerator()
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -138,7 +139,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun resetGame() {
-        ColorGenerator.newColorPalette(5)
+        colorGenerator.newColorPalette(5)
         if (winnerChosen) {
             handler.postDelayed({
                 blackSpeed = 1f
@@ -178,7 +179,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         }
 
         val colors = mapOfCircles.values.map { it.color }
-        setBackgroundColor(ColorGenerator.averageColor(colors))
+        setBackgroundColor(colorGenerator.averageColor(colors))
 
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
@@ -190,11 +191,11 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         val teamSize = mapOfCircles.size / count
         var remainder = mapOfCircles.size % count
 
-        ColorGenerator.newColorPalette(count)
+        colorGenerator.newColorPalette(count)
         repeat(count) {
             val size = if (remainder-- > 0) teamSize + 1 else teamSize
 
-            val color = ColorGenerator.nextColor()
+            val color = colorGenerator.nextColor()
             repeat(size) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]
