@@ -160,7 +160,6 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                 GROUP -> chooseGroup()
                 ORDER -> chooseOrder()
             }
-            vibrate()
             winnerChosen = true
         }
     }
@@ -183,6 +182,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
         soundManager.playFingerChosen()
+        vibrate(100)
     }
 
     private fun chooseGroup() {
@@ -203,6 +203,8 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                 indexList.removeAt(randomIndex)
             }
         }
+
+        vibrate(100)
     }
 
     private fun chooseOrder(number: Int = 1) {
@@ -215,11 +217,11 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         circle.setWinner()
         listOfNumbers.add(Number(circle.x, circle.y - 50 * scale, circle.color, number, 50 * scale))
         soundManager.playFingerUp()
+        vibrate(40)
 
         handler.postDelayed({
             if (selectionMap.size > 1) {
                 chooseOrder(number + 1)
-                vibrate()
             } else {
                 OrderCircle.counter = 0
             }
@@ -243,8 +245,8 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         )
     }
 
-    private fun vibrate() {
-        val effect = VibrationEffect.createOneShot(100, VibrationEffect.DEFAULT_AMPLITUDE)
+    private fun vibrate(millis: Long) {
+        val effect = VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
