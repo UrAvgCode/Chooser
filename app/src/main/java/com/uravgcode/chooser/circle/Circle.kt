@@ -26,12 +26,12 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
 
     var coreRadius = 0f
     private val defaultRadius = radius
-    private val radiusVariance = radius * 0.08f
+    protected val radiusVariance = radius * 0.08f
 
     protected var winnerCircle = false
-    var hasFinger = true
+    private var hasFinger = true
 
-    private var time = 0
+    protected var time = 0
 
     init {
         paint.color = color
