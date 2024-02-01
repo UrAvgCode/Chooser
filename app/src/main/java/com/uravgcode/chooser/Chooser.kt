@@ -74,7 +74,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
             blackSpeed += deltaTime * 0.02f * sign(blackSpeed)
 
-            circles.filter { it.winnerCircle }.forEach { circle ->
+            circles.filter { it.isWinner() }.forEach { circle ->
                 var radius = blackRadius
                 if (mapOfCircles.isNotEmpty()) radius *= circle.coreRadius / (50f * scale)
                 canvas.drawCircle(circle.x, circle.y, radius, blackPaint)
@@ -170,7 +170,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
         indexList.shuffle()
 
         indexList.takeLast(count).forEach { index ->
-            mapOfCircles[index]!!.winnerCircle = true
+            mapOfCircles[index]!!.setWinner()
         }
 
         indexList.dropLast(count).forEach { index ->
@@ -199,23 +199,23 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]
                 circle!!.color = color
-                circle.winnerCircle = true
+                circle.setWinner()
                 indexList.removeAt(randomIndex)
             }
         }
     }
 
     private fun chooseOrder(number: Int = 1) {
-        val randomIndex = mapOfCircles.keys.random()
+        val selectionMap = mapOfCircles.filterValues { !it.isWinner() }
+        val randomIndex = selectionMap.keys.random()
         val circle = mapOfCircles[randomIndex]!!
 
-        circle.winnerCircle = true
-        removeCircle(randomIndex)
+        circle.setWinner()
         listOfNumbers.add(Number(circle.x, circle.y - 50 * scale, circle.color, number, 50 * scale))
         soundManager.playFingerUp()
 
         handler.postDelayed({
-            if (mapOfCircles.isNotEmpty()) {
+            if (selectionMap.size > 1) {
                 chooseOrder(number + 1)
                 vibrate()
             } else {

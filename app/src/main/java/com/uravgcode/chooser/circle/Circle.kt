@@ -28,7 +28,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     private val defaultRadius = radius
     private val radiusVariance = radius * 0.08f
 
-    var winnerCircle = false
+    protected var winnerCircle = false
     var hasFinger = true
 
     private var time = 0
@@ -75,6 +75,14 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         canvas.drawArc(ring, startAngle, sweepAngle, false, strokePaint)
         canvas.drawArc(center, startAngle + 180f, sweepAngle / 2f, false, strokePaintLight)
         canvas.drawArc(ring, startAngle, sweepAngle / 2f, false, strokePaintLight)
+    }
+
+    open fun setWinner() {
+        winnerCircle = true
+    }
+
+    open fun isWinner(): Boolean {
+        return winnerCircle
     }
 
     open fun removeFinger() {
