@@ -207,6 +207,8 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private fun chooseOrder(number: Int = 1) {
         val selectionMap = mapOfCircles.filterValues { !it.isWinner() }
+        if (selectionMap.isEmpty()) return
+
         val randomIndex = selectionMap.keys.random()
         val circle = mapOfCircles[randomIndex]!!
 
