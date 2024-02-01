@@ -223,7 +223,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             } else {
                 OrderCircle.counter = 0
             }
-        }, 800)
+        }, (3000 / mapOfCircles.size).toLong())
     }
 
     private fun removeCircle(pointerId: Int) {
