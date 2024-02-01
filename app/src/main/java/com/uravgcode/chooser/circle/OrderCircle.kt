@@ -12,7 +12,7 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
     private var number: Int? = null
 
     init {
-        textPaint.color = Color.WHITE
+        textPaint.color = Color.argb(200, 255, 255, 255)
         textPaint.textAlign = Paint.Align.CENTER
     }
 
