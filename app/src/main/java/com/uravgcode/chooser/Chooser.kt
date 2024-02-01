@@ -220,8 +220,6 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             if (selectionMap.size > 1) {
                 chooseOrder(number + 1)
                 vibrate()
-            } else {
-                winnerChosen = false
             }
         }, 1000)
     }
