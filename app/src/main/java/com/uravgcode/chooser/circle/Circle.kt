@@ -29,7 +29,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     protected val radiusVariance = radius * 0.08f
 
     protected var winnerCircle = false
-    private var hasFinger = true
+    protected var hasFinger = true
 
     protected var time = 0
 

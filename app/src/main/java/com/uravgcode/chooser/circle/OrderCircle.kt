@@ -3,6 +3,8 @@ package com.uravgcode.chooser.circle
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Handler
+import android.os.Looper
 import kotlin.math.sin
 
 class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
@@ -41,6 +43,15 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
         winnerCircle = true
         coreRadius *= 1.1f
         number = ++counter
+    }
+
+    override fun removeFinger() {
+        if (winnerCircle) {
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({ hasFinger = false }, 1500)
+        } else {
+            hasFinger = false
+        }
     }
 
     companion object {
