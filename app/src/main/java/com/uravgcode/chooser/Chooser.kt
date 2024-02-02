@@ -226,7 +226,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
             } else {
                 OrderCircle.counter = 0
             }
-        }, (min(3000 / mapOfCircles.size, 1000).toLong()))
+        }, (min(3000 / mapOfCircles.size, 800).toLong()))
     }
 
     private fun removeCircle(pointerId: Int) {
