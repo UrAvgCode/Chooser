@@ -8,11 +8,17 @@ import kotlin.math.sin
 class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
 
     private val textPaint = Paint()
+    private val textColor: Int
 
     private var number: Int? = null
 
     init {
-        textPaint.color = Color.argb(200, 255, 255, 255)
+        val hsvColor = floatArrayOf(0f, 0f, 0f)
+        Color.colorToHSV(color, hsvColor)
+        hsvColor[2] = 1f
+        hsvColor[1] = 0.2f
+
+        textColor = Color.HSVToColor(hsvColor)
         textPaint.textAlign = Paint.Align.CENTER
     }
 
@@ -23,10 +29,10 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
             val y = y - (textPaint.descent() + textPaint.ascent()) / 2
             val shadowOffset = textPaint.textSize * 0.04f
 
-            textPaint.color = Color.argb(65, 0, 0, 0)
+            textPaint.color = Color.argb(80, 0, 0, 0)
             canvas.drawText(number.toString(), x + shadowOffset, y + shadowOffset, textPaint)
 
-            textPaint.color = Color.argb(200, 255, 255, 255)
+            textPaint.color = textColor
             canvas.drawText(number.toString(), x, y, textPaint)
         }
     }
