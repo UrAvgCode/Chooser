@@ -26,16 +26,17 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        if (number != null) {
+        number?.let {
             textPaint.textSize = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
             val y = y - (textPaint.descent() + textPaint.ascent()) / 2
             val shadowOffset = textPaint.textSize * 0.04f
+            val numberStr = it.toString()
 
             textPaint.color = Color.argb(80, 0, 0, 0)
-            canvas.drawText(number.toString(), x + shadowOffset, y + shadowOffset, textPaint)
+            canvas.drawText(numberStr, x + shadowOffset, y + shadowOffset, textPaint)
 
             textPaint.color = textColor
-            canvas.drawText(number.toString(), x, y, textPaint)
+            canvas.drawText(numberStr, x, y, textPaint)
         }
     }
 
