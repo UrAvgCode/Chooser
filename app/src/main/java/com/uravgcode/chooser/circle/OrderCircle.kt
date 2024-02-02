@@ -21,6 +21,12 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
         if (number != null) {
             textPaint.textSize = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
             val y = y - (textPaint.descent() + textPaint.ascent()) / 2
+            val shadowOffset = textPaint.textSize * 0.04f
+
+            textPaint.color = Color.argb(65, 0, 0, 0)
+            canvas.drawText(number.toString(), x + shadowOffset, y + shadowOffset, textPaint)
+
+            textPaint.color = Color.argb(200, 255, 255, 255)
             canvas.drawText(number.toString(), x, y, textPaint)
         }
     }
