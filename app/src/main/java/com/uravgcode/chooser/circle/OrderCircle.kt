@@ -13,10 +13,10 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
     private var number: Int? = null
 
     init {
-        val hsvColor = floatArrayOf(0f, 0f, 0f)
+        val hsvColor = FloatArray(3)
         Color.colorToHSV(color, hsvColor)
-        hsvColor[2] = 1f
         hsvColor[1] = 0.2f
+        hsvColor[2] = 1f
 
         textColor = Color.HSVToColor(hsvColor)
         textPaint.textAlign = Paint.Align.CENTER
