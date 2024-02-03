@@ -64,8 +64,9 @@ class MainActivity : Activity() {
             mode = Chooser.Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
             updateMode()
             updateCount()
+
+            binding.motionLayout.progress = if(mode == ORDER) 1f else 0f
         }
-        binding.motionLayout.progress = 1f
     }
 
     private fun updateMode() {
