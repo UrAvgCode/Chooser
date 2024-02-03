@@ -58,7 +58,6 @@ class MainActivity : Activity() {
     }
 
     private fun loadPreferences() {
-        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         binding.chooser.apply {
             count = preferences.getInt("count", 1)
             mode = Chooser.Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
