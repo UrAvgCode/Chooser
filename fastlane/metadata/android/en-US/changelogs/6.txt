@@ -1,0 +1,3 @@
+Improved
+- circles in order mode no longer disappear
+- circles in order mode display their respective number

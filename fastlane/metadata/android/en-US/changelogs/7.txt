@@ -1,0 +1,8 @@
+Improved
+- return to the app as you left it
+- circles in order mode stay on screen for longer
+- numbers are easier to read
+
+Fixed
+- parallel sound playback
+- turning the screen doesn't reset the app
