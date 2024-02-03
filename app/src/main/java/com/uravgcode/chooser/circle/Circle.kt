@@ -25,7 +25,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     private var sweepAngle = Random.nextInt(-360, 0).toFloat()
 
     var coreRadius = 0f
-    private val defaultRadius = radius
+    protected val defaultRadius = radius
     protected val radiusVariance = radius * 0.08f
 
     protected var winnerCircle = false

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.os.Handler
 import android.os.Looper
+import androidx.core.graphics.ColorUtils
 import kotlin.math.sin
 
 class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
@@ -25,18 +26,23 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
     }
 
     override fun draw(canvas: Canvas) {
+        paint.color = if (coreRadius <= defaultRadius) {
+            color
+        } else {
+            ColorUtils.blendARGB(color, Color.WHITE, 0.5f)
+        }
+
         super.draw(canvas)
         number?.let {
             textPaint.textSize = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
             val y = y - (textPaint.descent() + textPaint.ascent()) / 2
             val shadowOffset = textPaint.textSize * 0.04f
-            val numberStr = it.toString()
 
             textPaint.color = Color.argb(80, 0, 0, 0)
-            canvas.drawText(numberStr, x + shadowOffset, y + shadowOffset, textPaint)
+            canvas.drawText(it.toString(), x + shadowOffset, y + shadowOffset, textPaint)
 
             textPaint.color = textColor
-            canvas.drawText(numberStr, x, y, textPaint)
+            canvas.drawText(it.toString(), x, y, textPaint)
         }
     }
 
