@@ -65,6 +65,7 @@ class MainActivity : Activity() {
             updateMode()
             updateCount()
         }
+        binding.motionLayout.progress = 1f
     }
 
     private fun updateMode() {
