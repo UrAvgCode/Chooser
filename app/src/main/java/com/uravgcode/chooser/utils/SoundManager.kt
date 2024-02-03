@@ -1,28 +1,46 @@
 package com.uravgcode.chooser.utils
 
 import android.content.Context
-import android.media.MediaPlayer
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.widget.Toast
 import com.uravgcode.chooser.R
 
 class SoundManager(private val context: Context) {
-    private val fingerUpSound = MediaPlayer.create(context, R.raw.finger_up)
-    private val fingerDownSound = MediaPlayer.create(context, R.raw.finger_down)
-    private val fingerChosenSound = MediaPlayer.create(context, R.raw.finger_chosen)
-
     private val preferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
     private var soundEnabled = preferences.getBoolean("soundEnabled", true)
 
+    private val soundPool: SoundPool
+    private val fingerUpSound: Int
+    private val fingerDownSound: Int
+    private val fingerChosenSound: Int
+
+    init {
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setAudioAttributes(audioAttributes)
+            .setMaxStreams(1)
+            .build()
+
+        fingerUpSound = soundPool.load(context, R.raw.finger_up, 1)
+        fingerDownSound = soundPool.load(context, R.raw.finger_down, 1)
+        fingerChosenSound = soundPool.load(context, R.raw.finger_chosen, 1)
+    }
+
     fun playFingerUp() {
-        if (soundEnabled) fingerUpSound.start()
+        if (soundEnabled) soundPool.play(fingerUpSound, 1f, 1f, 0, 0, 1f)
     }
 
     fun playFingerDown() {
-        if (soundEnabled) fingerDownSound.start()
+        if (soundEnabled) soundPool.play(fingerDownSound, 1f, 1f, 0, 0, 1f)
     }
 
     fun playFingerChosen() {
-        if (soundEnabled) fingerChosenSound.start()
+        if (soundEnabled) soundPool.play(fingerChosenSound, 1f, 1f, 0, 0, 1f)
     }
 
     fun toggleSound() {
