@@ -61,13 +61,18 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         startAngle = (startAngle + deltaTime * 0.3f) % 360
         if (sweepAngle <= 360) sweepAngle += deltaTime * 0.45f
 
-        coreRadius = if (hasFinger) {
-            min(coreRadius + deltaTime * 0.6f, defaultRadius)
-        } else {
-            max(coreRadius - deltaTime * 0.6f, 0f)
-        }
+        val target = if (hasFinger) defaultRadius else 0f
+        coreRadius = approach(coreRadius, target, deltaTime * 0.6f)
 
         time += deltaTime
+    }
+
+    private fun approach(value: Float, target: Float, speed: Float): Float {
+        return if (value < target) {
+            min(value + speed, target)
+        } else {
+            max(value - speed, target)
+        }
     }
 
     open fun draw(canvas: Canvas) {

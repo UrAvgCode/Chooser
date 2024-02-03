@@ -42,7 +42,7 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
 
     override fun setWinner() {
         winnerCircle = true
-        coreRadius *= 1.1f
+        coreRadius *= 1.2f
         number = ++counter
     }
 
