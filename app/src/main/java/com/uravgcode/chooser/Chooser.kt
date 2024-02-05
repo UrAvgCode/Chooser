@@ -29,14 +29,14 @@ import kotlin.math.min
 import kotlin.math.sign
 import kotlin.random.Random
 
-class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
     private var lastTime = System.currentTimeMillis()
 
-    var motionLayout: MotionLayout? = null
-    val soundManager = SoundManager(context!!)
+    lateinit var motionLayout: MotionLayout
+    val soundManager = SoundManager(context)
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -238,7 +238,7 @@ class Chooser(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun setButtonVisibility(visible: Boolean) {
-        motionLayout?.transitionToState(
+        motionLayout.transitionToState(
             if (visible) when (mode) {
                 SINGLE, GROUP -> R.id.start
                 ORDER -> R.id.hideCounter
