@@ -1,0 +1,8 @@
+Features
+- added sounds
+- turn sounds on and off by long pressing the mode button
+- overhauled order mode
+- return to the app as you left it
+
+Fixed
+- turning the screen doesn't reset the app
