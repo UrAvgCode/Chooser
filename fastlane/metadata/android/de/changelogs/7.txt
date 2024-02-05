@@ -1,0 +1,8 @@
+Verbesserungen
+- Die App startet im Modus, in dem man sie verlassen hat
+- Kreise im Durchzählmodus bleiben länger auf dem Bildschirm
+- Nummern sind leichter zu lesen
+
+Behobene Fehler
+- Parallele Soundwiedergabe
+- Den Bildschirm zu drehen, setzt die App nicht mehr zurück

@@ -1,0 +1,8 @@
+Funktionen
+- Sounds wurden hinzugefügt
+- Die Sounds lassen sich durch langes Drücken der Modustaste ein und ausschalten
+- Überarbeitung des Durchzählmodus
+- Die App startet im Modus, in dem man sie verlassen hat
+
+Behobene Fehler
+- Den Bildschirm zu drehen, setzt die App nicht mehr zurück

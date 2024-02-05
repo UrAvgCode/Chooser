@@ -1,0 +1,3 @@
+Verbesserungen
+- Kreise im Durchzählmodus bleiben auf dem Bildschirm
+- Kreise im Durchzählmodus zeigen ihre jeweilige Nummer
