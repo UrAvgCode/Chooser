@@ -23,7 +23,7 @@ checkout, who starts a game, or which teams to play in.
 
 ## Download
 
-[<img src="https://raw.githubusercontent.com/Kunzisoft/Github-badge/main/get-it-on-github.png"
+[<img src="readme/get-it-on-github.png"
 alt="Get it on Github" height="80">](https://github.com/UrAvgCode/Chooser/releases)
 [<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroid.png"
 alt="Get it on IzzyOnDroid" height="80">](https://apt.izzysoft.de/fdroid/index/apk/com.uravgcode.chooser)
