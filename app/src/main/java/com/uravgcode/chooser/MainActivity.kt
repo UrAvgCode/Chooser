@@ -22,53 +22,56 @@ class MainActivity : Activity() {
         preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
         loadPreferences()
 
-        binding.btnCount.setOnClickListener {
-            binding.chooser.apply {
-                count = when (mode) {
-                    SINGLE -> count % 5 + 1
-                    GROUP -> (count - 1) % 4 + 2
-                    ORDER -> 1
-                }
-
-                updateCount()
-            }
-        }
-
-        binding.btnMode.setOnClickListener {
-            if (binding.motionLayout.currentState != -1) {
-                binding.chooser.apply {
-                    mode = when (mode) {
-                        SINGLE -> GROUP
-                        GROUP -> ORDER
-                        ORDER -> SINGLE
-                    }
-
-                    count = if (mode == GROUP) 2 else 1
-                    updateMode()
-                    updateCount()
-                }
-            }
-        }
-
-        binding.btnMode.setOnLongClickListener {
-            binding.chooser.soundManager.toggleSound()
-            true
-        }
-
+        binding.btnCount.setOnClickListener { updateCount() }
+        binding.btnMode.setOnClickListener { updateMode() }
+        binding.btnMode.setOnLongClickListener { toggleSound() }
     }
 
     private fun loadPreferences() {
         binding.chooser.apply {
             count = preferences.getInt("count", 1)
             mode = Chooser.Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
-            updateMode()
-            updateCount()
+            updateModeUI()
+            updateCountUI()
 
             binding.motionLayout.progress = if(mode == ORDER) 1f else 0f
         }
     }
 
     private fun updateMode() {
+        if (binding.motionLayout.currentState != -1) {
+            binding.chooser.apply {
+                mode = when (mode) {
+                    SINGLE -> GROUP
+                    GROUP -> ORDER
+                    ORDER -> SINGLE
+                }
+
+                count = if (mode == GROUP) 2 else 1
+                updateModeUI()
+                updateCountUI()
+            }
+        }
+    }
+
+    private fun updateCount() {
+        binding.chooser.apply {
+            count = when (mode) {
+                SINGLE -> count % 5 + 1
+                GROUP -> (count - 1) % 4 + 2
+                ORDER -> 1
+            }
+
+            updateCountUI()
+        }
+    }
+
+    private fun toggleSound(): Boolean {
+        binding.chooser.soundManager.toggleSound()
+        return true
+    }
+
+    private fun updateModeUI() {
         val mode = binding.chooser.mode
         val drawable = when (mode) {
             SINGLE -> R.drawable.single_icon
@@ -80,7 +83,7 @@ class MainActivity : Activity() {
         binding.motionLayout.transitionToState(if (mode == ORDER) R.id.hideCounter else R.id.start)
     }
 
-    private fun updateCount() {
+    private fun updateCountUI() {
         val count = binding.chooser.count
         binding.btnCount.text = count.toString()
         preferences.edit().putInt("count", count).apply()
