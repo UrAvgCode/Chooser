@@ -8,20 +8,22 @@ object ColorGenerator {
 
     fun newColorPalette(amount: Int) {
         colorPalette.clear()
-        var h = Random.nextInt(360)
+        var hue = Random.nextFloat() * 360
+        val hueIncrement = 360f / amount
+
         repeat(amount) {
-            h = (h + 360 / amount) % 360
+            hue = (hue + hueIncrement) % 360
             val s = 0.5f + Random.nextFloat() / 2f
             val v = 0.5f + Random.nextFloat() / 2f
-            val color = Color.HSVToColor(floatArrayOf(h.toFloat(), s, v))
+            val color = Color.HSVToColor(floatArrayOf(hue, s, v))
             colorPalette.add(color)
         }
+        colorPalette.shuffle()
     }
 
     fun nextColor(): Int {
         if (colorPalette.isEmpty()) newColorPalette(5)
-        val index = Random.nextInt(colorPalette.size)
-        return colorPalette.removeAt(index)
+        return colorPalette.removeFirst()
     }
 
     fun averageColor(colors: List<Int>): Int {
