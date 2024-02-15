@@ -28,19 +28,30 @@ class MainActivity : Activity() {
     }
 
     private fun loadPreferences() {
-        binding.chooser.apply {
+        with(binding.chooser) {
             count = preferences.getInt("count", 1)
             mode = Chooser.Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
+
             updateModeUI()
             updateCountUI()
+            motionLayout.progress = if (mode == ORDER) 1f else 0f
+        }
+    }
 
-            binding.motionLayout.progress = if(mode == ORDER) 1f else 0f
+    private fun savePreference(key: String, value: Any) {
+        with(preferences.edit()) {
+            when (value) {
+                is Int -> putInt(key, value)
+                is String -> putString(key, value)
+                else -> throw IllegalArgumentException("Invalid type for SharedPreferences")
+            }
+            apply()
         }
     }
 
     private fun updateMode() {
-        if (binding.motionLayout.currentState != -1) {
-            binding.chooser.apply {
+        with(binding.chooser) {
+            if (motionLayout.currentState != -1) {
                 mode = when (mode) {
                     SINGLE -> GROUP
                     GROUP -> ORDER
@@ -55,7 +66,7 @@ class MainActivity : Activity() {
     }
 
     private fun updateCount() {
-        binding.chooser.apply {
+        with(binding.chooser) {
             count = when (mode) {
                 SINGLE -> count % 5 + 1
                 GROUP -> (count - 1) % 4 + 2
@@ -78,14 +89,15 @@ class MainActivity : Activity() {
             GROUP -> R.drawable.group_icon
             ORDER -> R.drawable.order_icon
         }
+
         binding.btnMode.foreground = getDrawable(drawable)
-        preferences.edit().putString("mode", mode.toString()).apply()
+        savePreference("mode", mode.toString())
         binding.motionLayout.transitionToState(if (mode == ORDER) R.id.hideCounter else R.id.start)
     }
 
     private fun updateCountUI() {
         val count = binding.chooser.count
         binding.btnCount.text = count.toString()
-        preferences.edit().putInt("count", count).apply()
+        savePreference("count", count)
     }
 }
