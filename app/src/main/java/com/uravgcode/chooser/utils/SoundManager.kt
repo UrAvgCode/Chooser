@@ -50,6 +50,7 @@ class SoundManager(private val context: Context) {
     fun toggleSound() {
         soundEnabled = !soundEnabled
         preferences.edit().putBoolean("soundEnabled", soundEnabled).apply()
-        Toast.makeText(context, "Sound ${if (soundEnabled) "enabled" else "disabled"}", Toast.LENGTH_SHORT).show()
+        val text = "Sound ${if (soundEnabled) "enabled" else "disabled"}"
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
 }
