@@ -31,16 +31,20 @@ class SoundManager(private val context: Context) {
         fingerChosenSound = soundPool.load(context, R.raw.finger_chosen, 1)
     }
 
+    private fun playSound(soundId: Int) {
+        if (soundEnabled) soundPool.play(soundId, 1f, 1f, 0, 0, 1f)
+    }
+
     fun playFingerUp() {
-        if (soundEnabled) soundPool.play(fingerUpSound, 1f, 1f, 0, 0, 1f)
+        playSound(fingerUpSound)
     }
 
     fun playFingerDown() {
-        if (soundEnabled) soundPool.play(fingerDownSound, 1f, 1f, 0, 0, 1f)
+        playSound(fingerDownSound)
     }
 
     fun playFingerChosen() {
-        if (soundEnabled) soundPool.play(fingerChosenSound, 1f, 1f, 0, 0, 1f)
+        playSound(fingerChosenSound)
     }
 
     fun toggleSound() {
