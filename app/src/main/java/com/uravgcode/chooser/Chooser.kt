@@ -98,38 +98,44 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        val pointerIndex = event!!.actionIndex
+        event ?: return false
+
+        val pointerIndex = event.actionIndex
         val pointerId = event.getPointerId(pointerIndex)
 
         when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> {
-                if (!winnerChosen) {
-                    setButtonVisibility(false)
-                    val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
-
-                    soundManager.playFingerDown()
-                    mapOfCircles[pointerId] = createCircle(pos.x, pos.y)
-                    handler.removeCallbacksAndMessages(null)
-                    handler.postDelayed({ selectWinner() }, 3000)
-                }
-            }
-
-            MotionEvent.ACTION_MOVE -> {
-                for (index in 0 until event.pointerCount) {
-                    mapOfCircles[event.getPointerId(index)]?.let { circle ->
-                        circle.x = event.getX(index)
-                        circle.y = event.getY(index)
-                    }
-                }
-            }
-
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> {
-                removeCircle(pointerId)
-                if (!winnerChosen) soundManager.playFingerUp()
-                if (mapOfCircles.isEmpty()) resetGame()
-            }
+            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> handleActionDown(event, pointerIndex, pointerId)
+            MotionEvent.ACTION_MOVE -> handleActionMove(event)
+            MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> handleActionUp(pointerId)
         }
         return true
+    }
+
+    private fun handleActionDown(event: MotionEvent, pointerIndex: Int, pointerId: Int) {
+        if (!winnerChosen) {
+            setButtonVisibility(false)
+            val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
+
+            soundManager.playFingerDown()
+            mapOfCircles[pointerId] = createCircle(pos.x, pos.y)
+            handler.removeCallbacksAndMessages(null)
+            handler.postDelayed({ selectWinner() }, 3000)
+        }
+    }
+
+    private fun handleActionMove(event: MotionEvent) {
+        for (index in 0 until event.pointerCount) {
+            mapOfCircles[event.getPointerId(index)]?.let { circle ->
+                circle.x = event.getX(index)
+                circle.y = event.getY(index)
+            }
+        }
+    }
+
+    private fun handleActionUp(pointerId: Int) {
+        removeCircle(pointerId)
+        if (!winnerChosen) soundManager.playFingerUp()
+        if (mapOfCircles.isEmpty()) resetGame()
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
