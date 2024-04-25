@@ -6,20 +6,16 @@ import kotlin.math.sin
 
 class Number(private var x: Float, private var y: Float, color: Int, private val number: Int, private var size: Float) {
 
-    private val textPaint = Paint()
+    private val textPaint = Paint().apply {
+        this.color = color
+        textAlign = Paint.Align.CENTER
+        textSize = size
+    }
 
     private val xOrigin = x
-
     var alpha = 255f
     private var alphaSpeed = 0f
-
     private var time = 0
-
-    init {
-        textPaint.color = color
-        textPaint.textAlign = Paint.Align.CENTER
-        textPaint.textSize = size
-    }
 
     fun update(deltaTime: Int) {
         alphaSpeed += deltaTime * 0.00004f
