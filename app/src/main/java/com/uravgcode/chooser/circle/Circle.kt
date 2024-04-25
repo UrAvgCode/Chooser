@@ -37,7 +37,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     private var startAngle = Random.nextFloat() * 360
     private var sweepAngle = Random.nextFloat() * -360
 
-    var coreRadius = 0f
+    protected var coreRadius = 0f
     protected val defaultRadius = radius
     protected val radiusVariance = radius * 0.08f
 
@@ -82,14 +82,6 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         canvas.drawArc(ring, startAngle, sweepAngle / 2f, false, strokePaintLight)
     }
 
-    open fun setWinner() {
-        winnerCircle = true
-    }
-
-    open fun isWinner(): Boolean {
-        return winnerCircle
-    }
-
     open fun removeFinger() {
         if (winnerCircle) {
             val handler = Handler(Looper.getMainLooper())
@@ -97,5 +89,21 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         } else {
             hasFinger = false
         }
+    }
+
+    open fun setWinner() {
+        winnerCircle = true
+    }
+
+    fun isWinner(): Boolean {
+        return winnerCircle
+    }
+
+    fun getRadius(): Float {
+        return coreRadius
+    }
+
+    fun isMarkedForDeletion(): Boolean {
+        return coreRadius <= 0
     }
 }

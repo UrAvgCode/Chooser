@@ -66,7 +66,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         val deltaTime = (System.currentTimeMillis() - lastTime).toInt()
         lastTime = System.currentTimeMillis()
 
-        listOfDeadCircles.removeIf { it.coreRadius <= 0 }
+        listOfDeadCircles.removeIf { it.isMarkedForDeletion() }
 
         val circles = mapOfCircles.values + listOfDeadCircles
 
@@ -77,7 +77,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
 
             circles.filter { it.isWinner() }.forEach { circle ->
                 var radius = blackRadius
-                if (mapOfCircles.isNotEmpty()) radius *= circle.coreRadius / (50f * scale)
+                if (mapOfCircles.isNotEmpty()) radius *= circle.getRadius() / (50f * scale)
                 canvas.drawCircle(circle.x, circle.y, radius, blackPaint)
             }
         }
