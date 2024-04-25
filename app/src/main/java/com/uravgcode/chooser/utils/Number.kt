@@ -13,7 +13,7 @@ class Number(private var x: Float, private var y: Float, color: Int, private val
     }
 
     private val xOrigin = x
-    var alpha = 255f
+    private var alpha = 255f
     private var alphaSpeed = 0f
     private var time = 0
 
@@ -32,5 +32,9 @@ class Number(private var x: Float, private var y: Float, color: Int, private val
 
     fun draw(canvas: Canvas) {
         canvas.drawText(number.toString(), x, y, textPaint)
+    }
+
+    fun isMarkedForDeletion(): Boolean {
+        return alpha <= 0
     }
 }

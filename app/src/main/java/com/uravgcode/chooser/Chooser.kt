@@ -90,7 +90,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         listOfNumbers.removeIf { number ->
             number.update(deltaTime)
             number.draw(canvas)
-            number.alpha <= 0
+            number.isMarkedForDeletion()
         }
 
         invalidate()
