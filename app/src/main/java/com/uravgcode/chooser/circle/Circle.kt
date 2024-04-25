@@ -34,8 +34,8 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     private val center = RectF()
     private val ring = RectF()
 
-    private var startAngle = Random.nextInt(360).toFloat()
-    private var sweepAngle = Random.nextInt(-360, 0).toFloat()
+    private var startAngle = Random.nextFloat() * 360
+    private var sweepAngle = Random.nextFloat() * -360
 
     var coreRadius = 0f
     protected val defaultRadius = radius
