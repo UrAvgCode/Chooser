@@ -26,7 +26,7 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
     }
 
     override fun draw(canvas: Canvas) {
-        paint.color = if (coreRadius <= defaultRadius) {
+        corePaint.color = if (coreRadius <= defaultRadius) {
             color
         } else {
             ColorUtils.blendARGB(color, Color.WHITE, 0.5f)
@@ -34,7 +34,7 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
 
         super.draw(canvas)
         number?.let {
-            textPaint.textSize = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
+            textPaint.textSize = coreRadius + radiusVariance * sin(timeMillis * 0.006).toFloat()
             val y = y - (textPaint.descent() + textPaint.ascent()) / 2
             val shadowOffset = textPaint.textSize * 0.04f
 
