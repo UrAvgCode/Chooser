@@ -14,12 +14,25 @@ import kotlin.random.Random
 
 open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = ColorGenerator.nextColor()) {
 
+    protected val paint = Paint().apply {
+        color = this@Circle.color
+        style = Paint.Style.FILL_AND_STROKE
+    }
+
+    protected val strokePaint = Paint().apply {
+        color = this@Circle.color
+        style = Paint.Style.STROKE
+        strokeCap = Paint.Cap.ROUND
+    }
+
+    protected val strokePaintLight = Paint().apply {
+        color = Color.argb(65, 255, 255, 255)
+        style = Paint.Style.STROKE
+        strokeCap = Paint.Cap.ROUND
+    }
+
     private val center = RectF()
     private val ring = RectF()
-
-    protected val paint = Paint()
-    protected val strokePaint = Paint()
-    protected val strokePaintLight = Paint()
 
     private var startAngle = Random.nextInt(360).toFloat()
     private var sweepAngle = Random.nextInt(-360, 0).toFloat()
@@ -32,19 +45,6 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
     protected var hasFinger = true
 
     protected var time = 0
-
-    init {
-        paint.color = color
-        paint.style = Paint.Style.FILL_AND_STROKE
-
-        strokePaint.color = color
-        strokePaint.style = Paint.Style.STROKE
-        strokePaint.strokeCap = Paint.Cap.ROUND
-
-        strokePaintLight.color = Color.argb(65, 255, 255, 255)
-        strokePaintLight.style = Paint.Style.STROKE
-        strokePaintLight.strokeCap = Paint.Cap.ROUND
-    }
 
     open fun update(deltaTime: Int) {
         val radius = coreRadius + radiusVariance * sin(time * 0.006).toFloat()
