@@ -91,15 +91,9 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = Co
         winnerCircle = true
     }
 
-    fun isWinner(): Boolean {
-        return winnerCircle
-    }
+    fun isWinner(): Boolean = winnerCircle
 
-    fun getRadius(): Float {
-        return coreRadius
-    }
+    fun getRadius(): Float = coreRadius
 
-    fun isMarkedForDeletion(): Boolean {
-        return coreRadius <= 0
-    }
+    fun isMarkedForDeletion(): Boolean = coreRadius <= 0
 }

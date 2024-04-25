@@ -34,7 +34,5 @@ class Number(private var x: Float, private var y: Float, color: Int, private val
         canvas.drawText(number.toString(), x, y, textPaint)
     }
 
-    fun isMarkedForDeletion(): Boolean {
-        return alpha <= 0
-    }
+    fun isMarkedForDeletion(): Boolean = alpha <= 0
 }
