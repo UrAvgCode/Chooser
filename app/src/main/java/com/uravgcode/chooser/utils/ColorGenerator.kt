@@ -27,8 +27,9 @@ object ColorGenerator {
     }
 
     fun averageColor(colors: List<Int>): Int {
-        val size = colors.size
+        if (colors.isEmpty()) return Color.BLACK
 
+        val size = colors.size
         val r = colors.sumOf { Color.red(it) } / size
         val g = colors.sumOf { Color.green(it) } / size
         val b = colors.sumOf { Color.blue(it) } / size
