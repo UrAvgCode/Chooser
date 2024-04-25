@@ -10,38 +10,42 @@ import kotlin.math.sin
 
 class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
 
-    private val textPaint = Paint()
-    private val textColor: Int
-
-    private var number: Int? = null
-
-    init {
+    private val textPaint = Paint().apply {
         val hsvColor = FloatArray(3)
-        Color.colorToHSV(color, hsvColor)
+        Color.colorToHSV(this@OrderCircle.color, hsvColor)
         hsvColor[1] = 0.2f
         hsvColor[2] = 1f
 
-        textColor = Color.HSVToColor(hsvColor)
-        textPaint.textAlign = Paint.Align.CENTER
+        color = Color.HSVToColor(hsvColor)
+        textAlign = Paint.Align.CENTER
     }
 
-    override fun draw(canvas: Canvas) {
+    private val textShadowPaint = Paint().apply {
+        textAlign = Paint.Align.CENTER
+        color = Color.argb(80, 0, 0, 0)
+    }
+
+    private var number: Int? = null
+
+    override fun update(deltaTime: Int) {
+        super.update(deltaTime)
         corePaint.color = if (coreRadius <= defaultRadius) {
             color
         } else {
             ColorUtils.blendARGB(color, Color.WHITE, 0.5f)
         }
 
+        val textSize = coreRadius + radiusVariance * sin(timeMillis * 0.006).toFloat()
+        textPaint.textSize = textSize
+        textShadowPaint.textSize = textSize
+    }
+
+    override fun draw(canvas: Canvas) {
         super.draw(canvas)
         number?.let {
-            textPaint.textSize = coreRadius + radiusVariance * sin(timeMillis * 0.006).toFloat()
             val y = y - (textPaint.descent() + textPaint.ascent()) / 2
             val shadowOffset = textPaint.textSize * 0.04f
-
-            textPaint.color = Color.argb(80, 0, 0, 0)
-            canvas.drawText(it.toString(), x + shadowOffset, y + shadowOffset, textPaint)
-
-            textPaint.color = textColor
+            canvas.drawText(it.toString(), x + shadowOffset, y + shadowOffset, textShadowPaint)
             canvas.drawText(it.toString(), x, y, textPaint)
         }
     }
@@ -64,5 +68,4 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
     companion object {
         var counter = 0
     }
-
 }
