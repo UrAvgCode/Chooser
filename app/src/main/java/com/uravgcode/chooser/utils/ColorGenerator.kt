@@ -6,23 +6,24 @@ import kotlin.random.Random
 object ColorGenerator {
     private val colorPalette = mutableListOf<Int>()
 
-    fun newColorPalette(amount: Int) {
+    fun generateRandomColorPalette(amount: Int) {
         colorPalette.clear()
-        var hue = Random.nextFloat() * 360
-        val hueIncrement = 360f / amount
+        val hueStep = 360f / amount
+        val initialHue = Random.nextFloat() * hueStep
 
-        repeat(amount) {
-            hue = (hue + hueIncrement) % 360
-            val s = 0.5f + Random.nextFloat() / 2f
-            val v = 0.5f + Random.nextFloat() / 2f
-            val color = Color.HSVToColor(floatArrayOf(hue, s, v))
+        for (i in 0 until amount) {
+            val hue = initialHue + hueStep * i
+            val saturation = 0.5f + Random.nextFloat() / 2f
+            val value = 0.5f + Random.nextFloat() / 2f
+            val color = Color.HSVToColor(floatArrayOf(hue, saturation, value))
             colorPalette.add(color)
         }
+
         colorPalette.shuffle()
     }
 
     fun nextColor(): Int {
-        if (colorPalette.isEmpty()) newColorPalette(5)
+        if (colorPalette.isEmpty()) generateRandomColorPalette(5)
         return colorPalette.removeFirst()
     }
 
