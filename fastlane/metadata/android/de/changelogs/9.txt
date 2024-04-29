@@ -1,0 +1,3 @@
+Entwicklung
+- kleinere Code-Verbesserungen
+- aktualisierte Abhängigkeiten
