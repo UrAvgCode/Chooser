@@ -1,1 +1,1 @@
-Android finger picker app
+Select random fingers on the screen
