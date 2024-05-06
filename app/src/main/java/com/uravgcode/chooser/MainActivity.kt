@@ -66,7 +66,7 @@ class MainActivity : Activity() {
     }
 
     private fun toggleSound(): Boolean {
-        binding.chooser.soundManager.toggleSound()
+        binding.chooser.toggleSound()
         return true
     }
 

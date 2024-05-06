@@ -47,7 +47,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private val handler = Handler(Looper.getMainLooper())
 
     private val colorManager = ColorManager()
-    val soundManager = SoundManager(context)
+    private val soundManager = SoundManager(context)
 
     private val mapOfCircles = mutableMapOf<Int, Circle>()
     private val listOfDeadCircles = mutableListOf<Circle>()
@@ -264,5 +264,9 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(effect)
         }
+    }
+
+    fun toggleSound() {
+        soundManager.toggleSound()
     }
 }
