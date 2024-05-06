@@ -5,10 +5,10 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import com.uravgcode.chooser.databinding.ActivityMainBinding
-import com.uravgcode.chooser.views.Chooser
-import com.uravgcode.chooser.views.Chooser.Mode.GROUP
-import com.uravgcode.chooser.views.Chooser.Mode.ORDER
-import com.uravgcode.chooser.views.Chooser.Mode.SINGLE
+import com.uravgcode.chooser.utilities.Mode
+import com.uravgcode.chooser.utilities.Mode.GROUP
+import com.uravgcode.chooser.utilities.Mode.ORDER
+import com.uravgcode.chooser.utilities.Mode.SINGLE
 
 class MainActivity : Activity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,7 +31,7 @@ class MainActivity : Activity() {
     private fun loadPreferences() {
         with(binding.chooser) {
             count = preferences.getInt("count", 1)
-            mode = Chooser.Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
+            mode = Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
 
             updateModeUI()
             updateCountUI()

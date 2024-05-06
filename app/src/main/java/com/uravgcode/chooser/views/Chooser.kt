@@ -22,11 +22,11 @@ import com.uravgcode.chooser.circles.Circle
 import com.uravgcode.chooser.circles.GroupCircle
 import com.uravgcode.chooser.circles.OrderCircle
 import com.uravgcode.chooser.utilities.ColorGenerator
+import com.uravgcode.chooser.utilities.Mode.GROUP
+import com.uravgcode.chooser.utilities.Mode.ORDER
+import com.uravgcode.chooser.utilities.Mode.SINGLE
 import com.uravgcode.chooser.utilities.Number
 import com.uravgcode.chooser.utilities.SoundManager
-import com.uravgcode.chooser.views.Chooser.Mode.GROUP
-import com.uravgcode.chooser.views.Chooser.Mode.ORDER
-import com.uravgcode.chooser.views.Chooser.Mode.SINGLE
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
@@ -52,10 +52,6 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private val blackPaint = Paint()
     private var blackRadius = 0f
     private var blackSpeed = 1f
-
-    enum class Mode {
-        SINGLE, GROUP, ORDER
-    }
 
     var mode = SINGLE
     var count = 1
