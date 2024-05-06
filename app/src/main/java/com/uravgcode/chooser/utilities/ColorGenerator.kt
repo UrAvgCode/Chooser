@@ -1,4 +1,4 @@
-package com.uravgcode.chooser.utils
+package com.uravgcode.chooser.utilities
 
 import android.graphics.Color
 import kotlin.random.Random

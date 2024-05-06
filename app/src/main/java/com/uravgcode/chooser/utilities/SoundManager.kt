@@ -1,4 +1,4 @@
-package com.uravgcode.chooser.utils
+package com.uravgcode.chooser.utilities
 
 import android.content.Context
 import android.media.AudioAttributes

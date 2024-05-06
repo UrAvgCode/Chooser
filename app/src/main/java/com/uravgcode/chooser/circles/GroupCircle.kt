@@ -1,4 +1,4 @@
-package com.uravgcode.chooser.circle
+package com.uravgcode.chooser.circles
 
 import android.graphics.Color
 import androidx.core.graphics.ColorUtils

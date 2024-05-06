@@ -1,4 +1,4 @@
-package com.uravgcode.chooser
+package com.uravgcode.chooser.views
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -17,13 +17,16 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
-import com.uravgcode.chooser.Chooser.Mode.*
-import com.uravgcode.chooser.circle.Circle
-import com.uravgcode.chooser.circle.GroupCircle
-import com.uravgcode.chooser.circle.OrderCircle
-import com.uravgcode.chooser.utils.ColorGenerator
-import com.uravgcode.chooser.utils.Number
-import com.uravgcode.chooser.utils.SoundManager
+import com.uravgcode.chooser.R
+import com.uravgcode.chooser.circles.Circle
+import com.uravgcode.chooser.circles.GroupCircle
+import com.uravgcode.chooser.circles.OrderCircle
+import com.uravgcode.chooser.utilities.ColorGenerator
+import com.uravgcode.chooser.utilities.Number
+import com.uravgcode.chooser.utilities.SoundManager
+import com.uravgcode.chooser.views.Chooser.Mode.GROUP
+import com.uravgcode.chooser.views.Chooser.Mode.ORDER
+import com.uravgcode.chooser.views.Chooser.Mode.SINGLE
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign

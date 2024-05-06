@@ -8,7 +8,7 @@
     tools:context=".MainActivity"
     android:id="@+id/motion_layout">
 
-    <com.uravgcode.chooser.Chooser
+    <com.uravgcode.chooser.views.Chooser
         android:id="@+id/chooser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

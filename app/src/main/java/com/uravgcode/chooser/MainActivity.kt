@@ -4,10 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import com.uravgcode.chooser.Chooser.Mode.GROUP
-import com.uravgcode.chooser.Chooser.Mode.ORDER
-import com.uravgcode.chooser.Chooser.Mode.SINGLE
 import com.uravgcode.chooser.databinding.ActivityMainBinding
+import com.uravgcode.chooser.views.Chooser
+import com.uravgcode.chooser.views.Chooser.Mode.GROUP
+import com.uravgcode.chooser.views.Chooser.Mode.ORDER
+import com.uravgcode.chooser.views.Chooser.Mode.SINGLE
 
 class MainActivity : Activity() {
     private lateinit var binding: ActivityMainBinding
