@@ -44,6 +44,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var lastTime = System.currentTimeMillis()
 
     lateinit var motionLayout: MotionLayout
+    private val colorGenerator = ColorGenerator()
     val soundManager = SoundManager(context)
 
     private val handler = Handler(Looper.getMainLooper())
@@ -143,13 +144,13 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
-        SINGLE -> Circle(x, y, 50f * scale)
+        SINGLE -> Circle(x, y, 50f * scale, colorGenerator.nextColor())
         GROUP -> GroupCircle(x, y, 50f * scale)
-        ORDER -> OrderCircle(x, y, 50f * scale)
+        ORDER -> OrderCircle(x, y, 50f * scale, colorGenerator.nextColor())
     }
 
     private fun resetGame() {
-        ColorGenerator.generateRandomColorPalette(5)
+        colorGenerator.generateRandomColorPalette(5)
         if (winnerChosen) {
             handler.postDelayed({
                 blackSpeed = 1f
@@ -188,7 +189,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         }
 
         val colors = mapOfCircles.values.map { it.color }
-        setBackgroundColor(ColorGenerator.averageColor(colors))
+        setBackgroundColor(colorGenerator.averageColor(colors))
 
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
@@ -201,11 +202,11 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         val teamSize = mapOfCircles.size / count
         var remainder = mapOfCircles.size % count
 
-        ColorGenerator.generateRandomColorPalette(count)
+        colorGenerator.generateRandomColorPalette(count)
         repeat(count) {
             val size = if (remainder-- > 0) teamSize + 1 else teamSize
 
-            val color = ColorGenerator.nextColor()
+            val color = colorGenerator.nextColor()
             repeat(size) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]

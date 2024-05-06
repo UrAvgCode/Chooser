@@ -12,7 +12,7 @@ import kotlin.math.min
 import kotlin.math.sin
 import kotlin.random.Random
 
-open class Circle(var x: Float, var y: Float, radius: Float, var color: Int = ColorGenerator.nextColor()) {
+open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
 
     protected val corePaint = Paint().apply {
         color = this@Circle.color

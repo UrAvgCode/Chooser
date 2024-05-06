@@ -3,7 +3,7 @@ package com.uravgcode.chooser.utilities
 import android.graphics.Color
 import kotlin.random.Random
 
-object ColorGenerator {
+class ColorGenerator {
     private val colorPalette = mutableListOf<Int>()
 
     fun generateRandomColorPalette(amount: Int) {

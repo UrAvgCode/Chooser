@@ -8,7 +8,7 @@ import android.os.Looper
 import androidx.core.graphics.ColorUtils
 import kotlin.math.sin
 
-class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
+class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, radius, color) {
 
     private val textPaint = Paint().apply {
         val hsvColor = FloatArray(3)
@@ -16,13 +16,13 @@ class OrderCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius) {
         hsvColor[1] = 0.2f
         hsvColor[2] = 1f
 
-        color = Color.HSVToColor(hsvColor)
+        this.color = Color.HSVToColor(hsvColor)
         textAlign = Paint.Align.CENTER
     }
 
     private val textShadowPaint = Paint().apply {
         textAlign = Paint.Align.CENTER
-        color = Color.argb(80, 0, 0, 0)
+        this.color = Color.argb(80, 0, 0, 0)
     }
 
     private var number: Int? = null
