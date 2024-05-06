@@ -15,6 +15,11 @@ import android.os.Vibrator
 import android.os.VibratorManager
 import android.util.AttributeSet
 import android.view.MotionEvent
+import android.view.MotionEvent.ACTION_DOWN
+import android.view.MotionEvent.ACTION_MOVE
+import android.view.MotionEvent.ACTION_POINTER_DOWN
+import android.view.MotionEvent.ACTION_POINTER_UP
+import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import androidx.constraintlayout.motion.widget.MotionLayout
 import com.uravgcode.chooser.R
@@ -99,21 +104,21 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         event ?: return false
 
-        val pointerIndex = event.actionIndex
-        val pointerId = event.getPointerId(pointerIndex)
+        val actionIndex = event.actionIndex
+        val pointerId = event.getPointerId(actionIndex)
 
         when (event.actionMasked) {
-            MotionEvent.ACTION_DOWN, MotionEvent.ACTION_POINTER_DOWN -> handleActionDown(event, pointerIndex, pointerId)
-            MotionEvent.ACTION_MOVE -> handleActionMove(event)
-            MotionEvent.ACTION_UP, MotionEvent.ACTION_POINTER_UP -> handleActionUp(pointerId)
+            ACTION_DOWN, ACTION_POINTER_DOWN -> handleActionDown(event, actionIndex, pointerId)
+            ACTION_MOVE -> handleActionMove(event)
+            ACTION_UP, ACTION_POINTER_UP -> handleActionUp(pointerId)
         }
         return true
     }
 
-    private fun handleActionDown(event: MotionEvent, pointerIndex: Int, pointerId: Int) {
+    private fun handleActionDown(event: MotionEvent, actionIndex: Int, pointerId: Int) {
         if (!winnerChosen) {
             setButtonVisibility(false)
-            val pos = PointF(event.getX(pointerIndex), event.getY(pointerIndex))
+            val pos = PointF(event.getX(actionIndex), event.getY(actionIndex))
 
             soundManager.playFingerDown()
             mapOfCircles[pointerId] = createCircle(pos.x, pos.y)
@@ -255,7 +260,8 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         val effect = VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val systemService = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE)
+            val vibratorManager = systemService as VibratorManager
             vibratorManager.vibrate(CombinedVibration.createParallel(effect))
         } else {
             @Suppress("DEPRECATION")
