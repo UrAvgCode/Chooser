@@ -6,7 +6,6 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.os.Handler
 import android.os.Looper
-import com.uravgcode.chooser.utilities.ColorGenerator
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin

@@ -26,7 +26,7 @@ import com.uravgcode.chooser.R
 import com.uravgcode.chooser.circles.Circle
 import com.uravgcode.chooser.circles.GroupCircle
 import com.uravgcode.chooser.circles.OrderCircle
-import com.uravgcode.chooser.utilities.ColorGenerator
+import com.uravgcode.chooser.utilities.ColorManager
 import com.uravgcode.chooser.utilities.Mode.GROUP
 import com.uravgcode.chooser.utilities.Mode.ORDER
 import com.uravgcode.chooser.utilities.Mode.SINGLE
@@ -44,10 +44,10 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     private var lastTime = System.currentTimeMillis()
 
     lateinit var motionLayout: MotionLayout
-    private val colorGenerator = ColorGenerator()
-    val soundManager = SoundManager(context)
-
     private val handler = Handler(Looper.getMainLooper())
+
+    private val colorManager = ColorManager()
+    val soundManager = SoundManager(context)
 
     private val mapOfCircles = mutableMapOf<Int, Circle>()
     private val listOfDeadCircles = mutableListOf<Circle>()
@@ -144,13 +144,13 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
-        SINGLE -> Circle(x, y, 50f * scale, colorGenerator.nextColor())
+        SINGLE -> Circle(x, y, 50f * scale, colorManager.nextColor())
         GROUP -> GroupCircle(x, y, 50f * scale)
-        ORDER -> OrderCircle(x, y, 50f * scale, colorGenerator.nextColor())
+        ORDER -> OrderCircle(x, y, 50f * scale, colorManager.nextColor())
     }
 
     private fun resetGame() {
-        colorGenerator.generateRandomColorPalette(5)
+        colorManager.generateRandomColorPalette(5)
         if (winnerChosen) {
             handler.postDelayed({
                 blackSpeed = 1f
@@ -189,7 +189,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         }
 
         val colors = mapOfCircles.values.map { it.color }
-        setBackgroundColor(colorGenerator.averageColor(colors))
+        setBackgroundColor(colorManager.averageColor(colors))
 
         blackSpeed = -1f
         blackRadius = screenHeight.toFloat()
@@ -202,11 +202,11 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         val teamSize = mapOfCircles.size / count
         var remainder = mapOfCircles.size % count
 
-        colorGenerator.generateRandomColorPalette(count)
+        colorManager.generateRandomColorPalette(count)
         repeat(count) {
             val size = if (remainder-- > 0) teamSize + 1 else teamSize
 
-            val color = colorGenerator.nextColor()
+            val color = colorManager.nextColor()
             repeat(size) {
                 val randomIndex = Random.nextInt(indexList.size)
                 val circle = mapOfCircles[indexList[randomIndex]]
