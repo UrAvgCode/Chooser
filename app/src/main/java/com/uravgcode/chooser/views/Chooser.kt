@@ -248,12 +248,7 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
     }
 
     private fun setButtonVisibility(visible: Boolean) {
-        motionLayout.transitionToState(
-            if (visible) when (mode) {
-                SINGLE, GROUP -> R.id.start
-                ORDER -> R.id.hideCounter
-            } else R.id.end
-        )
+        motionLayout.transitionToState(if (visible) mode.state() else R.id.end)
     }
 
     private fun vibrate(millis: Long) {

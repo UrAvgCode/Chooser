@@ -6,9 +6,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import com.uravgcode.chooser.databinding.ActivityMainBinding
 import com.uravgcode.chooser.utilities.Mode
-import com.uravgcode.chooser.utilities.Mode.GROUP
-import com.uravgcode.chooser.utilities.Mode.ORDER
-import com.uravgcode.chooser.utilities.Mode.SINGLE
 
 class MainActivity : Activity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,7 +32,7 @@ class MainActivity : Activity() {
 
             updateModeUI()
             updateCountUI()
-            motionLayout.progress = if (mode == ORDER) 1f else 0f
+            motionLayout.jumpToState(mode.state())
         }
     }
 
@@ -53,13 +50,8 @@ class MainActivity : Activity() {
     private fun updateMode() {
         with(binding.chooser) {
             if (motionLayout.currentState != -1) {
-                mode = when (mode) {
-                    SINGLE -> GROUP
-                    GROUP -> ORDER
-                    ORDER -> SINGLE
-                }
-
-                count = if (mode == GROUP) 2 else 1
+                mode = mode.next()
+                count = mode.initialCount()
                 updateModeUI()
                 updateCountUI()
             }
@@ -68,12 +60,7 @@ class MainActivity : Activity() {
 
     private fun updateCount() {
         with(binding.chooser) {
-            count = when (mode) {
-                SINGLE -> count % 5 + 1
-                GROUP -> (count - 1) % 4 + 2
-                ORDER -> 1
-            }
-
+            count = mode.nextCount(count)
             updateCountUI()
         }
     }
@@ -85,15 +72,11 @@ class MainActivity : Activity() {
 
     private fun updateModeUI() {
         val mode = binding.chooser.mode
-        val drawable = when (mode) {
-            SINGLE -> R.drawable.single_icon
-            GROUP -> R.drawable.group_icon
-            ORDER -> R.drawable.order_icon
-        }
+        val drawable = mode.drawable()
 
         binding.btnMode.foreground = getDrawable(drawable)
         savePreference("mode", mode.toString())
-        binding.motionLayout.transitionToState(if (mode == ORDER) R.id.hideCounter else R.id.start)
+        binding.motionLayout.transitionToState(mode.state())
     }
 
     private fun updateCountUI() {
