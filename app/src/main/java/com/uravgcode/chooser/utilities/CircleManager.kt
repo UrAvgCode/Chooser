@@ -21,9 +21,7 @@ class CircleManager : MutableMap<Int, Circle> {
     override fun containsKey(key: Int): Boolean = activeCircles.containsKey(key)
 
     override fun putAll(from: Map<out Int, Circle>) {
-        for ((key, value) in from) {
-            activeCircles[key] = value
-        }
+        activeCircles.putAll(from)
     }
 
     override fun put(key: Int, value: Circle): Circle? {
@@ -32,10 +30,11 @@ class CircleManager : MutableMap<Int, Circle> {
         return previousValue
     }
 
-    override fun remove(key: Int): Circle? = activeCircles[key]?.let { circle ->
-        circle.removeFinger()
-        deadCircles.add(circle)
-        activeCircles.remove(key)
+    override fun remove(key: Int): Circle? {
+        return activeCircles.remove(key)?.apply {
+            removeFinger()
+            deadCircles += this
+        }
     }
 
     override fun clear() {
@@ -54,7 +53,7 @@ class CircleManager : MutableMap<Int, Circle> {
     }
 
     fun drawBlackCircles(canvas: Canvas, blackRadius: Float, scale: Float) {
-        activeCircles.forEach { (_, circle) ->
+        activeCircles.values.forEach { circle ->
             canvas.drawCircle(circle.x, circle.y, blackRadius, blackPaint)
         }
 
