@@ -13,15 +13,18 @@ alt="F-Droid release">](https://f-droid.org/en/packages/com.uravgcode.chooser)
 [<img src="https://img.shields.io/badge/License-GPL%20v3-orange"
 alt="GPLv3 License">](https://www.gnu.org/licenses/gpl-3.0)
 
-Chooser is an Android app for selecting random fingers on the screen to decide who should pay when you're at the
-checkout, who starts a game, or which teams to play in.
+Chooser is an Android app designed to help you make random selections among friends or groups.
+Whether you're deciding who should pay at the checkout, who should start a game, or which teams to play in, Chooser has you covered.
+
+With Chooser, everyone simply touches the screen to select random fingers, ensuring fair and unbiased decisions every time.
+It adds an exciting twist to decision-making, making it not only fair but also entertaining.
 
 ## Features
 
-- Choose a random person
-- Select multiple people
-- Divide people into groups
-- Count through a group
+- Choose a random person from the group
+- Select multiple people at once
+- Divide people into customizable groups
+- Easily count through a group
 
 ## Download
 
