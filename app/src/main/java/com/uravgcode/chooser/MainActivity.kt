@@ -1,18 +1,20 @@
 package com.uravgcode.chooser
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import com.uravgcode.chooser.databinding.ActivityMainBinding
 import com.uravgcode.chooser.utilities.Mode
 
-class MainActivity : Activity() {
+class MainActivity : ComponentActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.chooser.motionLayout = binding.motionLayout
