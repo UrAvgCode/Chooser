@@ -1,0 +1,8 @@
+Improvements
+- enhanced display cutout handling
+- added support for edge-to-edge display without black bars
+
+Development
+- target SDK 35
+- minor code improvements
+- update dependencies
