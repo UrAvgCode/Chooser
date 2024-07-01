@@ -4,12 +4,14 @@
 
 <br>
 
-[<img src="https://img.shields.io/github/release/UrAvgCode/Chooser"
+[<img src="https://img.shields.io/github/v/release/uravgcode/chooser?logo=github"
 alt="Github release">](https://github.com/UrAvgCode/Chooser/releases)
 [<img src="https://img.shields.io/endpoint?url=https://apt.izzysoft.de/fdroid/api/v1/shield/com.uravgcode.chooser"
 alt="IzzyOnDroid release">](https://apt.izzysoft.de/fdroid/index/apk/com.uravgcode.chooser)
-[<img src="https://img.shields.io/f-droid/v/com.uravgcode.chooser"
+[<img src="https://img.shields.io/f-droid/v/com.uravgcode.chooser?logo=fdroid"
 alt="F-Droid release">](https://f-droid.org/en/packages/com.uravgcode.chooser)
+[<img src="https://img.shields.io/github/downloads/uravgcode/chooser/total?logo=github&color=%230f81c2"
+alt="Downloads">](https://github.com/UrAvgCode/Chooser/releases)
 [<img src="https://img.shields.io/badge/License-GPL%20v3-orange"
 alt="GPLv3 License">](https://www.gnu.org/licenses/gpl-3.0)
 
