@@ -1,5 +1,7 @@
 package com.uravgcode.chooser
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -35,9 +37,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+
         setContent {
-            val chooserMode = remember { mutableStateOf(Mode.SINGLE) }
-            val chooserCount = remember { mutableIntStateOf(1) }
+            val chooserMode =
+                remember { mutableStateOf(Mode.valueOf(preferences.getString("mode", "SINGLE")!!)) }
+            val chooserCount = remember { mutableIntStateOf(preferences.getInt("count", 1)) }
             val isVisible = remember { mutableStateOf(true) }
 
             AndroidView(
@@ -55,7 +60,11 @@ class MainActivity : ComponentActivity() {
 
             AnimatedButton(
                 visible = isVisible.value,
-                onClick = { chooserMode.value = chooserMode.value.next() },
+                onClick = {
+                    chooserMode.value = chooserMode.value.next()
+                    chooserCount.intValue = chooserMode.value.initialCount()
+                    savePreference(preferences, "mode", chooserMode.value.toString())
+                },
                 content = {
                     Icon(
                         painter = painterResource(id = chooserMode.value.drawable()),
@@ -69,6 +78,7 @@ class MainActivity : ComponentActivity() {
                 visible = chooserMode.value != Mode.ORDER && isVisible.value,
                 onClick = {
                     chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
+                    savePreference(preferences, "count", chooserCount.intValue)
                 },
                 content = {
                     Text(
@@ -78,6 +88,17 @@ class MainActivity : ComponentActivity() {
                 },
                 alignment = Alignment.TopEnd
             )
+        }
+    }
+
+    private fun savePreference(preferences: SharedPreferences, key: String, value: Any) {
+        with(preferences.edit()) {
+            when (value) {
+                is Int -> putInt(key, value)
+                is String -> putString(key, value)
+                else -> throw IllegalArgumentException("Invalid type for SharedPreferences")
+            }
+            apply()
         }
     }
 }
