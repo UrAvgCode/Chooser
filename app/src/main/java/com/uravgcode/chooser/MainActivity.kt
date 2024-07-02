@@ -61,9 +61,11 @@ class MainActivity : ComponentActivity() {
             AnimatedButton(
                 visible = isVisible.value,
                 onClick = {
-                    chooserMode.value = chooserMode.value.next()
-                    chooserCount.intValue = chooserMode.value.initialCount()
-                    savePreference(preferences, "mode", chooserMode.value.toString())
+                    if (isVisible.value) {
+                        chooserMode.value = chooserMode.value.next()
+                        chooserCount.intValue = chooserMode.value.initialCount()
+                        savePreference(preferences, "mode", chooserMode.value.toString())
+                    }
                 },
                 content = {
                     Icon(
@@ -77,8 +79,10 @@ class MainActivity : ComponentActivity() {
             AnimatedButton(
                 visible = chooserMode.value != Mode.ORDER && isVisible.value,
                 onClick = {
-                    chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
-                    savePreference(preferences, "count", chooserCount.intValue)
+                    if (isVisible.value) {
+                        chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
+                        savePreference(preferences, "count", chooserCount.intValue)
+                    }
                 },
                 content = {
                     Text(
