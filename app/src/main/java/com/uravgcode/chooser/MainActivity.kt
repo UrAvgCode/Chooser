@@ -16,6 +16,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -52,76 +53,65 @@ class MainActivity : ComponentActivity() {
                 modifier = Modifier
             )
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                AnimatedVisibility(
-                    visible = isVisible.value,
-                    enter = slideInVertically(
-                        initialOffsetY = { fullHeight -> -2 * fullHeight },
-                        animationSpec = tween(durationMillis = 400)
-                    ),
-                    exit = slideOutVertically(
-                        targetOffsetY = { fullHeight -> -2 * fullHeight },
-                        animationSpec = tween(durationMillis = 400)
-                    ),
-                    modifier = Modifier
-                        .align(Alignment.TopStart)
-                        .padding(top = 24.dp, start = 24.dp)
-                        .size(56.dp)
-                ) {
-                    FloatingActionButton(
-                        onClick = {
-                            chooserMode.value = chooserMode.value.next()
-                        },
-                        shape = CircleShape,
-                        containerColor = Color(0xFF2B2B2B),
-                        contentColor = Color.White
-                    ) {
-                        Icon(
-                            painter = painterResource(id = chooserMode.value.drawable()),
-                            contentDescription = "Mode"
-                        )
-                    }
+            AnimatedButton(
+                visible = isVisible.value,
+                onClick = { chooserMode.value = chooserMode.value.next() },
+                content = {
+                    Icon(
+                        painter = painterResource(id = chooserMode.value.drawable()),
+                        contentDescription = "Mode"
+                    )
+                },
+                alignment = Alignment.TopStart
+            )
 
-                }
-            }
+            AnimatedButton(
+                visible = chooserMode.value != Mode.ORDER && isVisible.value,
+                onClick = {
+                    chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
+                },
+                content = {
+                    Text(
+                        text = chooserCount.intValue.toString(),
+                        fontSize = 36.sp
+                    )
+                },
+                alignment = Alignment.TopEnd
+            )
+        }
+    }
+}
 
-            Box(modifier = Modifier.fillMaxSize()) {
-                AnimatedVisibility(
-                    visible = if (chooserMode.value == Mode.ORDER) {
-                        false
-                    } else {
-                        isVisible.value
-                    },
-                    enter = slideInVertically(
-                        initialOffsetY = { fullHeight -> -2 * fullHeight },
-                        animationSpec = tween(durationMillis = 400)
-                    ),
-                    exit = slideOutVertically(
-                        targetOffsetY = { fullHeight -> -2 * fullHeight },
-                        animationSpec = tween(durationMillis = 400)
-                    ),
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(top = 24.dp, end = 24.dp)
-                        .size(56.dp)
-                ) {
-                    FloatingActionButton(
-                        onClick = {
-                            chooserCount.intValue =
-                                chooserMode.value.nextCount(chooserCount.intValue)
-                        },
-                        shape = CircleShape,
-                        containerColor = Color(0xFF2B2B2B),
-                        contentColor = Color.White
-                    ) {
-                        Text(
-                            text = chooserCount.intValue.toString(),
-                            fontSize = 36.sp
-                        )
-                    }
-
-                }
-            }
+@Composable
+fun AnimatedButton(
+    visible: Boolean,
+    onClick: () -> Unit,
+    content: @Composable () -> Unit,
+    alignment: Alignment
+) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        AnimatedVisibility(
+            visible = visible,
+            enter = slideInVertically(
+                initialOffsetY = { fullHeight -> -2 * fullHeight },
+                animationSpec = tween(durationMillis = 400)
+            ),
+            exit = slideOutVertically(
+                targetOffsetY = { fullHeight -> -2 * fullHeight },
+                animationSpec = tween(durationMillis = 400)
+            ),
+            modifier = Modifier
+                .align(alignment)
+                .padding(24.dp)
+                .size(56.dp)
+        ) {
+            FloatingActionButton(
+                onClick = onClick,
+                shape = CircleShape,
+                containerColor = Color(0xFF2B2B2B),
+                contentColor = Color.White,
+                content = content
+            )
         }
     }
 }
