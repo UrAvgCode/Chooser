@@ -38,11 +38,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val preferences = getSharedPreferences("Settings", Context.MODE_PRIVATE)
+        val initialMode = Mode.valueOf(preferences.getString("mode", "SINGLE")!!)
+        val initialCount = preferences.getInt("count", 1)
 
         setContent {
-            val chooserMode =
-                remember { mutableStateOf(Mode.valueOf(preferences.getString("mode", "SINGLE")!!)) }
-            val chooserCount = remember { mutableIntStateOf(preferences.getInt("count", 1)) }
+            val chooserMode = remember { mutableStateOf(initialMode) }
+            val chooserCount = remember { mutableIntStateOf(initialCount) }
             val isVisible = remember { mutableStateOf(true) }
 
             AndroidView(
