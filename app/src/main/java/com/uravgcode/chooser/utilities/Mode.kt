@@ -27,9 +27,4 @@ enum class Mode {
         GROUP -> R.drawable.group_icon
         ORDER -> R.drawable.order_icon
     }
-
-    fun state(): Int = when (this) {
-        SINGLE, GROUP -> R.id.start
-        ORDER -> R.id.hideCounter
-    }
 }
