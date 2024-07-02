@@ -48,8 +48,8 @@ class MainActivity : ComponentActivity() {
 
             AndroidView(
                 factory = { context ->
-                    Chooser(context, setButtonVisibility = { newVisible ->
-                        isVisible.value = newVisible
+                    Chooser(context, setButtonVisibility = {
+                        isVisible.value = it
                     })
                 },
                 update = { view ->
