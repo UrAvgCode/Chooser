@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.uravgcode.chooser.composables.AnimatedButton
+import com.uravgcode.chooser.composables.buttons.AnimatedButton
 import com.uravgcode.chooser.utilities.Mode
 import com.uravgcode.chooser.utilities.SettingsManager
 import com.uravgcode.chooser.views.Chooser
@@ -46,6 +46,9 @@ fun ChooserScreen(
                 chooserCount.intValue = chooserMode.value.initialCount()
                 settings.setMode(chooserMode.value)
             }
+        },
+        onLongClick = {
+            onNavigate()
         },
         content = {
             Icon(

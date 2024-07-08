@@ -1,4 +1,4 @@
-package com.uravgcode.chooser.composables
+package com.uravgcode.chooser.composables.buttons
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
@@ -8,18 +8,16 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.FloatingActionButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun AnimatedButton(
     visible: Boolean,
     onClick: () -> Unit,
+    onLongClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
     alignment: Alignment
 ) {
@@ -39,12 +37,10 @@ fun AnimatedButton(
                 .padding(24.dp)
                 .size(56.dp)
         ) {
-            FloatingActionButton(
+            BaseButton(
                 onClick = onClick,
-                shape = CircleShape,
-                containerColor = Color(0xFF2B2B2B),
-                contentColor = Color.White,
-                content = content
+                onLongClick = onLongClick,
+                content = content,
             )
         }
     }
