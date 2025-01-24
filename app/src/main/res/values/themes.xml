@@ -1,6 +1,5 @@
 <resources>
     <style name="Chooser">
-        <item name="colorPrimary">@color/gray</item>
         <item name="android:windowActionBar">false</item>
         <item name = "android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>

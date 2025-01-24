@@ -24,7 +24,7 @@ class ColorManager {
 
     fun nextColor(): Int {
         if (colorPalette.isEmpty()) generateRandomColorPalette(5)
-        return colorPalette.removeFirst()
+        return colorPalette.removeAt(0)
     }
 
     fun averageColor(colors: List<Int>): Int {

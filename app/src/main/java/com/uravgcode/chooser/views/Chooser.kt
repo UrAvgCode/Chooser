@@ -12,7 +12,6 @@ import android.os.Looper
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
-import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_MOVE
@@ -20,8 +19,6 @@ import android.view.MotionEvent.ACTION_POINTER_DOWN
 import android.view.MotionEvent.ACTION_POINTER_UP
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
-import androidx.constraintlayout.motion.widget.MotionLayout
-import com.uravgcode.chooser.R
 import com.uravgcode.chooser.circles.Circle
 import com.uravgcode.chooser.circles.GroupCircle
 import com.uravgcode.chooser.circles.OrderCircle
@@ -37,13 +34,13 @@ import kotlin.math.min
 import kotlin.math.sign
 import kotlin.random.Random
 
-class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
+@SuppressLint("ViewConstructor")
+class Chooser(context: Context, val setButtonVisibility: (Boolean) -> Unit) : View(context) {
 
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
     private var lastTime = System.currentTimeMillis()
 
-    lateinit var motionLayout: MotionLayout
     private val handler = Handler(Looper.getMainLooper())
 
     private val colorManager = ColorManager()
@@ -223,10 +220,6 @@ class Chooser(context: Context, attrs: AttributeSet?) : View(context, attrs) {
                 OrderCircle.counter = 0
             }
         }, (min(3000 / circles.size, 800).toLong()))
-    }
-
-    private fun setButtonVisibility(visible: Boolean) {
-        motionLayout.transitionToState(if (visible) mode.state() else R.id.end)
     }
 
     private fun vibrate(millis: Long) {
