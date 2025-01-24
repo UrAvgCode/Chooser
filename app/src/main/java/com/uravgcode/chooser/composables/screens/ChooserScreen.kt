@@ -48,7 +48,7 @@ fun ChooserScreen(
             }
         },
         onLongClick = {
-            onNavigate()
+            // onNavigate()
         },
         content = {
             Icon(
