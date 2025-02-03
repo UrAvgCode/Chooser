@@ -15,6 +15,8 @@
 
 package com.uravgcode.chooser.composables.screens
 
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,17 +29,21 @@ import com.uravgcode.chooser.utilities.SettingsManager
 fun MainScreen(
     settings: SettingsManager
 ) {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.Chooser) }
+    MaterialTheme(
+        colorScheme = darkColorScheme()
+    ) {
+        var currentScreen by remember { mutableStateOf<Screen>(Screen.Chooser) }
 
-    when (currentScreen) {
-        is Screen.Chooser -> ChooserScreen(
-            settings = settings,
-            onNavigate = { currentScreen = Screen.Settings }
-        )
+        when (currentScreen) {
+            is Screen.Chooser -> ChooserScreen(
+                settings = settings,
+                onNavigate = { currentScreen = Screen.Settings }
+            )
 
-        is Screen.Settings -> SettingsScreen(
-            settings = settings,
-            onNavigateBack = { currentScreen = Screen.Chooser }
-        )
+            is Screen.Settings -> SettingsScreen(
+                settings = settings,
+                onNavigateBack = { currentScreen = Screen.Chooser }
+            )
+        }
     }
 }
