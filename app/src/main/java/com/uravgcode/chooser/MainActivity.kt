@@ -21,17 +21,22 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.uravgcode.chooser.composables.screens.MainScreen
 import com.uravgcode.chooser.utilities.SettingsManager
+import com.uravgcode.chooser.utilities.SoundManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
 
         val preferences = getSharedPreferences("settings", MODE_PRIVATE)
-        val settings = SettingsManager(preferences)
+        val settingsManager = SettingsManager(preferences)
+        val soundManager = SoundManager(this, settingsManager.isSoundEnabled())
+
+        if (settingsManager.isEdgeToEdgeEnabled()) {
+            enableEdgeToEdge()
+        }
 
         setContent {
-            MainScreen(settings)
+            MainScreen(settingsManager, soundManager)
         }
     }
 }

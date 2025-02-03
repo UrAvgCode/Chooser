@@ -29,11 +29,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.uravgcode.chooser.composables.buttons.AnimatedButton
 import com.uravgcode.chooser.utilities.Mode
 import com.uravgcode.chooser.utilities.SettingsManager
+import com.uravgcode.chooser.utilities.SoundManager
 import com.uravgcode.chooser.views.Chooser
 
 @Composable
 fun ChooserScreen(
     settings: SettingsManager,
+    soundManager: SoundManager,
     onNavigate: () -> Unit
 ) {
     val chooserMode = remember { mutableStateOf(settings.getMode()) }
@@ -42,9 +44,12 @@ fun ChooserScreen(
 
     AndroidView(
         factory = { context ->
-            Chooser(context, setButtonVisibility = {
-                isVisible.value = it
-            })
+            Chooser(
+                context,
+                soundManager,
+                setButtonVisibility = {
+                    isVisible.value = it
+                })
         },
         update = { view ->
             view.mode = chooserMode.value

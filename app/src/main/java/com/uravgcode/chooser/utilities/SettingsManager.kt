@@ -49,7 +49,7 @@ class SettingsManager(private val preferences: SharedPreferences) {
     }
 
     fun isEdgeToEdgeEnabled(): Boolean {
-        return preferences.getBoolean("edgeToEdge", true)
+        return preferences.getBoolean("edgeToEdge", false)
     }
 
     private fun savePreference(key: String, value: Any) {

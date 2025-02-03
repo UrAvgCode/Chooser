@@ -35,10 +35,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
 import com.uravgcode.chooser.utilities.SettingsManager
+import com.uravgcode.chooser.utilities.SoundManager
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SettingsScreen(settings: SettingsManager, onNavigateBack: () -> Unit) {
+fun SettingsScreen(
+    settings: SettingsManager,
+    soundManager: SoundManager,
+    onNavigateBack: () -> Unit
+) {
     val isSoundEnabled = remember { mutableStateOf(settings.isSoundEnabled()) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(settings.isEdgeToEdgeEnabled()) }
 
@@ -74,6 +79,7 @@ fun SettingsScreen(settings: SettingsManager, onNavigateBack: () -> Unit) {
                 onCheckedChange = {
                     isSoundEnabled.value = it
                     settings.setSoundEnabled(it)
+                    soundManager.setSoundEnabled(isSoundEnabled.value)
                 }
             )
 

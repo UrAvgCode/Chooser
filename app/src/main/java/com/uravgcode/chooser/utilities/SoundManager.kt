@@ -18,13 +18,12 @@ package com.uravgcode.chooser.utilities
 import android.content.Context
 import android.media.AudioAttributes
 import android.media.SoundPool
-import android.widget.Toast
 import com.uravgcode.chooser.R
 
-class SoundManager(private val context: Context) {
-    private val preferences = context.getSharedPreferences("Settings", Context.MODE_PRIVATE)
-    private var soundEnabled = preferences.getBoolean("soundEnabled", true)
-
+class SoundManager(
+    context: Context,
+    private var soundEnabled: Boolean
+) {
     private val soundPool: SoundPool
     private val fingerUpSound: Int
     private val fingerDownSound: Int
@@ -62,10 +61,7 @@ class SoundManager(private val context: Context) {
         playSound(fingerChosenSound)
     }
 
-    fun toggleSound() {
-        soundEnabled = !soundEnabled
-        preferences.edit().putBoolean("soundEnabled", soundEnabled).apply()
-        val text = "Sound ${if (soundEnabled) "enabled" else "disabled"}"
-        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    fun setSoundEnabled(enabled: Boolean) {
+        soundEnabled = enabled
     }
 }

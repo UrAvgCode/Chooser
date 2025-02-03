@@ -50,7 +50,11 @@ import kotlin.math.sign
 import kotlin.random.Random
 
 @SuppressLint("ViewConstructor")
-class Chooser(context: Context, val setButtonVisibility: (Boolean) -> Unit) : View(context) {
+class Chooser(
+    context: Context,
+    private val soundManager: SoundManager,
+    val setButtonVisibility: (Boolean) -> Unit
+) : View(context) {
 
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
@@ -59,7 +63,6 @@ class Chooser(context: Context, val setButtonVisibility: (Boolean) -> Unit) : Vi
     private val handler = Handler(Looper.getMainLooper())
 
     private val colorManager = ColorManager()
-    private val soundManager = SoundManager(context)
     private val circles = CircleManager()
     private val numbers = mutableListOf<Number>()
 
@@ -249,9 +252,5 @@ class Chooser(context: Context, val setButtonVisibility: (Boolean) -> Unit) : Vi
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(effect)
         }
-    }
-
-    fun toggleSound() {
-        soundManager.toggleSound()
     }
 }
