@@ -89,7 +89,10 @@ fun SettingsScreen(settings: SettingsManager, onNavigateBack: () -> Unit) {
                         settings.setSoundEnabled(it)
                     },
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.primary
+                        checkedThumbColor = MaterialTheme.colorScheme.primary,
+                        uncheckedThumbColor = MaterialTheme.colorScheme.onSurface,
+                        checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.54f),
+                        uncheckedTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                     )
                 )
             }
@@ -111,7 +114,10 @@ fun SettingsScreen(settings: SettingsManager, onNavigateBack: () -> Unit) {
                         settings.setEdgeToEdgeEnabled(it)
                     },
                     colors = SwitchDefaults.colors(
-                        checkedThumbColor = MaterialTheme.colorScheme.primary
+                        checkedThumbColor = MaterialTheme.colorScheme.primary,
+                        uncheckedThumbColor = MaterialTheme.colorScheme.onSurface,
+                        checkedTrackColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.54f),
+                        uncheckedTrackColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)
                     )
                 )
             }
