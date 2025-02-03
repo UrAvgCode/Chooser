@@ -15,6 +15,7 @@
 
 package com.uravgcode.chooser.composables.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
@@ -35,6 +36,10 @@ fun MainScreen(
         colorScheme = darkColorScheme()
     ) {
         var currentScreen by remember { mutableStateOf<Screen>(Screen.Chooser) }
+
+        BackHandler(enabled = currentScreen is Screen.Settings) {
+            currentScreen = Screen.Chooser
+        }
 
         when (currentScreen) {
             is Screen.Chooser -> ChooserScreen(
