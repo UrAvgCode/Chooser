@@ -1,9 +1,0 @@
-Migliorato:
- - Nuova icona di ordine
- - Dimensioni dell'app diminuite
-
-Sviluppo
- - Diminuite le risorse
- - Rimossa dipendenza da Material
- - Rimossa dipendenza da  appcompat
- - Rimosse informazioni sulle dipendenze 
