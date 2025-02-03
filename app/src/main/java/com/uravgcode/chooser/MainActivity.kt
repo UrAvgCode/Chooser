@@ -28,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        val preferences = getSharedPreferences("settings", Context.MODE_PRIVATE)
+        val preferences = getSharedPreferences("settings", MODE_PRIVATE)
         val settings = SettingsManager(preferences)
 
         setContent {
