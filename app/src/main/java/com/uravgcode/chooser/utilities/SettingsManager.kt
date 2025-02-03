@@ -36,11 +36,28 @@ class SettingsManager(private val preferences: SharedPreferences) {
         return preferences.getInt("count", 1)
     }
 
+    fun setSoundEnabled(enabled: Boolean) {
+        savePreference("sound", enabled)
+    }
+
+    fun isSoundEnabled(): Boolean {
+        return preferences.getBoolean("sound", true)
+    }
+
+    fun setEdgeToEdgeEnabled(enabled: Boolean) {
+        savePreference("edgeToEdge", enabled)
+    }
+
+    fun isEdgeToEdgeEnabled(): Boolean {
+        return preferences.getBoolean("edgeToEdge", true)
+    }
+
     private fun savePreference(key: String, value: Any) {
         with(preferences.edit()) {
             when (value) {
                 is Int -> putInt(key, value)
                 is String -> putString(key, value)
+                is Boolean -> putBoolean(key, value)
                 else -> throw IllegalArgumentException("Invalid type for SharedPreferences")
             }
             apply()
