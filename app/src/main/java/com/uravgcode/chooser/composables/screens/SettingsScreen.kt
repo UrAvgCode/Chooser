@@ -53,6 +53,7 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit
 ) {
     val isSoundEnabled = remember { mutableStateOf(settings.isSoundEnabled()) }
+    val isVibrationEnabled = remember { mutableStateOf(settings.isVibrationEnabled()) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(settings.isEdgeToEdgeEnabled()) }
     val circleSize = remember { mutableFloatStateOf(settings.getCircleSize()) }
 
@@ -94,6 +95,15 @@ fun SettingsScreen(
                     isSoundEnabled.value = it
                     settings.setSoundEnabled(it)
                     soundManager.setSoundEnabled(isSoundEnabled.value)
+                }
+            )
+
+            SettingsRowSwitch(
+                title = "Enable Vibration",
+                isChecked = isVibrationEnabled.value,
+                onCheckedChange = {
+                    isVibrationEnabled.value = it
+                    settings.setVibrationEnabled(it)
                 }
             )
 

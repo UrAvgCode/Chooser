@@ -16,6 +16,7 @@
 package com.uravgcode.chooser.utilities
 
 import android.content.SharedPreferences
+import kotlin.apply
 
 class SettingsManager(private val preferences: SharedPreferences) {
 
@@ -44,12 +45,20 @@ class SettingsManager(private val preferences: SharedPreferences) {
         return preferences.getBoolean("sound", true)
     }
 
+    fun setVibrationEnabled(enabled: Boolean) {
+        savePreference("vibration", enabled)
+    }
+
+    fun isVibrationEnabled(): Boolean {
+        return preferences.getBoolean("vibration", true)
+    }
+
     fun setEdgeToEdgeEnabled(enabled: Boolean) {
-        savePreference("edgeToEdge", enabled)
+        savePreference("edge_to_edge", enabled)
     }
 
     fun isEdgeToEdgeEnabled(): Boolean {
-        return preferences.getBoolean("edgeToEdge", false)
+        return preferences.getBoolean("edge_to_edge", false)
     }
 
     fun getCircleSize(): Float {
