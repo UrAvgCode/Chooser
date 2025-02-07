@@ -34,11 +34,13 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.uravgcode.chooser.composables.settings.SettingsRowSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
 import com.uravgcode.chooser.utilities.SettingsManager
 import com.uravgcode.chooser.utilities.SoundManager
@@ -52,6 +54,7 @@ fun SettingsScreen(
 ) {
     val isSoundEnabled = remember { mutableStateOf(settings.isSoundEnabled()) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(settings.isEdgeToEdgeEnabled()) }
+    val circleSize = remember { mutableFloatStateOf(settings.getCircleSize()) }
 
     Scaffold(
         topBar = {
@@ -102,6 +105,17 @@ fun SettingsScreen(
                     settings.setEdgeToEdgeEnabled(it)
                 }
             )
+
+            SettingsRowSlider(
+                title = "Circle Size",
+                value = circleSize.floatValue,
+                onValueChange = {
+                    circleSize.floatValue = it
+                    settings.setCircleSize(it)
+                },
+                valueRange = 10f..100f
+            )
+
         }
     }
 }

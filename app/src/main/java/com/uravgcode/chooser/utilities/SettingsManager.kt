@@ -52,6 +52,14 @@ class SettingsManager(private val preferences: SharedPreferences) {
         return preferences.getBoolean("edgeToEdge", false)
     }
 
+    fun getCircleSize(): Float {
+        return preferences.getFloat("circle_size", 50f) // Default size is 50f
+    }
+
+    fun setCircleSize(size: Float) {
+        preferences.edit().putFloat("circle_size", size).apply()
+    }
+
     private fun savePreference(key: String, value: Any) {
         with(preferences.edit()) {
             when (value) {
