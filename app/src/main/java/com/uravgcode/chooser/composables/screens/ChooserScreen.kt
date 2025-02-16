@@ -33,8 +33,8 @@ import com.uravgcode.chooser.views.Chooser
 
 @Composable
 fun ChooserScreen(onNavigate: () -> Unit) {
-    val chooserMode = remember { mutableStateOf(SettingsManager.getMode()) }
-    val chooserCount = remember { mutableIntStateOf(SettingsManager.getCount()) }
+    val chooserMode = remember { mutableStateOf(SettingsManager.mode) }
+    val chooserCount = remember { mutableIntStateOf(SettingsManager.count) }
     val isVisible = remember { mutableStateOf(true) }
 
     AndroidView(
@@ -58,7 +58,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
             if (isVisible.value) {
                 chooserMode.value = chooserMode.value.next()
                 chooserCount.intValue = chooserMode.value.initialCount()
-                SettingsManager.setMode(chooserMode.value)
+                SettingsManager.mode = chooserMode.value
             }
         },
         onLongClick = {
@@ -78,7 +78,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
         onClick = {
             if (isVisible.value) {
                 chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
-                SettingsManager.setCount(chooserCount.intValue)
+                SettingsManager.count = chooserCount.intValue
             }
         },
         content = {

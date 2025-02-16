@@ -26,64 +26,52 @@ object SettingsManager {
     fun init(context: Context) {
         preferences = context.getSharedPreferences("settings", MODE_PRIVATE)
 
-        SoundManager.soundEnabled = isSoundEnabled()
-        Chooser.circleSize = getCircleSize()
+        SoundManager.soundEnabled = soundEnabled
+        Chooser.circleSize = circleSize
     }
 
-    fun setMode(mode: Mode) {
-        savePreference("mode", mode.ordinal)
-    }
+    var mode: Mode
+        get() = Mode.entries[preferences.getInt("mode", 0)]
+        set(value) {
+            savePreference("mode", value.ordinal)
+        }
 
-    fun getMode(): Mode {
-        val mode = preferences.getInt("mode", 0)
-        return Mode.entries[mode]
-    }
+    var count: Int
+        get() = preferences.getInt("count", 1)
+        set(value) {
+            savePreference("count", value)
+        }
 
-    fun setCount(count: Int) {
-        savePreference("count", count)
-    }
+    var soundEnabled: Boolean
+        get() = preferences.getBoolean("sound", true)
+        set(value) {
+            savePreference("sound", value)
+            SoundManager.soundEnabled = value
+        }
 
-    fun getCount(): Int {
-        return preferences.getInt("count", 1)
-    }
+    var vibrationEnabled: Boolean
+        get() = preferences.getBoolean("vibration", true)
+        set(value) {
+            savePreference("vibration", value)
+        }
 
-    fun setSoundEnabled(enabled: Boolean) {
-        savePreference("sound", enabled)
-        SoundManager.soundEnabled = enabled
-    }
+    var edgeToEdgeEnabled: Boolean
+        get() = preferences.getBoolean("edge_to_edge", false)
+        set(value) {
+            savePreference("edge_to_edge", value)
+        }
 
-    fun isSoundEnabled(): Boolean {
-        return preferences.getBoolean("sound", true)
-    }
-
-    fun setVibrationEnabled(enabled: Boolean) {
-        savePreference("vibration", enabled)
-    }
-
-    fun isVibrationEnabled(): Boolean {
-        return preferences.getBoolean("vibration", true)
-    }
-
-    fun setEdgeToEdgeEnabled(enabled: Boolean) {
-        savePreference("edge_to_edge", enabled)
-    }
-
-    fun isEdgeToEdgeEnabled(): Boolean {
-        return preferences.getBoolean("edge_to_edge", false)
-    }
-
-    fun getCircleSize(): Float {
-        return preferences.getFloat("circle_size", 50f)
-    }
-
-    fun setCircleSize(size: Float) {
-        preferences.edit().putFloat("circle_size", size).apply()
-    }
+    var circleSize: Float
+        get() = preferences.getFloat("circle_size", 50f)
+        set(value) {
+            savePreference("circle_size", value)
+        }
 
     private fun savePreference(key: String, value: Any) {
         with(preferences.edit()) {
             when (value) {
                 is Int -> putInt(key, value)
+                is Float -> putFloat(key, value)
                 is String -> putString(key, value)
                 is Boolean -> putBoolean(key, value)
                 else -> throw IllegalArgumentException("Invalid type for SharedPreferences")

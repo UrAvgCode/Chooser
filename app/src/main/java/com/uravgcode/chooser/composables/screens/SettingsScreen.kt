@@ -48,10 +48,10 @@ import com.uravgcode.chooser.views.Chooser
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingsScreen(onNavigateBack: () -> Unit) {
-    val isSoundEnabled = remember { mutableStateOf(SettingsManager.isSoundEnabled()) }
-    val isVibrationEnabled = remember { mutableStateOf(SettingsManager.isVibrationEnabled()) }
-    val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.isEdgeToEdgeEnabled()) }
-    val circleSize = remember { mutableFloatStateOf(SettingsManager.getCircleSize()) }
+    val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
+    val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
+    val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
+    val circleSize = remember { mutableFloatStateOf(SettingsManager.circleSize) }
 
     Scaffold(
         topBar = {
@@ -89,7 +89,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 isChecked = isSoundEnabled.value,
                 onCheckedChange = {
                     isSoundEnabled.value = it
-                    SettingsManager.setSoundEnabled(it)
+                    SettingsManager.soundEnabled = it
                 }
             )
 
@@ -98,7 +98,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 isChecked = isVibrationEnabled.value,
                 onCheckedChange = {
                     isVibrationEnabled.value = it
-                    SettingsManager.setVibrationEnabled(it)
+                    SettingsManager.vibrationEnabled = it
                 }
             )
 
@@ -107,7 +107,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 isChecked = isEdgeToEdgeEnabled.value,
                 onCheckedChange = {
                     isEdgeToEdgeEnabled.value = it
-                    SettingsManager.setEdgeToEdgeEnabled(it)
+                    SettingsManager.edgeToEdgeEnabled = it
                 }
             )
 
@@ -116,7 +116,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 value = circleSize.floatValue,
                 onValueChange = {
                     circleSize.floatValue = it
-                    SettingsManager.setCircleSize(it)
+                    SettingsManager.circleSize = it
                     Chooser.circleSize = it
                 },
                 valueRange = 10f..100f

@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         SettingsManager.init(this)
 
-        if (SettingsManager.isEdgeToEdgeEnabled()) {
+        if (SettingsManager.edgeToEdgeEnabled) {
             enableEdgeToEdge()
         }
 
