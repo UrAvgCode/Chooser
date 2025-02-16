@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlin.math.roundToInt
 
 @Composable
 fun SettingsRowSlider(
@@ -38,7 +39,7 @@ fun SettingsRowSlider(
             .padding(vertical = 8.dp)
     ) {
         Text(
-            text = "$title: ${"%.1f".format(value)}",
+            text = "$title: ${(value * 100).roundToInt()}%",
             modifier = Modifier
                 .padding(vertical = 8.dp)
         )
