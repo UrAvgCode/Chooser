@@ -33,51 +33,37 @@ object SettingsManager {
     var mode: Mode
         get() = Mode.entries[preferences.getInt("mode", 0)]
         set(value) {
-            savePreference("mode", value.ordinal)
+            preferences.edit().putInt("mode", value.ordinal).apply()
         }
 
     var count: Int
         get() = preferences.getInt("count", 1)
         set(value) {
-            savePreference("count", value)
+            preferences.edit().putInt("count", value).apply()
         }
 
     var soundEnabled: Boolean
         get() = preferences.getBoolean("sound", true)
         set(value) {
-            savePreference("sound", value)
+            preferences.edit().putBoolean("sound", value).apply()
             SoundManager.soundEnabled = value
         }
 
     var vibrationEnabled: Boolean
         get() = preferences.getBoolean("vibration", true)
         set(value) {
-            savePreference("vibration", value)
+            preferences.edit().putBoolean("vibration", value).apply()
         }
 
     var edgeToEdgeEnabled: Boolean
         get() = preferences.getBoolean("edge_to_edge", false)
         set(value) {
-            savePreference("edge_to_edge", value)
+            preferences.edit().putBoolean("edge_to_edge", value).apply()
         }
 
     var circleSize: Float
         get() = preferences.getFloat("circle_size", 50f)
         set(value) {
-            savePreference("circle_size", value)
+            preferences.edit().putFloat("circle_size", value).apply()
         }
-
-    private fun savePreference(key: String, value: Any) {
-        with(preferences.edit()) {
-            when (value) {
-                is Int -> putInt(key, value)
-                is Float -> putFloat(key, value)
-                is String -> putString(key, value)
-                is Boolean -> putBoolean(key, value)
-                else -> throw IllegalArgumentException("Invalid type for SharedPreferences")
-            }
-            apply()
-        }
-    }
-
 }
