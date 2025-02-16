@@ -160,7 +160,7 @@ class Chooser(
                     winnerChosen = false
                     setBackgroundColor(Color.BLACK)
                 }, 150)
-            }, 1000)
+            }, if (mode == ORDER) OrderCircle.circleLifetime else Circle.circleLifetime)
         } else {
             setButtonVisibility(true)
         }

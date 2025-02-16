@@ -129,8 +129,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 title = "Circle Lifetime",
                 value = circleLifetime.longValue,
                 onValueChange = { sliderValue ->
-                    circleLifetime.longValue = sliderValue.toLong()
-                    SettingsManager.circleLifetime = sliderValue.toLong()
+                    circleLifetime.longValue = sliderValue
+                    SettingsManager.circleLifetime = sliderValue
                 },
                 valueRange = 0L..3000L,
                 steps = 5,
@@ -140,8 +140,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 title = "Order Circle Lifetime",
                 value = orderCircleLifetime.longValue,
                 onValueChange = { sliderValue ->
-                    orderCircleLifetime.longValue = sliderValue.toLong()
-                    SettingsManager.orderCircleLifetime = sliderValue.toLong()
+                    orderCircleLifetime.longValue = sliderValue
+                    SettingsManager.orderCircleLifetime = sliderValue
                 },
                 valueRange = 0L..3000L,
                 steps = 5,
