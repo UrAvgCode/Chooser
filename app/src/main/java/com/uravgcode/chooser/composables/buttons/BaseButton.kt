@@ -17,10 +17,14 @@ package com.uravgcode.chooser.composables.buttons
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Surface
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -29,6 +33,7 @@ import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.role
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.Dp
 
 
 @Composable
@@ -36,10 +41,12 @@ import androidx.compose.ui.semantics.semantics
 fun BaseButton(
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
+    radius: Dp
 ) {
     val haptic = LocalHapticFeedback.current
-    Surface(shape = CircleShape,
+    Surface(
+        shape = CircleShape,
         color = Color(0xFF2B2B2B),
         contentColor = Color.White,
         modifier = Modifier
@@ -53,8 +60,11 @@ fun BaseButton(
                         haptic.performHapticFeedback(HapticFeedbackType.LongPress)
                         it()
                     }
-                }, onLongClickLabel = "Settings"
+                },
+                interactionSource = remember { MutableInteractionSource() },
+                indication = ripple(radius = radius / 2)
             )
+            .size(radius)
     ) {
         Box(
             contentAlignment = Alignment.Center,

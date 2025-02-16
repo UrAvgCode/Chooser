@@ -22,7 +22,6 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,12 +49,12 @@ fun AnimatedButton(
             modifier = Modifier
                 .align(alignment)
                 .padding(24.dp)
-                .size(56.dp)
         ) {
             BaseButton(
                 onClick = onClick,
                 onLongClick = onLongClick,
                 content = content,
+                radius = 56.dp
             )
         }
     }
