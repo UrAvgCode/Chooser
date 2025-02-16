@@ -77,47 +77,47 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 }
             )
         }
-    ) {
+    ) { padding ->
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
-                .padding(it)
+                .padding(padding)
                 .padding(16.dp)
         ) {
             SettingsRowSwitch(
                 title = "Enable Sound",
                 isChecked = isSoundEnabled.value,
-                onCheckedChange = {
-                    isSoundEnabled.value = it
-                    SettingsManager.soundEnabled = it
+                onCheckedChange = { isChecked ->
+                    isSoundEnabled.value = isChecked
+                    SettingsManager.soundEnabled = isChecked
                 }
             )
 
             SettingsRowSwitch(
                 title = "Enable Vibration",
                 isChecked = isVibrationEnabled.value,
-                onCheckedChange = {
-                    isVibrationEnabled.value = it
-                    SettingsManager.vibrationEnabled = it
+                onCheckedChange = { isChecked ->
+                    isVibrationEnabled.value = isChecked
+                    SettingsManager.vibrationEnabled = isChecked
                 }
             )
 
             SettingsRowSwitch(
                 title = "Enable Edge-to-Edge",
                 isChecked = isEdgeToEdgeEnabled.value,
-                onCheckedChange = {
-                    isEdgeToEdgeEnabled.value = it
-                    SettingsManager.edgeToEdgeEnabled = it
+                onCheckedChange = { isChecked ->
+                    isEdgeToEdgeEnabled.value = isChecked
+                    SettingsManager.edgeToEdgeEnabled = isChecked
                 }
             )
 
             SettingsRowSlider(
                 title = "Circle Size",
                 value = circleSize.floatValue,
-                onValueChange = {
-                    circleSize.floatValue = it
-                    SettingsManager.circleSize = it
-                    Chooser.circleSize = it
+                onValueChange = { sliderValue ->
+                    circleSize.floatValue = sliderValue
+                    SettingsManager.circleSize = sliderValue
+                    Chooser.circleSize = sliderValue
                 },
                 valueRange = 10f..100f
             )
