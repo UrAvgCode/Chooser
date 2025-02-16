@@ -68,6 +68,7 @@ class Chooser(
 
     private var winnerChosen = false
 
+    private val circleSize = 50.0f
     private var blackRadius = 0f
     private var blackSpeed = 1f
 
@@ -144,9 +145,9 @@ class Chooser(
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
-        SINGLE -> Circle(x, y, circleSize * scale, colorManager.nextColor())
-        GROUP -> GroupCircle(x, y, circleSize * scale)
-        ORDER -> OrderCircle(x, y, circleSize * scale, colorManager.nextColor())
+        SINGLE -> Circle(x, y, circleSize * circleSizeFactor * scale, colorManager.nextColor())
+        GROUP -> GroupCircle(x, y, circleSize * circleSizeFactor * scale)
+        ORDER -> OrderCircle(x, y, circleSize * circleSizeFactor * scale, colorManager.nextColor())
     }
 
     private fun resetGame() {
@@ -241,6 +242,7 @@ class Chooser(
     }
 
     private fun vibrate(millis: Long) {
+        if (!vibrationEnabled) return
         val effect = VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -255,6 +257,7 @@ class Chooser(
     }
 
     companion object {
-        var circleSize = 50.0f
+        var vibrationEnabled = true
+        var circleSizeFactor = 1.0f
     }
 }

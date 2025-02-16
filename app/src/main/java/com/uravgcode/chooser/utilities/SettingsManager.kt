@@ -27,7 +27,8 @@ object SettingsManager {
         preferences = context.getSharedPreferences("settings", MODE_PRIVATE)
 
         SoundManager.soundEnabled = soundEnabled
-        Chooser.circleSize = circleSize
+        Chooser.vibrationEnabled = vibrationEnabled
+        Chooser.circleSizeFactor = circleSizeFactor
     }
 
     var mode: Mode
@@ -53,6 +54,7 @@ object SettingsManager {
         get() = preferences.getBoolean("vibration", true)
         set(value) {
             preferences.edit().putBoolean("vibration", value).apply()
+            Chooser.vibrationEnabled = value
         }
 
     var edgeToEdgeEnabled: Boolean
@@ -61,9 +63,10 @@ object SettingsManager {
             preferences.edit().putBoolean("edge_to_edge", value).apply()
         }
 
-    var circleSize: Float
-        get() = preferences.getFloat("circle_size", 50f)
+    var circleSizeFactor: Float
+        get() = preferences.getFloat("circle_size_factor", 1.0f)
         set(value) {
-            preferences.edit().putFloat("circle_size", value).apply()
+            preferences.edit().putFloat("circle_size_factor", value).apply()
+            Chooser.circleSizeFactor = value
         }
 }

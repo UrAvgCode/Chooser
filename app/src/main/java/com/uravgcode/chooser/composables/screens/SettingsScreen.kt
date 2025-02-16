@@ -43,7 +43,6 @@ import androidx.compose.ui.unit.sp
 import com.uravgcode.chooser.composables.settings.SettingsRowSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
 import com.uravgcode.chooser.utilities.SettingsManager
-import com.uravgcode.chooser.views.Chooser
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -51,7 +50,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
     val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
-    val circleSize = remember { mutableFloatStateOf(SettingsManager.circleSize) }
+    val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
 
     Scaffold(
         topBar = {
@@ -113,13 +112,13 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
 
             SettingsRowSlider(
                 title = "Circle Size",
-                value = circleSize.floatValue,
+                value = circleSizeFactor.floatValue,
                 onValueChange = { sliderValue ->
-                    circleSize.floatValue = sliderValue
-                    SettingsManager.circleSize = sliderValue
-                    Chooser.circleSize = sliderValue
+                    circleSizeFactor.floatValue = sliderValue
+                    SettingsManager.circleSizeFactor = sliderValue
                 },
-                valueRange = 10f..100f
+                valueRange = 0.5f..1.5f,
+                steps = 9
             )
 
         }

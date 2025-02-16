@@ -29,7 +29,8 @@ fun SettingsRowSlider(
     title: String,
     value: Float,
     onValueChange: (Float) -> Unit,
-    valueRange: ClosedFloatingPointRange<Float>
+    valueRange: ClosedFloatingPointRange<Float>,
+    steps: Int
 ) {
     Column(
         modifier = Modifier
@@ -37,7 +38,7 @@ fun SettingsRowSlider(
             .padding(vertical = 8.dp)
     ) {
         Text(
-            text = "$title: ${value.toInt()}",
+            text = "$title: ${"%.1f".format(value)}",
             modifier = Modifier
                 .padding(vertical = 8.dp)
         )
@@ -45,6 +46,7 @@ fun SettingsRowSlider(
             value = value,
             onValueChange = onValueChange,
             valueRange = valueRange,
+            steps = steps,
             modifier = Modifier.padding(horizontal = 16.dp)
         )
     }
