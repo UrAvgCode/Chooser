@@ -24,14 +24,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.uravgcode.chooser.composables.Screen
-import com.uravgcode.chooser.utilities.SettingsManager
-import com.uravgcode.chooser.utilities.SoundManager
 
 @Composable
-fun MainScreen(
-    settingsManager: SettingsManager,
-    soundManager: SoundManager
-) {
+fun MainScreen() {
     MaterialTheme(
         colorScheme = darkColorScheme()
     ) {
@@ -43,14 +38,10 @@ fun MainScreen(
 
         when (currentScreen) {
             is Screen.Chooser -> ChooserScreen(
-                settings = settingsManager,
-                soundManager = soundManager,
                 onNavigate = { currentScreen = Screen.Settings }
             )
 
             is Screen.Settings -> SettingsScreen(
-                settings = settingsManager,
-                soundManager = soundManager,
                 onNavigateBack = { currentScreen = Screen.Chooser }
             )
         }

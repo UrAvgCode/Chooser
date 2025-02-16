@@ -52,7 +52,6 @@ import kotlin.random.Random
 @SuppressLint("ViewConstructor")
 class Chooser(
     context: Context,
-    private val soundManager: SoundManager,
     val setButtonVisibility: (Boolean) -> Unit
 ) : View(context) {
 
@@ -63,6 +62,7 @@ class Chooser(
     private val handler = Handler(Looper.getMainLooper())
 
     private val colorManager = ColorManager()
+    private val soundManager = SoundManager(context)
     private val circles = CircleManager()
     private val numbers = mutableListOf<Number>()
 
@@ -144,9 +144,9 @@ class Chooser(
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
-        SINGLE -> Circle(x, y, 50f * scale, colorManager.nextColor())
-        GROUP -> GroupCircle(x, y, 50f * scale)
-        ORDER -> OrderCircle(x, y, 50f * scale, colorManager.nextColor())
+        SINGLE -> Circle(x, y, circleSize * scale, colorManager.nextColor())
+        GROUP -> GroupCircle(x, y, circleSize * scale)
+        ORDER -> OrderCircle(x, y, circleSize * scale, colorManager.nextColor())
     }
 
     private fun resetGame() {
@@ -252,5 +252,9 @@ class Chooser(
             val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
             vibrator.vibrate(effect)
         }
+    }
+
+    companion object {
+        var circleSize = 50.0f
     }
 }

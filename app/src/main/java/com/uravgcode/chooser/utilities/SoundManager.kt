@@ -20,10 +20,7 @@ import android.media.AudioAttributes
 import android.media.SoundPool
 import com.uravgcode.chooser.R
 
-class SoundManager(
-    context: Context,
-    private var soundEnabled: Boolean
-) {
+class SoundManager(context: Context) {
     private val soundPool: SoundPool
     private val fingerUpSound: Int
     private val fingerDownSound: Int
@@ -61,7 +58,7 @@ class SoundManager(
         playSound(fingerChosenSound)
     }
 
-    fun setSoundEnabled(enabled: Boolean) {
-        soundEnabled = enabled
+    companion object {
+        var soundEnabled = true
     }
 }

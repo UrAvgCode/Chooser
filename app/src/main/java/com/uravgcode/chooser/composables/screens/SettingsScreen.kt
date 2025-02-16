@@ -43,19 +43,15 @@ import androidx.compose.ui.unit.sp
 import com.uravgcode.chooser.composables.settings.SettingsRowSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
 import com.uravgcode.chooser.utilities.SettingsManager
-import com.uravgcode.chooser.utilities.SoundManager
+import com.uravgcode.chooser.views.Chooser
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SettingsScreen(
-    settings: SettingsManager,
-    soundManager: SoundManager,
-    onNavigateBack: () -> Unit
-) {
-    val isSoundEnabled = remember { mutableStateOf(settings.isSoundEnabled()) }
-    val isVibrationEnabled = remember { mutableStateOf(settings.isVibrationEnabled()) }
-    val isEdgeToEdgeEnabled = remember { mutableStateOf(settings.isEdgeToEdgeEnabled()) }
-    val circleSize = remember { mutableFloatStateOf(settings.getCircleSize()) }
+fun SettingsScreen(onNavigateBack: () -> Unit) {
+    val isSoundEnabled = remember { mutableStateOf(SettingsManager.isSoundEnabled()) }
+    val isVibrationEnabled = remember { mutableStateOf(SettingsManager.isVibrationEnabled()) }
+    val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.isEdgeToEdgeEnabled()) }
+    val circleSize = remember { mutableFloatStateOf(SettingsManager.getCircleSize()) }
 
     Scaffold(
         topBar = {
@@ -93,8 +89,7 @@ fun SettingsScreen(
                 isChecked = isSoundEnabled.value,
                 onCheckedChange = {
                     isSoundEnabled.value = it
-                    settings.setSoundEnabled(it)
-                    soundManager.setSoundEnabled(isSoundEnabled.value)
+                    SettingsManager.setSoundEnabled(it)
                 }
             )
 
@@ -103,7 +98,7 @@ fun SettingsScreen(
                 isChecked = isVibrationEnabled.value,
                 onCheckedChange = {
                     isVibrationEnabled.value = it
-                    settings.setVibrationEnabled(it)
+                    SettingsManager.setVibrationEnabled(it)
                 }
             )
 
@@ -112,7 +107,7 @@ fun SettingsScreen(
                 isChecked = isEdgeToEdgeEnabled.value,
                 onCheckedChange = {
                     isEdgeToEdgeEnabled.value = it
-                    settings.setEdgeToEdgeEnabled(it)
+                    SettingsManager.setEdgeToEdgeEnabled(it)
                 }
             )
 
@@ -121,7 +116,8 @@ fun SettingsScreen(
                 value = circleSize.floatValue,
                 onValueChange = {
                     circleSize.floatValue = it
-                    settings.setCircleSize(it)
+                    SettingsManager.setCircleSize(it)
+                    Chooser.circleSize = it
                 },
                 valueRange = 10f..100f
             )

@@ -15,10 +15,20 @@
 
 package com.uravgcode.chooser.utilities
 
+import android.app.Activity.MODE_PRIVATE
+import android.content.Context
 import android.content.SharedPreferences
-import kotlin.apply
+import com.uravgcode.chooser.views.Chooser
 
-class SettingsManager(private val preferences: SharedPreferences) {
+object SettingsManager {
+    private lateinit var preferences: SharedPreferences
+
+    fun init(context: Context) {
+        preferences = context.getSharedPreferences("settings", MODE_PRIVATE)
+
+        SoundManager.soundEnabled = isSoundEnabled()
+        Chooser.circleSize = getCircleSize()
+    }
 
     fun setMode(mode: Mode) {
         savePreference("mode", mode.ordinal)
@@ -39,6 +49,7 @@ class SettingsManager(private val preferences: SharedPreferences) {
 
     fun setSoundEnabled(enabled: Boolean) {
         savePreference("sound", enabled)
+        SoundManager.soundEnabled = enabled
     }
 
     fun isSoundEnabled(): Boolean {
@@ -62,7 +73,7 @@ class SettingsManager(private val preferences: SharedPreferences) {
     }
 
     fun getCircleSize(): Float {
-        return preferences.getFloat("circle_size", 50f) // Default size is 50f
+        return preferences.getFloat("circle_size", 50f)
     }
 
     fun setCircleSize(size: Float) {

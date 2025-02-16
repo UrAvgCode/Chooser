@@ -29,24 +29,18 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.uravgcode.chooser.composables.buttons.AnimatedButton
 import com.uravgcode.chooser.utilities.Mode
 import com.uravgcode.chooser.utilities.SettingsManager
-import com.uravgcode.chooser.utilities.SoundManager
 import com.uravgcode.chooser.views.Chooser
 
 @Composable
-fun ChooserScreen(
-    settings: SettingsManager,
-    soundManager: SoundManager,
-    onNavigate: () -> Unit
-) {
-    val chooserMode = remember { mutableStateOf(settings.getMode()) }
-    val chooserCount = remember { mutableIntStateOf(settings.getCount()) }
+fun ChooserScreen(onNavigate: () -> Unit) {
+    val chooserMode = remember { mutableStateOf(SettingsManager.getMode()) }
+    val chooserCount = remember { mutableIntStateOf(SettingsManager.getCount()) }
     val isVisible = remember { mutableStateOf(true) }
 
     AndroidView(
         factory = { context ->
             Chooser(
                 context,
-                soundManager,
                 setButtonVisibility = {
                     isVisible.value = it
                 })
@@ -64,7 +58,7 @@ fun ChooserScreen(
             if (isVisible.value) {
                 chooserMode.value = chooserMode.value.next()
                 chooserCount.intValue = chooserMode.value.initialCount()
-                settings.setMode(chooserMode.value)
+                SettingsManager.setMode(chooserMode.value)
             }
         },
         onLongClick = {
@@ -84,7 +78,7 @@ fun ChooserScreen(
         onClick = {
             if (isVisible.value) {
                 chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
-                settings.setCount(chooserCount.intValue)
+                SettingsManager.setCount(chooserCount.intValue)
             }
         },
         content = {
