@@ -1,7 +1,7 @@
 <resources>
     <style name="Chooser">
         <item name="android:windowActionBar">false</item>
-        <item name = "android:windowNoTitle">true</item>
+        <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

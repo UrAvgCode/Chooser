@@ -20,6 +20,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.uravgcode.chooser.composables.screens.MainScreen
+import com.uravgcode.chooser.composables.theme.ChooserTheme
 import com.uravgcode.chooser.utilities.SettingsManager
 
 class MainActivity : ComponentActivity() {
@@ -32,7 +33,9 @@ class MainActivity : ComponentActivity() {
         }
 
         setContent {
-            MainScreen()
+            ChooserTheme {
+                MainScreen()
+            }
         }
     }
 }

@@ -16,8 +16,6 @@
 package com.uravgcode.chooser.composables.screens
 
 import androidx.activity.compose.BackHandler
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,23 +25,19 @@ import com.uravgcode.chooser.composables.Screen
 
 @Composable
 fun MainScreen() {
-    MaterialTheme(
-        colorScheme = darkColorScheme()
-    ) {
-        var currentScreen by remember { mutableStateOf<Screen>(Screen.Chooser) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Chooser) }
 
-        BackHandler(enabled = currentScreen is Screen.Settings) {
-            currentScreen = Screen.Chooser
-        }
+    BackHandler(enabled = currentScreen is Screen.Settings) {
+        currentScreen = Screen.Chooser
+    }
 
-        when (currentScreen) {
-            is Screen.Chooser -> ChooserScreen(
-                onNavigate = { currentScreen = Screen.Settings }
-            )
+    when (currentScreen) {
+        is Screen.Chooser -> ChooserScreen(
+            onNavigate = { currentScreen = Screen.Settings }
+        )
 
-            is Screen.Settings -> SettingsScreen(
-                onNavigateBack = { currentScreen = Screen.Chooser }
-            )
-        }
+        is Screen.Settings -> SettingsScreen(
+            onNavigateBack = { currentScreen = Screen.Chooser }
+        )
     }
 }
