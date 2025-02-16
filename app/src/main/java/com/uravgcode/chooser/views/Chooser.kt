@@ -233,11 +233,7 @@ class Chooser(
         vibrate(40)
 
         handler.postDelayed({
-            if (selectionMap.size > 1) {
-                chooseOrder(number + 1)
-            } else {
-                OrderCircle.counter = 0
-            }
+            chooseOrder(number + 1)
         }, (min(3000 / circles.size, 800).toLong()))
     }
 

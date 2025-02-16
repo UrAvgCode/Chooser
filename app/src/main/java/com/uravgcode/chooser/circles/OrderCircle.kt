@@ -74,13 +74,16 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
     override fun removeFinger() {
         if (winnerCircle) {
             val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({ hasFinger = false }, 1500)
+            handler.postDelayed({
+                hasFinger = false
+                counter--
+            }, 1500)
         } else {
             hasFinger = false
         }
     }
 
     companion object {
-        var counter = 0
+        private var counter = 0
     }
 }
