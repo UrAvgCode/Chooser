@@ -77,7 +77,7 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
             handler.postDelayed({
                 hasFinger = false
                 counter--
-            }, 1500)
+            }, circleLifetime)
         } else {
             hasFinger = false
         }
@@ -85,5 +85,6 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
 
     companion object {
         private var counter = 0
+        var circleLifetime: Long = 1500
     }
 }

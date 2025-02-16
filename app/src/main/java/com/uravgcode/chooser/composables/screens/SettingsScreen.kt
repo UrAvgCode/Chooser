@@ -35,13 +35,15 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.uravgcode.chooser.composables.settings.SettingsRowSlider
+import com.uravgcode.chooser.composables.settings.SettingsRowPercentSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
+import com.uravgcode.chooser.composables.settings.SettingsRowTimeSlider
 import com.uravgcode.chooser.utilities.SettingsManager
 
 @Composable
@@ -51,6 +53,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
     val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
+    val circleLifetime = remember { mutableLongStateOf(SettingsManager.circleLifetime) }
+    val orderCircleLifetime = remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
 
     Scaffold(
         topBar = {
@@ -110,7 +114,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 }
             )
 
-            SettingsRowSlider(
+            SettingsRowPercentSlider(
                 title = "Circle Size",
                 value = circleSizeFactor.floatValue,
                 onValueChange = { sliderValue ->
@@ -119,6 +123,28 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 },
                 valueRange = 0.5f..1.5f,
                 steps = 9
+            )
+
+            SettingsRowTimeSlider(
+                title = "Circle Lifetime",
+                value = circleLifetime.longValue,
+                onValueChange = { sliderValue ->
+                    circleLifetime.longValue = sliderValue.toLong()
+                    SettingsManager.circleLifetime = sliderValue.toLong()
+                },
+                valueRange = 0L..3000L,
+                steps = 5,
+            )
+
+            SettingsRowTimeSlider(
+                title = "Order Circle Lifetime",
+                value = orderCircleLifetime.longValue,
+                onValueChange = { sliderValue ->
+                    orderCircleLifetime.longValue = sliderValue.toLong()
+                    SettingsManager.orderCircleLifetime = sliderValue.toLong()
+                },
+                valueRange = 0L..3000L,
+                steps = 5,
             )
 
         }

@@ -96,7 +96,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
     open fun removeFinger() {
         if (winnerCircle) {
             val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({ hasFinger = false }, 1000)
+            handler.postDelayed({ hasFinger = false }, circleLifetime)
         } else {
             hasFinger = false
         }
@@ -111,4 +111,8 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
     fun getRadius(): Float = coreRadius
 
     fun isMarkedForDeletion(): Boolean = coreRadius <= 0
+
+    companion object {
+        var circleLifetime: Long = 1000
+    }
 }

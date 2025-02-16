@@ -18,6 +18,8 @@ package com.uravgcode.chooser.utilities
 import android.app.Activity.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
+import com.uravgcode.chooser.circles.Circle
+import com.uravgcode.chooser.circles.OrderCircle
 import com.uravgcode.chooser.views.Chooser
 
 object SettingsManager {
@@ -29,6 +31,8 @@ object SettingsManager {
         SoundManager.soundEnabled = soundEnabled
         Chooser.vibrationEnabled = vibrationEnabled
         Chooser.circleSizeFactor = circleSizeFactor
+        Circle.circleLifetime = circleLifetime
+        OrderCircle.circleLifetime = orderCircleLifetime
     }
 
     var mode: Mode
@@ -68,5 +72,19 @@ object SettingsManager {
         set(value) {
             preferences.edit().putFloat("circle_size_factor", value).apply()
             Chooser.circleSizeFactor = value
+        }
+
+    var circleLifetime: Long
+        get() = preferences.getLong("circle_lifetime", 1000)
+        set(value) {
+            preferences.edit().putLong("circle_lifetime", value).apply()
+            Circle.circleLifetime = value
+        }
+
+    var orderCircleLifetime: Long
+        get() = preferences.getLong("order_circle_lifetime", 1500)
+        set(value) {
+            preferences.edit().putLong("order_circle_lifetime", value).apply()
+            OrderCircle.circleLifetime = value
         }
 }
