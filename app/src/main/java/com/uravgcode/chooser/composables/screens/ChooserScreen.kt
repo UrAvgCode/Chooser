@@ -59,6 +59,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
                 chooserMode.value = chooserMode.value.next()
                 chooserCount.intValue = chooserMode.value.initialCount()
                 SettingsManager.mode = chooserMode.value
+                SettingsManager.count = chooserCount.intValue
             }
         },
         onLongClick = {
