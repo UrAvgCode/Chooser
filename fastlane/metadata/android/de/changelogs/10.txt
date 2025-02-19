@@ -1,0 +1,7 @@
+Verbesserungen
+- Unterstützung für Edge-to-Edge Display
+
+Entwicklung
+- SDK 35
+- Code Verbesserungen
+- Abhängigkeiten aktualisiert
