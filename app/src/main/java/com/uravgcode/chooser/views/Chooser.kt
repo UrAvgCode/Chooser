@@ -69,6 +69,7 @@ class Chooser(
     private var winnerChosen = false
 
     private val circleSize = 50.0f
+    private val blackRadiusSize = 105.0f
     private var blackRadius = 0f
     private var blackSpeed = 1f
 
@@ -87,7 +88,10 @@ class Chooser(
 
         if (winnerChosen && mode == SINGLE) {
             blackSpeed += deltaTime * 0.04f * sign(blackSpeed)
-            blackRadius = max(blackRadius + blackSpeed * deltaTime, 105 * scale)
+            blackRadius = max(
+                blackRadius + blackSpeed * deltaTime,
+                blackRadiusSize * circleSizeFactor * scale
+            )
             circles.drawBlackCircles(canvas, blackRadius, scale)
         }
 
