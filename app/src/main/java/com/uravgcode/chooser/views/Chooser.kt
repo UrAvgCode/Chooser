@@ -232,7 +232,15 @@ class Chooser(
         val circle = circles[randomIndex]!!
 
         circle.setWinner()
-        numbers.add(Number(circle.x, circle.y - 50 * scale, circle.color, number, 50 * scale))
+        numbers.add(
+            Number(
+                circle.x,
+                circle.y - circleSize * circleSizeFactor * scale,
+                circle.color,
+                number,
+                circleSize * circleSizeFactor * scale
+            )
+        )
         soundManager.playFingerUp()
         vibrate(40)
 
