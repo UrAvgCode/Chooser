@@ -32,28 +32,17 @@ class CircleManager : MutableMap<Int, Circle> {
     override val values: MutableCollection<Circle> get() = activeCircles.values
     override fun get(key: Int): Circle? = activeCircles[key]
     override fun isEmpty(): Boolean = activeCircles.isEmpty()
-    override fun containsValue(value: Circle): Boolean = activeCircles.containsValue(value)
     override fun containsKey(key: Int): Boolean = activeCircles.containsKey(key)
-
-    override fun putAll(from: Map<out Int, Circle>) {
-        activeCircles.putAll(from)
-    }
-
-    override fun put(key: Int, value: Circle): Circle? {
-        val previousValue = activeCircles[key]
-        activeCircles[key] = value
-        return previousValue
-    }
+    override fun containsValue(value: Circle): Boolean = activeCircles.containsValue(value)
+    override fun put(key: Int, value: Circle): Circle? = activeCircles.put(key, value)
+    override fun putAll(from: Map<out Int, Circle>) = activeCircles.putAll(from)
+    override fun clear() = activeCircles.clear()
 
     override fun remove(key: Int): Circle? {
-        return activeCircles.remove(key)?.apply {
-            removeFinger()
-            deadCircles += this
+        return activeCircles.remove(key)?.also {
+            it.removeFinger()
+            deadCircles += it
         }
-    }
-
-    override fun clear() {
-        activeCircles.clear()
     }
 
     fun update(deltaTime: Int) {
