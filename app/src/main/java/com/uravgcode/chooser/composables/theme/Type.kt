@@ -13,5 +13,11 @@ val Typography = Typography(
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
+    ),
+    titleLarge = TextStyle(
+        fontSize = 32.sp
+    ),
+    titleMedium = TextStyle(
+        fontSize = 24.sp
     )
 )

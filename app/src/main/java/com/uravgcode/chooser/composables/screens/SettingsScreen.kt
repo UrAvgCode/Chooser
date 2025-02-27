@@ -27,6 +27,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -78,9 +79,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 title = {
                     Text(
                         text = "Settings",
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontSize = 32.sp
-                        )
+                        style = MaterialTheme.typography.titleLarge
                     )
                 },
                 navigationIcon = {
@@ -100,6 +99,12 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 .padding(padding)
                 .padding(16.dp)
         ) {
+            Text(
+                text = "General Settings",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+
             SettingsRowSwitch(
                 title = "Enable Sound",
                 isChecked = isSoundEnabled.value,
@@ -116,6 +121,13 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     isVibrationEnabled.value = isChecked
                     SettingsManager.vibrationEnabled = isChecked
                 }
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+            Text(
+                text = "Display Settings",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(vertical = 8.dp)
             )
 
             SettingsRowSwitch(
@@ -137,6 +149,13 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 },
                 valueRange = 0.5f..1.5f,
                 steps = 9
+            )
+
+            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+            Text(
+                text = "Circle Lifetimes",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.padding(vertical = 8.dp)
             )
 
             SettingsRowTimeSlider(
@@ -171,7 +190,6 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 valueRange = 0L..3000L,
                 steps = 5,
             )
-
         }
     }
 }
