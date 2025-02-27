@@ -1,9 +1,9 @@
 [versions]
-agp = "8.8.1"
+agp = "8.8.2"
 kotlin = "2.0.21"
 coreKtx = "1.15.0"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.10.0"
+activityCompose = "1.10.1"
 composeBom = "2025.02.00"
 
 [libraries]
