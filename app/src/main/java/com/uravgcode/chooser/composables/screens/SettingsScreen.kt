@@ -27,7 +27,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,11 +41,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.uravgcode.chooser.composables.settings.RestartDialog
 import com.uravgcode.chooser.composables.settings.SettingsRowPercentSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
 import com.uravgcode.chooser.composables.settings.SettingsRowTimeSlider
+import com.uravgcode.chooser.composables.settings.SettingsSeparator
 import com.uravgcode.chooser.utilities.SettingsManager
 
 @Composable
@@ -99,11 +98,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 .padding(padding)
                 .padding(16.dp)
         ) {
-            Text(
-                text = "General Settings",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
+            SettingsSeparator("General Settings", false)
 
             SettingsRowSwitch(
                 title = "Enable Sound",
@@ -123,12 +118,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 }
             )
 
-            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            Text(
-                text = "Display Settings",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
+            SettingsSeparator("Display Settings")
 
             SettingsRowSwitch(
                 title = "Enable Edge-to-Edge",
@@ -151,12 +141,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 steps = 9
             )
 
-            HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-            Text(
-                text = "Circle Lifetimes",
-                style = MaterialTheme.typography.titleMedium,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
+            SettingsSeparator("Circle Lifetimes")
 
             SettingsRowTimeSlider(
                 title = "Circle Lifetime",
