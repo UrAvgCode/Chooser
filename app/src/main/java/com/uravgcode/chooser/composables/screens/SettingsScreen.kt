@@ -58,7 +58,9 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
     val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
+
     val circleLifetime = remember { mutableLongStateOf(SettingsManager.circleLifetime) }
+    val groupCircleLifetime = remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
     val orderCircleLifetime = remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
 
     RestartDialog(
@@ -143,6 +145,17 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 onValueChange = { sliderValue ->
                     circleLifetime.longValue = sliderValue
                     SettingsManager.circleLifetime = sliderValue
+                },
+                valueRange = 0L..3000L,
+                steps = 5,
+            )
+
+            SettingsRowTimeSlider(
+                title = "Group Circle Lifetime",
+                value = groupCircleLifetime.longValue,
+                onValueChange = { sliderValue ->
+                    groupCircleLifetime.longValue = sliderValue
+                    SettingsManager.groupCircleLifetime = sliderValue
                 },
                 valueRange = 0L..3000L,
                 steps = 5,

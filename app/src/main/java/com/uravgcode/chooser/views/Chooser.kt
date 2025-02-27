@@ -156,18 +156,27 @@ class Chooser(
 
     private fun resetGame() {
         colorManager.generateRandomColorPalette(5)
-        if (winnerChosen) {
-            handler.postDelayed({
+
+        if (!winnerChosen) {
+            setButtonVisibility(true)
+            return
+        }
+
+        handler.postDelayed(
+            {
                 blackSpeed = 1f
                 handler.postDelayed({
                     setButtonVisibility(true)
                     winnerChosen = false
                     setBackgroundColor(Color.BLACK)
                 }, 150)
-            }, if (mode == ORDER) OrderCircle.circleLifetime else Circle.circleLifetime)
-        } else {
-            setButtonVisibility(true)
-        }
+            },
+            when (mode) {
+                SINGLE -> Circle.circleLifetime
+                GROUP -> GroupCircle.circleLifetime
+                ORDER -> OrderCircle.circleLifetime
+            }
+        )
     }
 
     private fun selectWinner() {

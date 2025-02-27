@@ -19,6 +19,7 @@ import android.app.Activity.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
 import com.uravgcode.chooser.circles.Circle
+import com.uravgcode.chooser.circles.GroupCircle
 import com.uravgcode.chooser.circles.OrderCircle
 import com.uravgcode.chooser.views.Chooser
 
@@ -31,7 +32,9 @@ object SettingsManager {
         SoundManager.soundEnabled = soundEnabled
         Chooser.vibrationEnabled = vibrationEnabled
         Chooser.circleSizeFactor = circleSizeFactor
+
         Circle.circleLifetime = circleLifetime
+        GroupCircle.circleLifetime = groupCircleLifetime
         OrderCircle.circleLifetime = orderCircleLifetime
     }
 
@@ -79,6 +82,13 @@ object SettingsManager {
         set(value) {
             preferences.edit().putLong("circle_lifetime", value).apply()
             Circle.circleLifetime = value
+        }
+
+    var groupCircleLifetime: Long
+        get() = preferences.getLong("group_circle_lifetime", 1000)
+        set(value) {
+            preferences.edit().putLong("group_circle_lifetime", value).apply()
+            GroupCircle.circleLifetime = value
         }
 
     var orderCircleLifetime: Long

@@ -16,6 +16,8 @@
 package com.uravgcode.chooser.circles
 
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import androidx.core.graphics.ColorUtils
 import kotlin.math.min
 
@@ -39,5 +41,18 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
             ringPaint.color = newColor
             ringPaintLight.color = ColorUtils.blendARGB(grayStroke, whiteStroke, blend)
         }
+    }
+
+    override fun removeFinger() {
+        if (winnerCircle) {
+            val handler = Handler(Looper.getMainLooper())
+            handler.postDelayed({ hasFinger = false }, circleLifetime)
+        } else {
+            hasFinger = false
+        }
+    }
+
+    companion object {
+        var circleLifetime: Long = 1000
     }
 }
