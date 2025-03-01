@@ -122,15 +122,14 @@ class Chooser(
     }
 
     private fun handleActionDown(event: MotionEvent, actionIndex: Int, pointerId: Int) {
-        if (!winnerChosen) {
-            setButtonVisibility(false)
-            val pos = PointF(event.getX(actionIndex), event.getY(actionIndex))
+        if (winnerChosen) return
 
-            soundManager.playFingerDown()
-            circles[pointerId] = createCircle(pos.x, pos.y)
-            handler.removeCallbacksAndMessages(null)
-            handler.postDelayed({ selectWinner() }, 3000)
-        }
+        setButtonVisibility(false)
+
+        soundManager.playFingerDown()
+        circles[pointerId] = createCircle(event.getX(actionIndex), event.getY(actionIndex))
+        handler.removeCallbacksAndMessages(null)
+        handler.postDelayed({ selectWinner() }, 3000)
     }
 
     private fun handleActionMove(event: MotionEvent) {
@@ -180,14 +179,15 @@ class Chooser(
     }
 
     private fun selectWinner() {
-        if (circles.size > count) {
-            when (mode) {
-                SINGLE -> chooseFinger()
-                GROUP -> chooseGroup()
-                ORDER -> chooseOrder()
-            }
-            winnerChosen = true
+        if (circles.size <= count) return
+
+        when (mode) {
+            SINGLE -> chooseFinger()
+            GROUP -> chooseGroup()
+            ORDER -> chooseOrder()
         }
+
+        winnerChosen = true
     }
 
     private fun chooseFinger() {

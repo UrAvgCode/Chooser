@@ -33,14 +33,13 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
 
     override fun update(deltaTime: Int) {
         super.update(deltaTime)
+        if (color == corePaint.color || blend > 1f) return
 
-        if (color != corePaint.color && blend <= 1) {
-            blend = min(blend + deltaTime * 0.01f, 1f)
-            val newColor = ColorUtils.blendARGB(Color.WHITE, color, blend)
-            corePaint.color = newColor
-            ringPaint.color = newColor
-            ringPaintLight.color = ColorUtils.blendARGB(grayStroke, whiteStroke, blend)
-        }
+        blend = min(blend + deltaTime * 0.01f, 1f)
+        val newColor = ColorUtils.blendARGB(Color.WHITE, color, blend)
+        corePaint.color = newColor
+        ringPaint.color = newColor
+        ringPaintLight.color = ColorUtils.blendARGB(grayStroke, whiteStroke, blend)
     }
 
     override fun removeFinger() {
@@ -53,6 +52,6 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
     }
 
     companion object {
-        var circleLifetime: Long = 1000
+        var circleLifetime = 1000L
     }
 }

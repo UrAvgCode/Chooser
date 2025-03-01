@@ -58,7 +58,7 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         number?.let {
-            val y = y - (textPaint.descent() + textPaint.ascent()) / 2
+            val y = y - (textPaint.descent() + textPaint.ascent()) / 2f
             val shadowOffset = textPaint.textSize * 0.04f
             canvas.drawText(it.toString(), x + shadowOffset, y + shadowOffset, textShadowPaint)
             canvas.drawText(it.toString(), x, y, textPaint)
@@ -85,6 +85,6 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
 
     companion object {
         private var counter = 0
-        var circleLifetime: Long = 1500
+        var circleLifetime = 1500L
     }
 }

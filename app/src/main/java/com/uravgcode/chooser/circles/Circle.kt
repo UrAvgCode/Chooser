@@ -49,8 +49,8 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
     private val center = RectF()
     private val ring = RectF()
 
-    private var startAngle = Random.nextFloat() * 360
-    private var sweepAngle = Random.nextFloat() * -360
+    private var startAngle = Random.nextFloat() * 360f
+    private var sweepAngle = Random.nextFloat() * -360f
 
     protected var coreRadius = 0f
     protected val defaultRadius = radius
@@ -59,10 +59,10 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
     protected var winnerCircle = false
     protected var hasFinger = true
 
-    protected var timeMillis = 0
+    protected var timeMillis = 0L
 
     open fun update(deltaTime: Int) {
-        val radius = coreRadius + radiusVariance * sin(timeMillis * 0.006).toFloat()
+        val radius = coreRadius + radiusVariance * sin(timeMillis * 0.006f)
         val innerRadius = radius * 0.6f
         val strokeWidth = radius * 0.19f
 
@@ -113,6 +113,6 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
     fun isMarkedForDeletion(): Boolean = coreRadius <= 0
 
     companion object {
-        var circleLifetime: Long = 1000
+        var circleLifetime = 1000L
     }
 }
