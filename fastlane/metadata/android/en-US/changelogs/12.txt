@@ -1,0 +1,12 @@
+Features
+- new settings:
+  - change group circle lifetime independently
+  - added section separators with titles
+
+Improvements
+- black radius now scales with circle size
+- floating numbers scale with circle size
+
+Development
+- updated kotlin version
+- updated dependencies

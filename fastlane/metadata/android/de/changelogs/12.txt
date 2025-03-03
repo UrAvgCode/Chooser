@@ -1,0 +1,12 @@
+Funktionen
+- Neue Einstellungen:
+  - Kreisgröße im Gruppen-Modus unabhängig änderbar
+  - Einstellungsabschnitte mit Titeln hinzugefügt
+
+Verbesserungen
+- Schwarzer Radius skaliert jetzt mit der Kreisgröße
+- Schwebende Zahlen skalieren mit der Kreisgröße
+
+Entwicklung
+- Kotlin-Version aktualisiert
+- Abhängigkeiten aktualisiert
