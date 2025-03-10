@@ -78,6 +78,12 @@ object SettingsManager {
             Chooser.circleSizeFactor = value
         }
 
+    var additionalTopPadding: Float
+        get() = preferences.getFloat("additional_top_padding", 0.0f)
+        set(value) {
+            preferences.edit { putFloat("additional_top_padding", value) }
+        }
+
     var circleLifetime: Long
         get() = preferences.getLong("circle_lifetime", 1000)
         set(value) {
@@ -98,6 +104,7 @@ object SettingsManager {
             preferences.edit { putLong("order_circle_lifetime", value) }
             OrderCircle.circleLifetime = value
         }
+
 
     fun resetToDefault(context: Context) {
         preferences.edit { clear() }

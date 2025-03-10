@@ -28,6 +28,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.composables.settings.ResetDialog
 import com.uravgcode.chooser.composables.settings.RestartDialog
+import com.uravgcode.chooser.composables.settings.SettingsRowPaddingSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowPercentSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
 import com.uravgcode.chooser.composables.settings.SettingsRowTimeSlider
@@ -45,6 +46,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
     val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
     val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
+    val additionalTopPadding = remember { mutableFloatStateOf(SettingsManager.additionalTopPadding) }
 
     val circleLifetime = remember { mutableLongStateOf(SettingsManager.circleLifetime) }
     val groupCircleLifetime = remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
@@ -60,6 +62,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
             isVibrationEnabled.value = SettingsManager.vibrationEnabled
             isEdgeToEdgeEnabled.value = SettingsManager.edgeToEdgeEnabled
             circleSizeFactor.floatValue = SettingsManager.circleSizeFactor
+            additionalTopPadding.floatValue = SettingsManager.additionalTopPadding
             circleLifetime.longValue = SettingsManager.circleLifetime
             groupCircleLifetime.longValue = SettingsManager.groupCircleLifetime
             orderCircleLifetime.longValue = SettingsManager.orderCircleLifetime
@@ -125,6 +128,17 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     },
                     valueRange = 0.5f..1.5f,
                     steps = 9
+                )
+
+                SettingsRowPaddingSlider(
+                    title = "Additional Top Padding",
+                    value = additionalTopPadding.floatValue,
+                    onValueChange = { sliderValue ->
+                        additionalTopPadding.floatValue = sliderValue
+                        SettingsManager.additionalTopPadding = sliderValue
+                    },
+                    valueRange = 0f..50f,
+                    steps = 50
                 )
 
                 SettingsSeparator("Circle Lifetimes")
