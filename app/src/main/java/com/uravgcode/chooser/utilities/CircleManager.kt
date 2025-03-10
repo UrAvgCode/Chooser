@@ -18,7 +18,7 @@ package com.uravgcode.chooser.utilities
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import com.uravgcode.chooser.circles.Circle
+import com.uravgcode.chooser.views.components.circles.Circle
 
 class CircleManager : MutableMap<Int, Circle> {
     private val blackPaint = Paint().apply { color = Color.BLACK }

@@ -13,7 +13,7 @@
  * @description Number represents the floating numbers displayed in the order mode.
  */
 
-package com.uravgcode.chooser.utilities
+package com.uravgcode.chooser.views.components.entities
 
 import android.graphics.Canvas
 import android.graphics.Paint

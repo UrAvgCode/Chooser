@@ -19,9 +19,9 @@ import android.app.Activity.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.uravgcode.chooser.circles.Circle
-import com.uravgcode.chooser.circles.GroupCircle
-import com.uravgcode.chooser.circles.OrderCircle
+import com.uravgcode.chooser.views.components.circles.Circle
+import com.uravgcode.chooser.views.components.circles.GroupCircle
+import com.uravgcode.chooser.views.components.circles.OrderCircle
 import com.uravgcode.chooser.views.Chooser
 
 object SettingsManager {
