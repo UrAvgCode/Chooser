@@ -74,17 +74,17 @@ object SettingsManager {
             preferences.edit { putBoolean("edge_to_edge", value) }
         }
 
+    var additionalTopPadding: Float
+        get() = preferences.getFloat("additional_top_padding", 0.0f)
+        set(value) {
+            preferences.edit { putFloat("additional_top_padding", value) }
+        }
+
     var circleSizeFactor: Float
         get() = preferences.getFloat("circle_size_factor", 1.0f)
         set(value) {
             preferences.edit { putFloat("circle_size_factor", value) }
             Chooser.circleSizeFactor = value
-        }
-
-    var additionalTopPadding: Float
-        get() = preferences.getFloat("additional_top_padding", 0.0f)
-        set(value) {
-            preferences.edit { putFloat("additional_top_padding", value) }
         }
 
     var circleLifetime: Long

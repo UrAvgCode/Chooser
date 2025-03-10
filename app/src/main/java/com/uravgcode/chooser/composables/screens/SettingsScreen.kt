@@ -124,6 +124,17 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     }
                 )
 
+                SettingsRowPaddingSlider(
+                    title = "Additional Top Padding",
+                    value = additionalTopPadding.floatValue,
+                    onValueChange = { sliderValue ->
+                        additionalTopPadding.floatValue = sliderValue
+                        SettingsManager.additionalTopPadding = sliderValue
+                    },
+                    valueRange = 0f..50f,
+                    steps = 9
+                )
+
                 SettingsRowPercentSlider(
                     title = "Circle Size",
                     value = circleSizeFactor.floatValue,
@@ -133,17 +144,6 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     },
                     valueRange = 0.5f..1.5f,
                     steps = 9
-                )
-
-                SettingsRowPaddingSlider(
-                    title = "Additional Top Padding",
-                    value = additionalTopPadding.floatValue,
-                    onValueChange = { sliderValue ->
-                        additionalTopPadding.floatValue = sliderValue
-                        SettingsManager.additionalTopPadding = sliderValue
-                    },
-                    valueRange = 0f..50f,
-                    steps = 50
                 )
 
                 SettingsSeparator("Circle Lifetimes")
