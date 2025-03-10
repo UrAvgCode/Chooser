@@ -9,11 +9,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
- * @author UrAvgCode, Patch4Code
- * @description SettingsRowPaddingSlider is a component that provides a settings slider for padding values.
+ * @author UrAvgCode
+ * @description SettingsRowSwitch is a component that provides a settings slider for percent values.
  */
 
-package com.uravgcode.chooser.composables.settings
+package com.uravgcode.chooser.ui.components.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import kotlin.math.roundToInt
 
 @Composable
-fun SettingsRowPaddingSlider(
+fun SettingsRowPercentSlider(
     title: String,
     value: Float,
     onValueChange: (Float) -> Unit,
@@ -39,7 +39,7 @@ fun SettingsRowPaddingSlider(
             .padding(vertical = 8.dp)
     ) {
         Text(
-            text = "$title: ${(value).roundToInt()}",
+            text = "$title: ${(value * 100).roundToInt()}%",
             modifier = Modifier
                 .padding(vertical = 8.dp)
         )
@@ -48,7 +48,7 @@ fun SettingsRowPaddingSlider(
             onValueChange = onValueChange,
             valueRange = valueRange,
             steps = steps,
-            modifier = Modifier.padding(horizontal = 16.dp),
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
     }
 }

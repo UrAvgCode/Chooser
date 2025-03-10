@@ -13,7 +13,7 @@
  * @description BaseButton is the base component for buttons in the application.
  */
 
-package com.uravgcode.chooser.composables.buttons
+package com.uravgcode.chooser.ui.components.buttons
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable

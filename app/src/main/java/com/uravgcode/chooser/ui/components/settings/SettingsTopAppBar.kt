@@ -13,7 +13,7 @@
  * @description SettingsTopAppBar is a top bar with a back button for the settings screen .
  */
 
-package com.uravgcode.chooser.composables.settings
+package com.uravgcode.chooser.ui.components.settings
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides

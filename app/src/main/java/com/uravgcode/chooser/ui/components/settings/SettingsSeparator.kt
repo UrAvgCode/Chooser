@@ -13,7 +13,7 @@
  * @description SettingsSeparator separates settings groups with a horizontal divider and a heading.
  */
 
-package com.uravgcode.chooser.composables.settings
+package com.uravgcode.chooser.ui.components.settings
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider

@@ -13,7 +13,7 @@
  * @description MainScreen is the screen that contains the chooser and settings screens.
  */
 
-package com.uravgcode.chooser.composables.screens
+package com.uravgcode.chooser.ui.screens
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
@@ -21,23 +21,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import com.uravgcode.chooser.composables.Screen
 
 @Composable
 fun MainScreen() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.Chooser) }
+    var isChooserScreen by remember { mutableStateOf(true) }
 
-    BackHandler(enabled = currentScreen is Screen.Settings) {
-        currentScreen = Screen.Chooser
+    BackHandler(enabled = !isChooserScreen) {
+        isChooserScreen = true
     }
 
-    when (currentScreen) {
-        is Screen.Chooser -> ChooserScreen(
-            onNavigate = { currentScreen = Screen.Settings }
+    if (isChooserScreen) {
+        ChooserScreen(
+            onNavigate = { isChooserScreen = false }
         )
-
-        is Screen.Settings -> SettingsScreen(
-            onNavigateBack = { currentScreen = Screen.Chooser }
+    } else {
+        SettingsScreen(
+            onNavigateBack = { isChooserScreen = true }
         )
     }
 }

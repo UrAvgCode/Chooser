@@ -1,4 +1,4 @@
-package com.uravgcode.chooser.composables.theme
+package com.uravgcode.chooser.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

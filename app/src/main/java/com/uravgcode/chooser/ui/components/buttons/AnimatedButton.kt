@@ -13,7 +13,7 @@
  * @description AnimatedButton is a button that animates in and out.
  */
 
-package com.uravgcode.chooser.composables.buttons
+package com.uravgcode.chooser.ui.components.buttons
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween

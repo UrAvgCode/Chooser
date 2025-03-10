@@ -13,7 +13,7 @@
  * @description SettingsRowSwitch is a component that provides a toggle switch for settings.
  */
 
-package com.uravgcode.chooser.composables.settings
+package com.uravgcode.chooser.ui.components.settings
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth

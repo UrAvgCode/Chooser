@@ -10,10 +10,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * @author UrAvgCode
- * @description SettingsRowSwitch is a component that provides a settings slider for percent values.
+ * @description SettingsRowSwitch is a component that provides a settings slider for time values.
  */
 
-package com.uravgcode.chooser.composables.settings
+package com.uravgcode.chooser.ui.components.settings
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,30 +23,32 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import kotlin.math.roundToInt
 
 @Composable
-fun SettingsRowPercentSlider(
+fun SettingsRowTimeSlider(
     title: String,
-    value: Float,
-    onValueChange: (Float) -> Unit,
-    valueRange: ClosedFloatingPointRange<Float>,
-    steps: Int
+    value: Long,
+    onValueChange: (Long) -> Unit,
+    valueRange: LongRange,
+    steps: Int,
 ) {
+    val floatValue = value.toFloat()
+    val floatRange = valueRange.first.toFloat()..valueRange.last.toFloat()
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
         Text(
-            text = "$title: ${(value * 100).roundToInt()}%",
+            text = "$title: ${"%.1f".format(value * 0.001)}s",
             modifier = Modifier
                 .padding(vertical = 8.dp)
         )
         Slider(
-            value = value,
-            onValueChange = onValueChange,
-            valueRange = valueRange,
+            value = floatValue,
+            onValueChange = { newValue -> onValueChange(newValue.toLong()) },
+            valueRange = floatRange,
             steps = steps,
             modifier = Modifier.padding(horizontal = 16.dp)
         )

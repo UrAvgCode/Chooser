@@ -13,7 +13,7 @@
  * @description ChooserScreen is the screen that displays the chooser view.
  */
 
-package com.uravgcode.chooser.composables.screens
+package com.uravgcode.chooser.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
@@ -27,7 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
-import com.uravgcode.chooser.composables.buttons.AnimatedButton
+import com.uravgcode.chooser.ui.components.buttons.AnimatedButton
 import com.uravgcode.chooser.utilities.Mode
 import com.uravgcode.chooser.utilities.SettingsManager
 import com.uravgcode.chooser.views.Chooser

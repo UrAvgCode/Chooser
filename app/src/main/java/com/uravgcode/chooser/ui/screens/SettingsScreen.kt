@@ -13,7 +13,7 @@
  * @description SettingsScreen is the settings screen of the application.
  */
 
-package com.uravgcode.chooser.composables.screens
+package com.uravgcode.chooser.ui.screens
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -30,14 +30,14 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.uravgcode.chooser.composables.settings.ResetDialog
-import com.uravgcode.chooser.composables.settings.RestartDialog
-import com.uravgcode.chooser.composables.settings.SettingsRowPaddingSlider
-import com.uravgcode.chooser.composables.settings.SettingsRowPercentSlider
-import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
-import com.uravgcode.chooser.composables.settings.SettingsRowTimeSlider
-import com.uravgcode.chooser.composables.settings.SettingsSeparator
-import com.uravgcode.chooser.composables.settings.SettingsTopAppBar
+import com.uravgcode.chooser.ui.components.settings.ResetDialog
+import com.uravgcode.chooser.ui.components.settings.RestartDialog
+import com.uravgcode.chooser.ui.components.settings.SettingsRowPaddingSlider
+import com.uravgcode.chooser.ui.components.settings.SettingsRowPercentSlider
+import com.uravgcode.chooser.ui.components.settings.SettingsRowSwitch
+import com.uravgcode.chooser.ui.components.settings.SettingsRowTimeSlider
+import com.uravgcode.chooser.ui.components.settings.SettingsSeparator
+import com.uravgcode.chooser.ui.components.settings.SettingsTopAppBar
 import com.uravgcode.chooser.utilities.SettingsManager
 
 @Composable
