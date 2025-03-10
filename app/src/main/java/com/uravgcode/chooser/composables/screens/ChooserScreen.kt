@@ -15,6 +15,7 @@
 
 package com.uravgcode.chooser.composables.screens
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,9 +34,9 @@ import com.uravgcode.chooser.views.Chooser
 
 @Composable
 fun ChooserScreen(onNavigate: () -> Unit) {
+    val isVisible = remember { mutableStateOf(true) }
     val chooserMode = remember { mutableStateOf(SettingsManager.mode) }
     val chooserCount = remember { mutableIntStateOf(SettingsManager.count) }
-    val isVisible = remember { mutableStateOf(true) }
 
     AndroidView(
         factory = { context ->
@@ -49,7 +50,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
             view.mode = chooserMode.value
             view.count = chooserCount.intValue
         },
-        modifier = Modifier
+        modifier = Modifier.fillMaxSize()
     )
 
     AnimatedButton(
@@ -62,9 +63,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
                 SettingsManager.count = chooserCount.intValue
             }
         },
-        onLongClick = {
-            onNavigate()
-        },
+        onLongClick = onNavigate,
         content = {
             Icon(
                 painter = painterResource(id = chooserMode.value.drawable()),
