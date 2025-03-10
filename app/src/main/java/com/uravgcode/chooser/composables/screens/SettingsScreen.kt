@@ -15,7 +15,6 @@
 
 package com.uravgcode.chooser.composables.screens
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -49,9 +48,10 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
 
     val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
     val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
+
     val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
-    val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
     val additionalTopPadding = remember { mutableFloatStateOf(SettingsManager.additionalTopPadding) }
+    val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
 
     val circleLifetime = remember { mutableLongStateOf(SettingsManager.circleLifetime) }
     val groupCircleLifetime = remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
@@ -65,9 +65,11 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
 
             isSoundEnabled.value = SettingsManager.soundEnabled
             isVibrationEnabled.value = SettingsManager.vibrationEnabled
+
             isEdgeToEdgeEnabled.value = SettingsManager.edgeToEdgeEnabled
-            circleSizeFactor.floatValue = SettingsManager.circleSizeFactor
             additionalTopPadding.floatValue = SettingsManager.additionalTopPadding
+            circleSizeFactor.floatValue = SettingsManager.circleSizeFactor
+
             circleLifetime.longValue = SettingsManager.circleLifetime
             groupCircleLifetime.longValue = SettingsManager.groupCircleLifetime
             orderCircleLifetime.longValue = SettingsManager.orderCircleLifetime
@@ -182,18 +184,13 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 )
 
                 HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-
-                Column(
+                ElevatedButton(
+                    content = { Text("Reset Settings") },
+                    onClick = { showResetDialog.value = true },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
-                ) {
-                    ElevatedButton(
-                        content = { Text("Reset Settings") },
-                        onClick = { showResetDialog.value = true },
-                        modifier = Modifier.fillMaxWidth()
-                    )
-                }
+                )
             }
         }
     }
