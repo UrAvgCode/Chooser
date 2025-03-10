@@ -33,7 +33,8 @@ fun AnimatedButton(
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
     content: @Composable () -> Unit,
-    alignment: Alignment
+    alignment: Alignment,
+    additionalTopPadding: Float
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         AnimatedVisibility(
@@ -43,12 +44,13 @@ fun AnimatedButton(
                 animationSpec = tween(durationMillis = 400)
             ),
             exit = slideOutVertically(
-                targetOffsetY = { fullHeight -> -2 * fullHeight },
+                targetOffsetY = { fullHeight -> -2 * fullHeight - additionalTopPadding.toInt()},
                 animationSpec = tween(durationMillis = 400)
             ),
             modifier = Modifier
                 .align(alignment)
                 .padding(24.dp)
+                .padding(top = additionalTopPadding.dp)
         ) {
             BaseButton(
                 onClick = onClick,

@@ -71,7 +71,8 @@ fun ChooserScreen(onNavigate: () -> Unit) {
                 contentDescription = "Mode"
             )
         },
-        alignment = Alignment.TopStart
+        alignment = Alignment.TopStart,
+        additionalTopPadding = SettingsManager.additionalTopPadding
     )
 
     AnimatedButton(
@@ -88,6 +89,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
                 fontSize = 36.sp
             )
         },
-        alignment = Alignment.TopEnd
+        alignment = Alignment.TopEnd,
+        additionalTopPadding = SettingsManager.additionalTopPadding
     )
 }
