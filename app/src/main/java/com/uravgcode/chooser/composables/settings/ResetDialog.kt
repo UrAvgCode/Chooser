@@ -9,7 +9,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
- * @author UrAvgCode
+ * @author UrAvgCode, Patch4Code
  * @description ResetDialog shows a dialog to reset settings to default.
  */
 
