@@ -9,7 +9,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
- * @author UrAvgCode
+ * @author UrAvgCode, Patch4Code
  * @description SettingsScreen is the settings screen of the application.
  */
 
@@ -61,7 +61,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
         showResetDialog = showResetDialog.value,
         onDismiss = { showResetDialog.value = false },
         onReset = {
-            SettingsManager.resetToDefault(context)
+            SettingsManager.reset()
 
             isSoundEnabled.value = SettingsManager.soundEnabled
             isVibrationEnabled.value = SettingsManager.vibrationEnabled

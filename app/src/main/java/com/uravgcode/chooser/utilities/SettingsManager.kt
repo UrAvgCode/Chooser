@@ -9,7 +9,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
- * @author UrAvgCode
+ * @author UrAvgCode, Patch4Code
  * @description SettingsManager manages the application settings.
  */
 
@@ -18,18 +18,21 @@ package com.uravgcode.chooser.utilities
 import android.app.Activity.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
+import androidx.core.content.edit
 import com.uravgcode.chooser.circles.Circle
 import com.uravgcode.chooser.circles.GroupCircle
 import com.uravgcode.chooser.circles.OrderCircle
 import com.uravgcode.chooser.views.Chooser
-import androidx.core.content.edit
 
 object SettingsManager {
     private lateinit var preferences: SharedPreferences
 
     fun init(context: Context) {
         preferences = context.getSharedPreferences("settings", MODE_PRIVATE)
+        initializeSettings()
+    }
 
+    private fun initializeSettings() {
         SoundManager.soundEnabled = soundEnabled
         Chooser.vibrationEnabled = vibrationEnabled
         Chooser.circleSizeFactor = circleSizeFactor
@@ -105,9 +108,8 @@ object SettingsManager {
             OrderCircle.circleLifetime = value
         }
 
-
-    fun resetToDefault(context: Context) {
+    fun reset() {
         preferences.edit { clear() }
-        init(context)
+        initializeSettings()
     }
 }
