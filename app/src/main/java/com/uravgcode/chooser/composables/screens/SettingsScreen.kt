@@ -15,12 +15,9 @@
 
 package com.uravgcode.chooser.composables.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -29,6 +26,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.uravgcode.chooser.composables.settings.ResetDialog
 import com.uravgcode.chooser.composables.settings.RestartDialog
 import com.uravgcode.chooser.composables.settings.SettingsRowPercentSlider
 import com.uravgcode.chooser.composables.settings.SettingsRowSwitch
@@ -40,6 +38,7 @@ import com.uravgcode.chooser.utilities.SettingsManager
 @Composable
 fun SettingsScreen(onNavigateBack: () -> Unit) {
     val context = LocalContext.current
+    val showResetDialog = remember { mutableStateOf(false) }
     val showRestartDialog = remember { mutableStateOf(false) }
 
     val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
@@ -51,6 +50,22 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     val groupCircleLifetime = remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
     val orderCircleLifetime = remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
 
+    ResetDialog(
+        showResetDialog = showResetDialog.value,
+        onDismiss = { showResetDialog.value = false },
+        onReset = {
+            SettingsManager.resetToDefault(context)
+
+            isSoundEnabled.value = SettingsManager.soundEnabled
+            isVibrationEnabled.value = SettingsManager.vibrationEnabled
+            isEdgeToEdgeEnabled.value = SettingsManager.edgeToEdgeEnabled
+            circleSizeFactor.floatValue = SettingsManager.circleSizeFactor
+            circleLifetime.longValue = SettingsManager.circleLifetime
+            groupCircleLifetime.longValue = SettingsManager.groupCircleLifetime
+            orderCircleLifetime.longValue = SettingsManager.orderCircleLifetime
+        }
+    )
+
     RestartDialog(
         showRestartDialog = showRestartDialog.value,
         onDismiss = { showRestartDialog.value = false },
@@ -59,7 +74,9 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            SettingsTopAppBar(onNavigateBack)
+            SettingsTopAppBar(onNavigateBack){
+                showResetDialog.value = true
+            }
         }
     ) { padding ->
         LazyColumn(
@@ -144,17 +161,6 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     valueRange = 0L..3000L,
                     steps = 5,
                 )
-
-                Column(Modifier.height(50.dp)){
-                    Text("Filler1")
-                }
-                Column(Modifier.height(50.dp)){
-                    Text("Filler2")
-                }
-                Column(Modifier.height(50.dp)){
-                    Text("Filler3")
-                }
-
             }
         }
     }

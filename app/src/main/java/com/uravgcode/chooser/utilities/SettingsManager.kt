@@ -22,6 +22,7 @@ import com.uravgcode.chooser.circles.Circle
 import com.uravgcode.chooser.circles.GroupCircle
 import com.uravgcode.chooser.circles.OrderCircle
 import com.uravgcode.chooser.views.Chooser
+import androidx.core.content.edit
 
 object SettingsManager {
     private lateinit var preferences: SharedPreferences
@@ -41,60 +42,65 @@ object SettingsManager {
     var mode: Mode
         get() = Mode.entries[preferences.getInt("mode", 0)]
         set(value) {
-            preferences.edit().putInt("mode", value.ordinal).apply()
+            preferences.edit { putInt("mode", value.ordinal) }
         }
 
     var count: Int
         get() = preferences.getInt("count", 1)
         set(value) {
-            preferences.edit().putInt("count", value).apply()
+            preferences.edit { putInt("count", value) }
         }
 
     var soundEnabled: Boolean
         get() = preferences.getBoolean("sound", true)
         set(value) {
-            preferences.edit().putBoolean("sound", value).apply()
+            preferences.edit { putBoolean("sound", value) }
             SoundManager.soundEnabled = value
         }
 
     var vibrationEnabled: Boolean
         get() = preferences.getBoolean("vibration", true)
         set(value) {
-            preferences.edit().putBoolean("vibration", value).apply()
+            preferences.edit { putBoolean("vibration", value) }
             Chooser.vibrationEnabled = value
         }
 
     var edgeToEdgeEnabled: Boolean
         get() = preferences.getBoolean("edge_to_edge", false)
         set(value) {
-            preferences.edit().putBoolean("edge_to_edge", value).apply()
+            preferences.edit { putBoolean("edge_to_edge", value) }
         }
 
     var circleSizeFactor: Float
         get() = preferences.getFloat("circle_size_factor", 1.0f)
         set(value) {
-            preferences.edit().putFloat("circle_size_factor", value).apply()
+            preferences.edit { putFloat("circle_size_factor", value) }
             Chooser.circleSizeFactor = value
         }
 
     var circleLifetime: Long
         get() = preferences.getLong("circle_lifetime", 1000)
         set(value) {
-            preferences.edit().putLong("circle_lifetime", value).apply()
+            preferences.edit { putLong("circle_lifetime", value) }
             Circle.circleLifetime = value
         }
 
     var groupCircleLifetime: Long
         get() = preferences.getLong("group_circle_lifetime", 1000)
         set(value) {
-            preferences.edit().putLong("group_circle_lifetime", value).apply()
+            preferences.edit { putLong("group_circle_lifetime", value) }
             GroupCircle.circleLifetime = value
         }
 
     var orderCircleLifetime: Long
         get() = preferences.getLong("order_circle_lifetime", 1500)
         set(value) {
-            preferences.edit().putLong("order_circle_lifetime", value).apply()
+            preferences.edit { putLong("order_circle_lifetime", value) }
             OrderCircle.circleLifetime = value
         }
+
+    fun resetToDefault(context: Context) {
+        preferences.edit { clear() }
+        init(context)
+    }
 }
