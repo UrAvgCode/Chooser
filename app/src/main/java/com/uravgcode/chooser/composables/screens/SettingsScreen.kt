@@ -15,9 +15,14 @@
 
 package com.uravgcode.chooser.composables.screens
 
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableLongStateOf
@@ -77,13 +82,13 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
 
     Scaffold(
         topBar = {
-            SettingsTopAppBar(onNavigateBack){
-                showResetDialog.value = true
-            }
+            SettingsTopAppBar(onNavigateBack)
         }
     ) { padding ->
         LazyColumn(
-            modifier = Modifier.padding(padding).padding(16.dp)
+            modifier = Modifier
+                .padding(padding)
+                .padding(16.dp)
         ) {
             item {
 
@@ -175,6 +180,20 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     valueRange = 0L..3000L,
                     steps = 5,
                 )
+
+                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
+
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 8.dp)
+                ) {
+                    ElevatedButton(
+                        content = { Text("Reset Settings") },
+                        onClick = { showResetDialog.value = true },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
             }
         }
     }
