@@ -15,19 +15,23 @@
 
 package com.uravgcode.chooser.ui.screens
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ElevatedButton
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.ui.components.dialogs.ResetDialog
@@ -41,8 +45,11 @@ import com.uravgcode.chooser.ui.components.settings.SettingsTopAppBar
 import com.uravgcode.chooser.utilities.SettingsManager
 
 @Composable
+@OptIn(ExperimentalMaterial3Api::class)
 fun SettingsScreen(onNavigateBack: () -> Unit) {
     val context = LocalContext.current
+    val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
+
     val showResetDialog = remember { mutableStateOf(false) }
     val showRestartDialog = remember { mutableStateOf(false) }
 
@@ -83,14 +90,20 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     )
 
     Scaffold(
+        modifier = Modifier
+            .fillMaxSize()
+            .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            SettingsTopAppBar(onNavigateBack)
+            SettingsTopAppBar(
+                onNavigateBack,
+                scrollBehavior
+            )
         }
     ) { padding ->
         LazyColumn(
             modifier = Modifier
                 .padding(padding)
-                .padding(16.dp)
+                .padding(horizontal = 16.dp)
         ) {
             item {
 

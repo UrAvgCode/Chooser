@@ -18,8 +18,7 @@ package com.uravgcode.chooser.ui.components.settings
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.only
-import androidx.compose.foundation.layout.safeContent
-import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,16 +27,16 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SettingsTopAppBar(onNavigateBack: () -> Unit) {
+fun SettingsTopAppBar(
+    onNavigateBack: () -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior?,
+) {
     TopAppBar(
-        modifier = Modifier.windowInsetsPadding(
-            WindowInsets.safeContent.only(WindowInsetsSides.Top)
-        ),
         title = {
             Text(
                 text = "Settings",
@@ -51,6 +50,8 @@ fun SettingsTopAppBar(onNavigateBack: () -> Unit) {
                     contentDescription = "Back"
                 )
             }
-        }
+        },
+        windowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
+        scrollBehavior = scrollBehavior
     )
 }
