@@ -9,6 +9,7 @@ private val darkColorScheme = darkColorScheme(
     inversePrimary = DarkGray,
     primaryContainer = LightGray,
     onPrimaryContainer = White,
+    onPrimary = DarkGray,
 
     secondary = DarkGray,
     secondaryContainer = DarkGray,
