@@ -75,7 +75,7 @@ object SettingsManager {
         }
 
     var edgeToEdgeEnabled: Boolean
-        get() = preferences.getBoolean("edge_to_edge", false)
+        get() = preferences.getBoolean("edge_to_edge", true)
         set(value) {
             preferences.edit { putBoolean("edge_to_edge", value) }
         }
