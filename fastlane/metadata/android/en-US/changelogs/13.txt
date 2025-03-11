@@ -1,0 +1,14 @@
+Features
+- added settings menu accessible by long pressing the mode button:
+  - enable/disable sound and vibrations
+  - enable/disable edge-to-edge display
+  - change button position with top padding
+  - change circle size and lifetime
+  - reset all settings
+
+Improvements
+- added a monochrome icon
+
+Development
+- switched to Jetpack Compose
+- updated dependencies

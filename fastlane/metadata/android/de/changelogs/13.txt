@@ -1,0 +1,14 @@
+Funktionen
+- Einstellungsmenü hinzugefügt, zugänglich durch langes Drücken der Modus-Taste:
+  - Ton und Vibration ein-/ausschalten
+  - Edge-to-Edge Display ein-/ausschalten
+  - Position der Buttons mit Abstand von oben anpassen
+  - Kreisgröße und Lebensdauer ändern
+  - Setze alle Einstellungen zurück
+
+Verbesserungen
+- Monochromes Icon hinzugefügt
+
+Entwicklung
+- Umstellung auf Jetpack Compose
+- Abhängigkeiten aktualisiert
