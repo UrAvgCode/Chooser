@@ -54,6 +54,12 @@ object SettingsManager {
             preferences.edit { putInt("count", value) }
         }
 
+    var showSettingsHint: Boolean
+        get() = preferences.getBoolean("show_settings_hint", true)
+        set(value) {
+            preferences.edit { putBoolean("show_settings_hint", value) }
+        }
+
     var soundEnabled: Boolean
         get() = preferences.getBoolean("sound", true)
         set(value) {

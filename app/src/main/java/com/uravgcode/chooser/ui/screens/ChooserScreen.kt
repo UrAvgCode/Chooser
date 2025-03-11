@@ -19,6 +19,7 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -49,11 +50,15 @@ fun ChooserScreen(onNavigate: () -> Unit) {
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     LaunchedEffect(Unit) {
-        scope.launch {
-            snackbarHostState.showSnackbar(
-                message = "Long Press the Mode Icon to Open Settings",
-                actionLabel = "OK"
-            )
+        if (SettingsManager.showSettingsHint) {
+            scope.launch {
+                snackbarHostState.showSnackbar(
+                    message = "Long Press the Mode Icon to Open Settings",
+                    actionLabel = "OK",
+                    duration = SnackbarDuration.Long
+                )
+            }
+            SettingsManager.showSettingsHint = false
         }
     }
 
