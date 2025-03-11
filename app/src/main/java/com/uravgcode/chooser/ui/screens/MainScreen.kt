@@ -19,6 +19,13 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import kotlinx.serialization.Serializable
+
+@Serializable
+data object Chooser
+
+@Serializable
+data object Settings
 
 @Composable
 fun MainScreen() {
@@ -26,14 +33,14 @@ fun MainScreen() {
 
     NavHost(
         navController = navController,
-        startDestination = "chooser"
+        startDestination = Chooser
     ) {
-        composable("chooser") {
+        composable<Chooser> {
             ChooserScreen(
-                onNavigate = { navController.navigate("settings") }
+                onNavigate = { navController.navigate(Settings) }
             )
         }
-        composable("settings") {
+        composable<Settings> {
             SettingsScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
