@@ -15,7 +15,15 @@
 
 package com.uravgcode.chooser.ui.screens
 
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -33,7 +41,10 @@ fun MainScreen() {
 
     NavHost(
         navController = navController,
-        startDestination = Chooser
+        startDestination = Chooser,
+        modifier = Modifier.background(Color.Black),
+        enterTransition = { fadeIn(spring()) + scaleIn(initialScale = 1.1f) },
+        exitTransition = { fadeOut(spring()) + scaleOut(targetScale = 1.1f) }
     ) {
         composable<Chooser> {
             ChooserScreen(
