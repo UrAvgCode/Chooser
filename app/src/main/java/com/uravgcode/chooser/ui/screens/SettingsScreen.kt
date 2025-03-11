@@ -15,9 +15,11 @@
 
 package com.uravgcode.chooser.ui.screens
 
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -98,7 +100,8 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 onNavigateBack,
                 scrollBehavior
             )
-        }
+        },
+        contentWindowInsets = WindowInsets.safeDrawing
     ) { padding ->
         LazyColumn(
             modifier = Modifier
