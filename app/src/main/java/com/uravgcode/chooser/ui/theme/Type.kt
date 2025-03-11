@@ -18,7 +18,6 @@ val Typography = Typography(
         fontSize = 32.sp
     ),
     titleMedium = TextStyle(
-        fontSize = 20.sp,
-        color = LightGray
+        fontSize = 20.sp
     )
 )
