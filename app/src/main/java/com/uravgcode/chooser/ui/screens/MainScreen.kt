@@ -19,12 +19,12 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 
 @Composable
 fun MainScreen() {
-    var isChooserScreen by remember { mutableStateOf(true) }
+    var isChooserScreen by rememberSaveable { mutableStateOf(true) }
 
     BackHandler(enabled = !isChooserScreen) {
         isChooserScreen = true
