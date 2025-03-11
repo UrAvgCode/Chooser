@@ -15,13 +15,19 @@
 
 package com.uravgcode.chooser.ui.screens
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -31,64 +37,81 @@ import com.uravgcode.chooser.ui.components.buttons.AnimatedButton
 import com.uravgcode.chooser.utilities.Mode
 import com.uravgcode.chooser.utilities.SettingsManager
 import com.uravgcode.chooser.views.Chooser
+import kotlinx.coroutines.launch
 
 @Composable
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun ChooserScreen(onNavigate: () -> Unit) {
     val isVisible = remember { mutableStateOf(true) }
     val chooserMode = remember { mutableStateOf(SettingsManager.mode) }
     val chooserCount = remember { mutableIntStateOf(SettingsManager.count) }
 
-    AndroidView(
-        factory = { context ->
-            Chooser(
-                context,
-                setButtonVisibility = {
-                    isVisible.value = it
-                })
-        },
-        update = { view ->
-            view.mode = chooserMode.value
-            view.count = chooserCount.intValue
-        },
-        modifier = Modifier.fillMaxSize()
-    )
-
-    AnimatedButton(
-        visible = isVisible.value,
-        onClick = {
-            if (isVisible.value) {
-                chooserMode.value = chooserMode.value.next()
-                chooserCount.intValue = chooserMode.value.initialCount()
-                SettingsManager.mode = chooserMode.value
-                SettingsManager.count = chooserCount.intValue
-            }
-        },
-        onLongClick = onNavigate,
-        content = {
-            Icon(
-                painter = painterResource(id = chooserMode.value.drawable()),
-                contentDescription = "Mode"
+    val scope = rememberCoroutineScope()
+    val snackbarHostState = remember { SnackbarHostState() }
+    LaunchedEffect(Unit) {
+        scope.launch {
+            snackbarHostState.showSnackbar(
+                message = "Long Press the Mode Icon to Open Settings",
+                actionLabel = "OK"
             )
-        },
-        alignment = Alignment.TopStart,
-        additionalTopPadding = SettingsManager.additionalTopPadding
-    )
+        }
+    }
 
-    AnimatedButton(
-        visible = chooserMode.value != Mode.ORDER && isVisible.value,
-        onClick = {
-            if (isVisible.value) {
-                chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
-                SettingsManager.count = chooserCount.intValue
-            }
-        },
-        content = {
-            Text(
-                text = chooserCount.intValue.toString(),
-                fontSize = 36.sp
-            )
-        },
-        alignment = Alignment.TopEnd,
-        additionalTopPadding = SettingsManager.additionalTopPadding
-    )
+    Scaffold(
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+    ) {
+        AndroidView(
+            factory = { context ->
+                Chooser(
+                    context,
+                    setButtonVisibility = {
+                        isVisible.value = it
+                    })
+            },
+            update = { view ->
+                view.mode = chooserMode.value
+                view.count = chooserCount.intValue
+            },
+            modifier = Modifier.fillMaxSize()
+        )
+
+        AnimatedButton(
+            visible = isVisible.value,
+            onClick = {
+                if (isVisible.value) {
+                    chooserMode.value = chooserMode.value.next()
+                    chooserCount.intValue = chooserMode.value.initialCount()
+                    SettingsManager.mode = chooserMode.value
+                    SettingsManager.count = chooserCount.intValue
+                }
+            },
+            onLongClick = onNavigate,
+            content = {
+                Icon(
+                    painter = painterResource(id = chooserMode.value.drawable()),
+                    contentDescription = "Mode"
+                )
+            },
+            alignment = Alignment.TopStart,
+            additionalTopPadding = SettingsManager.additionalTopPadding
+        )
+
+        AnimatedButton(
+            visible = chooserMode.value != Mode.ORDER && isVisible.value,
+            onClick = {
+                if (isVisible.value) {
+                    chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
+                    SettingsManager.count = chooserCount.intValue
+                }
+            },
+            content = {
+                Text(
+                    text = chooserCount.intValue.toString(),
+                    fontSize = 36.sp
+                )
+            },
+            alignment = Alignment.TopEnd,
+            additionalTopPadding = SettingsManager.additionalTopPadding
+        )
+    }
 }
