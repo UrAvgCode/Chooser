@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:label="Chooser"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"
-        android:theme="@style/Chooser">
+        android:theme="@style/Chooser"
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="35">
         <activity
             android:name="com.uravgcode.chooser.MainActivity"
             android:exported="true">
