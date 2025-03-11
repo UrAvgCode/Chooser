@@ -15,28 +15,28 @@
 
 package com.uravgcode.chooser.ui.screens
 
-import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 
 @Composable
 fun MainScreen() {
-    var isChooserScreen by rememberSaveable { mutableStateOf(true) }
+    val navController = rememberNavController()
 
-    BackHandler(enabled = !isChooserScreen) {
-        isChooserScreen = true
-    }
-
-    if (isChooserScreen) {
-        ChooserScreen(
-            onNavigate = { isChooserScreen = false }
-        )
-    } else {
-        SettingsScreen(
-            onNavigateBack = { isChooserScreen = true }
-        )
+    NavHost(
+        navController = navController,
+        startDestination = "chooser"
+    ) {
+        composable("chooser") {
+            ChooserScreen(
+                onNavigate = { navController.navigate("settings") }
+            )
+        }
+        composable("settings") {
+            SettingsScreen(
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
     }
 }
