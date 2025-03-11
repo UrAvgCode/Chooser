@@ -13,7 +13,7 @@
  * @description ResetDialog shows a dialog to reset settings to default.
  */
 
-package com.uravgcode.chooser.ui.components.settings
+package com.uravgcode.chooser.ui.components.dialogs
 
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button

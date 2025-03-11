@@ -30,8 +30,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import com.uravgcode.chooser.ui.components.settings.ResetDialog
-import com.uravgcode.chooser.ui.components.settings.RestartDialog
+import com.uravgcode.chooser.ui.components.dialogs.ResetDialog
+import com.uravgcode.chooser.ui.components.dialogs.RestartDialog
 import com.uravgcode.chooser.ui.components.settings.SettingsRowPaddingSlider
 import com.uravgcode.chooser.ui.components.settings.SettingsRowPercentSlider
 import com.uravgcode.chooser.ui.components.settings.SettingsRowSwitch

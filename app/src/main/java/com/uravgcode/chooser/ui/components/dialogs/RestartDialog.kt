@@ -13,7 +13,7 @@
  * @description RestartDialog shows a restart dialog if a setting requires a restart to take effect.
  */
 
-package com.uravgcode.chooser.ui.components.settings
+package com.uravgcode.chooser.ui.components.dialogs
 
 import android.app.Activity
 import android.content.Context
