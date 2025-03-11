@@ -24,12 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingsSeparator(heading: String, showDivider: Boolean = true) {
+fun SettingsSeparator(
+    heading: String,
+    showDivider: Boolean = true
+) {
     if (showDivider) {
         HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
     }
     Text(
-        text = heading,
+        text = heading.uppercase(),
         style = MaterialTheme.typography.titleMedium,
         modifier = Modifier.padding(vertical = 8.dp)
     )
