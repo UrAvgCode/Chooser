@@ -28,10 +28,12 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -47,9 +49,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ChooserScreen(onNavigate: () -> Unit) {
-    val isVisible = remember { mutableStateOf(true) }
-    val chooserMode = remember { mutableStateOf(SettingsManager.mode) }
-    val chooserCount = remember { mutableIntStateOf(SettingsManager.count) }
+    var isVisible by remember { mutableStateOf(true) }
+
+    var chooserMode by remember { mutableStateOf(SettingsManager.mode) }
+    var chooserCount by remember { mutableIntStateOf(SettingsManager.count) }
 
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -68,7 +71,7 @@ fun ChooserScreen(onNavigate: () -> Unit) {
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
+        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
     ) { padding ->
         val buttonTopPadding = if (SettingsManager.edgeToEdgeEnabled) {
             24.dp
@@ -79,15 +82,14 @@ fun ChooserScreen(onNavigate: () -> Unit) {
         AndroidView(
             factory = { context ->
                 Chooser(
-                    context,
-                    setButtonVisibility = {
-                        isVisible.value = it
-                    })
+                    context = context,
+                    setButtonVisibility = { isVisible = it }
+                )
             },
             modifier = Modifier.fillMaxSize(),
             update = { view ->
-                view.mode = chooserMode.value
-                view.count = chooserCount.intValue
+                view.mode = chooserMode
+                view.count = chooserCount
             },
         )
 
@@ -95,19 +97,19 @@ fun ChooserScreen(onNavigate: () -> Unit) {
             alignment = Alignment.TopStart,
             topPadding = buttonTopPadding,
             onClick = {
-                if (isVisible.value) {
-                    chooserMode.value = chooserMode.value.next()
-                    chooserCount.intValue = chooserMode.value.initialCount()
-                    SettingsManager.mode = chooserMode.value
-                    SettingsManager.count = chooserCount.intValue
+                if (isVisible) {
+                    chooserMode = chooserMode.next()
+                    chooserCount = chooserMode.initialCount()
+                    SettingsManager.mode = chooserMode
+                    SettingsManager.count = chooserCount
                 }
             },
             onLongClick = onNavigate,
-            visible = isVisible.value,
+            visible = isVisible,
             content = {
                 Icon(
-                    painter = painterResource(id = chooserMode.value.drawable()),
-                    contentDescription = "Mode"
+                    painter = painterResource(id = chooserMode.drawable()),
+                    contentDescription = "Mode",
                 )
             },
         )
@@ -116,15 +118,15 @@ fun ChooserScreen(onNavigate: () -> Unit) {
             alignment = Alignment.TopEnd,
             topPadding = buttonTopPadding,
             onClick = {
-                if (isVisible.value) {
-                    chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
-                    SettingsManager.count = chooserCount.intValue
+                if (isVisible) {
+                    chooserCount = chooserMode.nextCount(chooserCount)
+                    SettingsManager.count = chooserCount
                 }
             },
-            visible = chooserMode.value != Mode.ORDER && isVisible.value,
+            visible = chooserMode != Mode.ORDER && isVisible,
             content = {
                 Text(
-                    text = chooserCount.intValue.toString(),
+                    text = chooserCount.toString(),
                     fontSize = 36.sp
                 )
             },

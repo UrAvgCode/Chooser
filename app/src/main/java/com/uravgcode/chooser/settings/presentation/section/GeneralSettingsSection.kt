@@ -16,16 +16,18 @@
 package com.uravgcode.chooser.settings.presentation.section
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import com.uravgcode.chooser.settings.presentation.row.SettingsRowSwitch
-import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
+import androidx.compose.runtime.setValue
 import com.uravgcode.chooser.settings.domain.SettingsManager
+import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
+import com.uravgcode.chooser.settings.presentation.row.SettingsRowSwitch
 
 @Composable
 fun GeneralSettingsSection() {
-    val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
-    val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
+    var isSoundEnabled by remember { mutableStateOf(SettingsManager.soundEnabled) }
+    var isVibrationEnabled by remember { mutableStateOf(SettingsManager.vibrationEnabled) }
 
     SettingsSeparator(
         heading = "General Settings",
@@ -34,18 +36,18 @@ fun GeneralSettingsSection() {
 
     SettingsRowSwitch(
         title = "Enable Sound",
-        isChecked = isSoundEnabled.value,
+        isChecked = isSoundEnabled,
         onCheckedChange = { isChecked ->
-            isSoundEnabled.value = isChecked
+            isSoundEnabled = isChecked
             SettingsManager.soundEnabled = isChecked
         }
     )
 
     SettingsRowSwitch(
         title = "Enable Vibration",
-        isChecked = isVibrationEnabled.value,
+        isChecked = isVibrationEnabled,
         onCheckedChange = { isChecked ->
-            isVibrationEnabled.value = isChecked
+            isVibrationEnabled = isChecked
             SettingsManager.vibrationEnabled = isChecked
         }
     )

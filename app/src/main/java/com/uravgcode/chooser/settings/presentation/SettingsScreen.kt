@@ -24,14 +24,16 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.settings.domain.SettingsManager
-import com.uravgcode.chooser.settings.presentation.component.SettingsTopAppBar
 import com.uravgcode.chooser.settings.presentation.component.ResetDialog
+import com.uravgcode.chooser.settings.presentation.component.SettingsTopAppBar
 import com.uravgcode.chooser.settings.presentation.section.CircleLifetimesSection
 import com.uravgcode.chooser.settings.presentation.section.DisplaySettingsSection
 import com.uravgcode.chooser.settings.presentation.section.GeneralSettingsSection
@@ -41,11 +43,11 @@ import com.uravgcode.chooser.settings.presentation.section.ResetSettingsSection
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingsScreen(onNavigateBack: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-    val showResetDialog = remember { mutableStateOf(false) }
+    var showResetDialog by remember { mutableStateOf(false) }
 
     ResetDialog(
-        showResetDialog = showResetDialog.value,
-        onDismiss = { showResetDialog.value = false },
+        showResetDialog = showResetDialog,
+        onDismiss = { showResetDialog = false },
         onReset = {
             SettingsManager.reset()
             onNavigateBack()
@@ -72,7 +74,7 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
             item { GeneralSettingsSection() }
             item { DisplaySettingsSection() }
             item { CircleLifetimesSection() }
-            item { ResetSettingsSection(onClick = { showResetDialog.value = true }) }
+            item { ResetSettingsSection(onClick = { showResetDialog = true }) }
         }
     }
 }

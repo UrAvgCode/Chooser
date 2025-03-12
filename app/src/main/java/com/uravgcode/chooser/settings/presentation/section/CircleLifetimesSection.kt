@@ -16,25 +16,27 @@
 package com.uravgcode.chooser.settings.presentation.section
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
 import com.uravgcode.chooser.settings.presentation.row.SettingsRowTimeSlider
 
 @Composable
 fun CircleLifetimesSection() {
-    val circleLifetime = remember { mutableLongStateOf(SettingsManager.circleLifetime) }
-    val groupCircleLifetime = remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
-    val orderCircleLifetime = remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
+    var circleLifetime by remember { mutableLongStateOf(SettingsManager.circleLifetime) }
+    var groupCircleLifetime by remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
+    var orderCircleLifetime by remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
 
     SettingsSeparator("Circle Lifetimes")
 
     SettingsRowTimeSlider(
         title = "Circle Lifetime",
-        value = circleLifetime.longValue,
+        value = circleLifetime,
         onValueChange = { sliderValue ->
-            circleLifetime.longValue = sliderValue
+            circleLifetime = sliderValue
             SettingsManager.circleLifetime = sliderValue
         },
         valueRange = 0L..3000L,
@@ -43,9 +45,9 @@ fun CircleLifetimesSection() {
 
     SettingsRowTimeSlider(
         title = "Group Circle Lifetime",
-        value = groupCircleLifetime.longValue,
+        value = groupCircleLifetime,
         onValueChange = { sliderValue ->
-            groupCircleLifetime.longValue = sliderValue
+            groupCircleLifetime = sliderValue
             SettingsManager.groupCircleLifetime = sliderValue
         },
         valueRange = 0L..3000L,
@@ -54,9 +56,9 @@ fun CircleLifetimesSection() {
 
     SettingsRowTimeSlider(
         title = "Order Circle Lifetime",
-        value = orderCircleLifetime.longValue,
+        value = orderCircleLifetime,
         onValueChange = { sliderValue ->
-            orderCircleLifetime.longValue = sliderValue
+            orderCircleLifetime = sliderValue
             SettingsManager.orderCircleLifetime = sliderValue
         },
         valueRange = 0L..3000L,

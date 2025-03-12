@@ -16,9 +16,11 @@
 package com.uravgcode.chooser.settings.presentation.section
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
 import com.uravgcode.chooser.settings.presentation.row.SettingsRowPaddingSlider
@@ -27,26 +29,26 @@ import com.uravgcode.chooser.settings.presentation.row.SettingsRowSwitch
 
 @Composable
 fun DisplaySettingsSection() {
-    val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
-    val additionalTopPadding = remember { mutableFloatStateOf(SettingsManager.additionalTopPadding) }
-    val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
+    var isEdgeToEdgeEnabled by remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
+    var additionalTopPadding by remember { mutableFloatStateOf(SettingsManager.additionalTopPadding) }
+    var circleSizeFactor by remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
 
     SettingsSeparator("Display Settings")
 
     SettingsRowSwitch(
         title = "Enable Edge-to-Edge",
-        isChecked = isEdgeToEdgeEnabled.value,
+        isChecked = isEdgeToEdgeEnabled,
         onCheckedChange = { isChecked ->
-            isEdgeToEdgeEnabled.value = isChecked
+            isEdgeToEdgeEnabled = isChecked
             SettingsManager.edgeToEdgeEnabled = isChecked
         }
     )
 
     SettingsRowPaddingSlider(
         title = "Additional Top Padding",
-        value = additionalTopPadding.floatValue,
+        value = additionalTopPadding,
         onValueChange = { sliderValue ->
-            additionalTopPadding.floatValue = sliderValue
+            additionalTopPadding = sliderValue
             SettingsManager.additionalTopPadding = sliderValue
         },
         valueRange = 0f..50f,
@@ -55,9 +57,9 @@ fun DisplaySettingsSection() {
 
     SettingsRowPercentSlider(
         title = "Circle Size",
-        value = circleSizeFactor.floatValue,
+        value = circleSizeFactor,
         onValueChange = { sliderValue ->
-            circleSizeFactor.floatValue = sliderValue
+            circleSizeFactor = sliderValue
             SettingsManager.circleSizeFactor = sliderValue
         },
         valueRange = 0.5f..1.5f,
