@@ -19,9 +19,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.uravgcode.chooser.ui.screens.MainScreen
+import com.uravgcode.chooser.navigation.presentation.Navigation
+import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.ui.theme.ChooserTheme
-import com.uravgcode.chooser.utilities.SettingsManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ChooserTheme {
-                MainScreen()
+                Navigation()
             }
         }
     }
