@@ -30,9 +30,9 @@ class Number(private var x: Float, private var y: Float, color: Int, private val
     private val xOrigin = x
     private var alpha = 255f
     private var alphaSpeed = 0f
-    private var time = 0
+    private var time = 0L
 
-    fun update(deltaTime: Int) {
+    fun update(deltaTime: Long) {
         alphaSpeed += deltaTime * 0.00004f
         alpha -= alphaSpeed * deltaTime
         alphaSpeed += deltaTime * 0.00004f

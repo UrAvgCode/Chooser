@@ -42,7 +42,7 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
 
     private var number: Int? = null
 
-    override fun update(deltaTime: Int) {
+    override fun update(deltaTime: Long) {
         super.update(deltaTime)
         corePaint.color = if (coreRadius <= defaultRadius) {
             color

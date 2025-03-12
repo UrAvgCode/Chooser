@@ -19,7 +19,6 @@ import android.app.Activity.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.uravgcode.chooser.chooser.domain.Chooser
 import com.uravgcode.chooser.chooser.domain.circle.Circle
 import com.uravgcode.chooser.chooser.domain.circle.GroupCircle
 import com.uravgcode.chooser.chooser.domain.circle.OrderCircle
@@ -36,8 +35,6 @@ object SettingsManager {
 
     private fun initializeSettings() {
         SoundManager.soundEnabled = soundEnabled
-        Chooser.vibrationEnabled = vibrationEnabled
-        Chooser.circleSizeFactor = circleSizeFactor
 
         Circle.circleLifetime = circleLifetime
         GroupCircle.circleLifetime = groupCircleLifetime
@@ -73,7 +70,6 @@ object SettingsManager {
         get() = preferences.getBoolean("vibration", true)
         set(value) {
             preferences.edit { putBoolean("vibration", value) }
-            Chooser.vibrationEnabled = value
         }
 
     var edgeToEdgeEnabled: Boolean
@@ -92,7 +88,6 @@ object SettingsManager {
         get() = preferences.getFloat("circle_size_factor", 1.0f)
         set(value) {
             preferences.edit { putFloat("circle_size_factor", value) }
-            Chooser.circleSizeFactor = value
         }
 
     var circleLifetime: Long

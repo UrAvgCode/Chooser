@@ -18,34 +18,35 @@ package com.uravgcode.chooser.chooser.domain.manager
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import androidx.compose.ui.input.pointer.PointerId
 import com.uravgcode.chooser.chooser.domain.circle.Circle
 
-class CircleManager : MutableMap<Int, Circle> {
+class CircleManager : MutableMap<PointerId, Circle> {
     private val blackPaint = Paint().apply { color = Color.BLACK }
 
-    private val activeCircles = mutableMapOf<Int, Circle>()
+    private val activeCircles = mutableMapOf<PointerId, Circle>()
     private val deadCircles = mutableListOf<Circle>()
 
     override val size: Int get() = activeCircles.size
-    override val entries: MutableSet<MutableMap.MutableEntry<Int, Circle>> get() = activeCircles.entries
-    override val keys: MutableSet<Int> get() = activeCircles.keys
+    override val entries: MutableSet<MutableMap.MutableEntry<PointerId, Circle>> get() = activeCircles.entries
+    override val keys: MutableSet<PointerId> get() = activeCircles.keys
     override val values: MutableCollection<Circle> get() = activeCircles.values
-    override fun get(key: Int): Circle? = activeCircles[key]
+    override fun get(key: PointerId): Circle? = activeCircles[key]
     override fun isEmpty(): Boolean = activeCircles.isEmpty()
-    override fun containsKey(key: Int): Boolean = activeCircles.containsKey(key)
+    override fun containsKey(key: PointerId): Boolean = activeCircles.containsKey(key)
     override fun containsValue(value: Circle): Boolean = activeCircles.containsValue(value)
-    override fun put(key: Int, value: Circle): Circle? = activeCircles.put(key, value)
-    override fun putAll(from: Map<out Int, Circle>) = activeCircles.putAll(from)
+    override fun put(key: PointerId, value: Circle): Circle? = activeCircles.put(key, value)
+    override fun putAll(from: Map<out PointerId, Circle>) = activeCircles.putAll(from)
     override fun clear() = activeCircles.clear()
 
-    override fun remove(key: Int): Circle? {
+    override fun remove(key: PointerId): Circle? {
         return activeCircles.remove(key)?.also {
             it.removeFinger()
             deadCircles += it
         }
     }
 
-    fun update(deltaTime: Int) {
+    fun update(deltaTime: Long) {
         activeCircles.forEach { (_, circle) -> circle.update(deltaTime) }
         deadCircles.forEach { it.update(deltaTime) }
         deadCircles.removeAll { it.isMarkedForDeletion() }
