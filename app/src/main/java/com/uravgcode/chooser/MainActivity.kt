@@ -28,10 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         SettingsManager.init(this)
 
-        if (SettingsManager.edgeToEdgeEnabled) {
-            enableEdgeToEdge()
-        }
-
+        enableEdgeToEdge()
         setContent {
             ChooserTheme {
                 MainScreen()

@@ -25,32 +25,33 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun AnimatedButton(
-    visible: Boolean,
+    alignment: Alignment,
+    topPadding: Dp,
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
+    visible: Boolean = true,
     content: @Composable () -> Unit,
-    alignment: Alignment,
-    additionalTopPadding: Float
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         AnimatedVisibility(
             visible = visible,
             enter = slideInVertically(
-                initialOffsetY = { fullHeight -> -2 * fullHeight },
+                initialOffsetY = { fullHeight -> -2 * fullHeight - topPadding.value.toInt() },
                 animationSpec = tween(durationMillis = 400)
             ),
             exit = slideOutVertically(
-                targetOffsetY = { fullHeight -> -2 * fullHeight - additionalTopPadding.toInt()},
+                targetOffsetY = { fullHeight -> -2 * fullHeight - topPadding.value.toInt() },
                 animationSpec = tween(durationMillis = 400)
             ),
             modifier = Modifier
                 .align(alignment)
-                .padding(24.dp)
-                .padding(top = additionalTopPadding.dp)
+                .padding(horizontal = 24.dp)
+                .padding(top = topPadding)
         ) {
             BaseButton(
                 onClick = onClick,

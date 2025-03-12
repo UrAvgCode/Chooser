@@ -15,8 +15,11 @@
 
 package com.uravgcode.chooser.ui.screens
 
-import android.annotation.SuppressLint
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.only
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
@@ -32,6 +35,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.uravgcode.chooser.ui.components.buttons.AnimatedButton
@@ -41,7 +46,6 @@ import com.uravgcode.chooser.views.Chooser
 import kotlinx.coroutines.launch
 
 @Composable
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 fun ChooserScreen(onNavigate: () -> Unit) {
     val isVisible = remember { mutableStateOf(true) }
     val chooserMode = remember { mutableStateOf(SettingsManager.mode) }
@@ -63,8 +67,15 @@ fun ChooserScreen(onNavigate: () -> Unit) {
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-    ) {
+        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
+        contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top)
+    ) { padding ->
+        val buttonTopPadding = if (SettingsManager.edgeToEdgeEnabled) {
+            24.dp
+        } else {
+            max(padding.calculateTopPadding(), 24.dp)
+        } + SettingsManager.additionalTopPadding.dp
+
         AndroidView(
             factory = { context ->
                 Chooser(
@@ -73,15 +84,16 @@ fun ChooserScreen(onNavigate: () -> Unit) {
                         isVisible.value = it
                     })
             },
+            modifier = Modifier.fillMaxSize(),
             update = { view ->
                 view.mode = chooserMode.value
                 view.count = chooserCount.intValue
             },
-            modifier = Modifier.fillMaxSize()
         )
 
         AnimatedButton(
-            visible = isVisible.value,
+            alignment = Alignment.TopStart,
+            topPadding = buttonTopPadding,
             onClick = {
                 if (isVisible.value) {
                     chooserMode.value = chooserMode.value.next()
@@ -91,32 +103,31 @@ fun ChooserScreen(onNavigate: () -> Unit) {
                 }
             },
             onLongClick = onNavigate,
+            visible = isVisible.value,
             content = {
                 Icon(
                     painter = painterResource(id = chooserMode.value.drawable()),
                     contentDescription = "Mode"
                 )
             },
-            alignment = Alignment.TopStart,
-            additionalTopPadding = SettingsManager.additionalTopPadding
         )
 
         AnimatedButton(
-            visible = chooserMode.value != Mode.ORDER && isVisible.value,
+            alignment = Alignment.TopEnd,
+            topPadding = buttonTopPadding,
             onClick = {
                 if (isVisible.value) {
                     chooserCount.intValue = chooserMode.value.nextCount(chooserCount.intValue)
                     SettingsManager.count = chooserCount.intValue
                 }
             },
+            visible = chooserMode.value != Mode.ORDER && isVisible.value,
             content = {
                 Text(
                     text = chooserCount.intValue.toString(),
                     fontSize = 36.sp
                 )
             },
-            alignment = Alignment.TopEnd,
-            additionalTopPadding = SettingsManager.additionalTopPadding
         )
     }
 }
