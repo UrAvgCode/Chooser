@@ -17,31 +17,24 @@ package com.uravgcode.chooser.ui.screens
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.ui.components.dialogs.ResetDialog
-import com.uravgcode.chooser.ui.components.settings.SettingsRowPaddingSlider
-import com.uravgcode.chooser.ui.components.settings.SettingsRowPercentSlider
-import com.uravgcode.chooser.ui.components.settings.SettingsRowSwitch
-import com.uravgcode.chooser.ui.components.settings.SettingsRowTimeSlider
-import com.uravgcode.chooser.ui.components.settings.SettingsSeparator
 import com.uravgcode.chooser.ui.components.settings.SettingsTopAppBar
+import com.uravgcode.chooser.ui.components.settings.sections.CircleLifetimesSection
+import com.uravgcode.chooser.ui.components.settings.sections.DisplaySettingsSection
+import com.uravgcode.chooser.ui.components.settings.sections.GeneralSettingsSection
+import com.uravgcode.chooser.ui.components.settings.sections.ResetSettingsSection
 import com.uravgcode.chooser.utilities.SettingsManager
 
 @Composable
@@ -50,33 +43,12 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     val showResetDialog = remember { mutableStateOf(false) }
 
-    val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
-    val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
-
-    val isEdgeToEdgeEnabled = remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
-    val additionalTopPadding = remember { mutableFloatStateOf(SettingsManager.additionalTopPadding) }
-    val circleSizeFactor = remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
-
-    val circleLifetime = remember { mutableLongStateOf(SettingsManager.circleLifetime) }
-    val groupCircleLifetime = remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
-    val orderCircleLifetime = remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
-
     ResetDialog(
         showResetDialog = showResetDialog.value,
         onDismiss = { showResetDialog.value = false },
         onReset = {
             SettingsManager.reset()
-
-            isSoundEnabled.value = SettingsManager.soundEnabled
-            isVibrationEnabled.value = SettingsManager.vibrationEnabled
-
-            isEdgeToEdgeEnabled.value = SettingsManager.edgeToEdgeEnabled
-            additionalTopPadding.floatValue = SettingsManager.additionalTopPadding
-            circleSizeFactor.floatValue = SettingsManager.circleSizeFactor
-
-            circleLifetime.longValue = SettingsManager.circleLifetime
-            groupCircleLifetime.longValue = SettingsManager.groupCircleLifetime
-            orderCircleLifetime.longValue = SettingsManager.orderCircleLifetime
+            onNavigateBack()
         }
     )
 
@@ -97,105 +69,10 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                 .padding(padding)
                 .padding(horizontal = 16.dp)
         ) {
-            item {
-
-                SettingsSeparator("General Settings", false)
-
-                SettingsRowSwitch(
-                    title = "Enable Sound",
-                    isChecked = isSoundEnabled.value,
-                    onCheckedChange = { isChecked ->
-                        isSoundEnabled.value = isChecked
-                        SettingsManager.soundEnabled = isChecked
-                    }
-                )
-
-                SettingsRowSwitch(
-                    title = "Enable Vibration",
-                    isChecked = isVibrationEnabled.value,
-                    onCheckedChange = { isChecked ->
-                        isVibrationEnabled.value = isChecked
-                        SettingsManager.vibrationEnabled = isChecked
-                    }
-                )
-
-                SettingsSeparator("Display Settings")
-
-                SettingsRowSwitch(
-                    title = "Enable Edge-to-Edge",
-                    isChecked = isEdgeToEdgeEnabled.value,
-                    onCheckedChange = { isChecked ->
-                        isEdgeToEdgeEnabled.value = isChecked
-                        SettingsManager.edgeToEdgeEnabled = isChecked
-                    }
-                )
-
-                SettingsRowPaddingSlider(
-                    title = "Additional Top Padding",
-                    value = additionalTopPadding.floatValue,
-                    onValueChange = { sliderValue ->
-                        additionalTopPadding.floatValue = sliderValue
-                        SettingsManager.additionalTopPadding = sliderValue
-                    },
-                    valueRange = 0f..50f,
-                    steps = 9
-                )
-
-                SettingsRowPercentSlider(
-                    title = "Circle Size",
-                    value = circleSizeFactor.floatValue,
-                    onValueChange = { sliderValue ->
-                        circleSizeFactor.floatValue = sliderValue
-                        SettingsManager.circleSizeFactor = sliderValue
-                    },
-                    valueRange = 0.5f..1.5f,
-                    steps = 9
-                )
-
-                SettingsSeparator("Circle Lifetimes")
-
-                SettingsRowTimeSlider(
-                    title = "Circle Lifetime",
-                    value = circleLifetime.longValue,
-                    onValueChange = { sliderValue ->
-                        circleLifetime.longValue = sliderValue
-                        SettingsManager.circleLifetime = sliderValue
-                    },
-                    valueRange = 0L..3000L,
-                    steps = 5,
-                )
-
-                SettingsRowTimeSlider(
-                    title = "Group Circle Lifetime",
-                    value = groupCircleLifetime.longValue,
-                    onValueChange = { sliderValue ->
-                        groupCircleLifetime.longValue = sliderValue
-                        SettingsManager.groupCircleLifetime = sliderValue
-                    },
-                    valueRange = 0L..3000L,
-                    steps = 5,
-                )
-
-                SettingsRowTimeSlider(
-                    title = "Order Circle Lifetime",
-                    value = orderCircleLifetime.longValue,
-                    onValueChange = { sliderValue ->
-                        orderCircleLifetime.longValue = sliderValue
-                        SettingsManager.orderCircleLifetime = sliderValue
-                    },
-                    valueRange = 0L..3000L,
-                    steps = 5,
-                )
-
-                HorizontalDivider(modifier = Modifier.padding(vertical = 8.dp))
-                ElevatedButton(
-                    content = { Text("Reset Settings") },
-                    onClick = { showResetDialog.value = true },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 8.dp)
-                )
-            }
+            item { GeneralSettingsSection() }
+            item { DisplaySettingsSection() }
+            item { CircleLifetimesSection() }
+            item { ResetSettingsSection(onClick = { showResetDialog.value = true }) }
         }
     }
 }
