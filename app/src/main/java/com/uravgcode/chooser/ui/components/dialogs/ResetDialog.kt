@@ -29,8 +29,6 @@ fun ResetDialog(
     if (showResetDialog) {
         AlertDialog(
             onDismissRequest = { onDismiss() },
-            title = { Text(text = "Reset Settings") },
-            text = { Text(text = "Are you sure you want to reset all settings to their default values?") },
             confirmButton = {
                 Button(
                     onClick = {
@@ -45,7 +43,9 @@ fun ResetDialog(
                 Button(onClick = { onDismiss() }) {
                     Text("Cancel")
                 }
-            }
+            },
+            title = { Text(text = "Reset Settings") },
+            text = { Text(text = "Are you sure you want to reset all settings to their default values?") },
         )
     }
 }

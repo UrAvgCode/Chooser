@@ -34,10 +34,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.ui.components.dialogs.ResetDialog
-import com.uravgcode.chooser.ui.components.dialogs.RestartDialog
 import com.uravgcode.chooser.ui.components.settings.SettingsRowPaddingSlider
 import com.uravgcode.chooser.ui.components.settings.SettingsRowPercentSlider
 import com.uravgcode.chooser.ui.components.settings.SettingsRowSwitch
@@ -49,11 +47,8 @@ import com.uravgcode.chooser.utilities.SettingsManager
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingsScreen(onNavigateBack: () -> Unit) {
-    val context = LocalContext.current
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
-
     val showResetDialog = remember { mutableStateOf(false) }
-    val showRestartDialog = remember { mutableStateOf(false) }
 
     val isSoundEnabled = remember { mutableStateOf(SettingsManager.soundEnabled) }
     val isVibrationEnabled = remember { mutableStateOf(SettingsManager.vibrationEnabled) }
@@ -83,12 +78,6 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
             groupCircleLifetime.longValue = SettingsManager.groupCircleLifetime
             orderCircleLifetime.longValue = SettingsManager.orderCircleLifetime
         }
-    )
-
-    RestartDialog(
-        showRestartDialog = showRestartDialog.value,
-        onDismiss = { showRestartDialog.value = false },
-        context = context
     )
 
     Scaffold(
@@ -138,7 +127,6 @@ fun SettingsScreen(onNavigateBack: () -> Unit) {
                     onCheckedChange = { isChecked ->
                         isEdgeToEdgeEnabled.value = isChecked
                         SettingsManager.edgeToEdgeEnabled = isChecked
-                        showRestartDialog.value = true
                     }
                 )
 
