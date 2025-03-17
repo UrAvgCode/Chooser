@@ -10,7 +10,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * @author UrAvgCode
- * @description MainScreen is the screen that contains the chooser and settings screens.
+ * @description Navigation composable that sets up the navigation between different screens.
  */
 
 package com.uravgcode.chooser.navigation.presentation
