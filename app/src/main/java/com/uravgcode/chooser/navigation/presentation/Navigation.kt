@@ -28,14 +28,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.uravgcode.chooser.chooser.presentation.ChooserScreen
+import com.uravgcode.chooser.navigation.domain.Screen
 import com.uravgcode.chooser.settings.presentation.SettingsScreen
-import kotlinx.serialization.Serializable
-
-@Serializable
-data object Chooser
-
-@Serializable
-data object Settings
 
 @Composable
 fun Navigation() {
@@ -43,17 +37,17 @@ fun Navigation() {
 
     NavHost(
         navController = navController,
-        startDestination = Chooser,
+        startDestination = Screen.Chooser,
         modifier = Modifier.background(Color.Black),
         enterTransition = { fadeIn(spring()) + scaleIn(initialScale = 1.1f) },
         exitTransition = { fadeOut(spring()) + scaleOut(targetScale = 1.1f) }
     ) {
-        composable<Chooser> {
+        composable<Screen.Chooser> {
             ChooserScreen(
-                onNavigate = { navController.navigate(Settings) }
+                onNavigate = { navController.navigate(Screen.Settings) }
             )
         }
-        composable<Settings> {
+        composable<Screen.Settings> {
             SettingsScreen(
                 onNavigateBack = { navController.popBackStack() }
             )
