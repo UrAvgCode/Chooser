@@ -36,7 +36,7 @@ fun DisplaySettingsSection() {
     SettingsSeparator("Display Settings")
 
     SettingsRowSwitch(
-        title = "Enable Edge-to-Edge",
+        title = "Full Screen Mode",
         isChecked = isEdgeToEdgeEnabled,
         onCheckedChange = { isChecked ->
             isEdgeToEdgeEnabled = isChecked
@@ -45,7 +45,7 @@ fun DisplaySettingsSection() {
     )
 
     SettingsRowPaddingSlider(
-        title = "Additional Top Padding",
+        title = "Additional Button Padding",
         value = additionalTopPadding,
         onValueChange = { sliderValue ->
             additionalTopPadding = sliderValue

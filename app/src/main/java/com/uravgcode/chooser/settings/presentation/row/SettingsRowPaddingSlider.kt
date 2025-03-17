@@ -39,9 +39,8 @@ fun SettingsRowPaddingSlider(
             .padding(vertical = 8.dp)
     ) {
         Text(
-            text = "$title: ${(value).roundToInt()}",
-            modifier = Modifier
-                .padding(vertical = 8.dp)
+            text = "$title: ${(value).roundToInt()} dp",
+            modifier = Modifier.padding(vertical = 8.dp)
         )
         Slider(
             value = value,
