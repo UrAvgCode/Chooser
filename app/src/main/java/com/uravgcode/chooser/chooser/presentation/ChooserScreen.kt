@@ -41,14 +41,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.chooser.domain.Chooser
 import com.uravgcode.chooser.chooser.domain.model.Mode
 import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
+import com.uravgcode.chooser.settings.data.Settings
 import com.uravgcode.chooser.settings.domain.SettingsManager
 import kotlinx.coroutines.launch
 
 @Composable
-fun ChooserScreen(onNavigate: () -> Unit) {
+fun ChooserScreen(
+    onNavigate: () -> Unit,
+    dataStore: DataStore<Settings>
+) {
     var isVisible by remember { mutableStateOf(true) }
 
     var chooserMode by remember { mutableStateOf(SettingsManager.mode) }

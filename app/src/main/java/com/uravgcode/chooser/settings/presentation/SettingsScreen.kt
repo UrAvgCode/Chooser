@@ -37,6 +37,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import com.uravgcode.chooser.settings.data.Settings
 import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.settings.presentation.component.ResetDialog
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
@@ -48,7 +50,10 @@ import com.uravgcode.chooser.settings.presentation.row.SettingsRowTimeSlider
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
-fun SettingsScreen(onNavigateBack: () -> Unit) {
+fun SettingsScreen(
+    onNavigateBack: () -> Unit,
+    dataStore: DataStore<Settings>
+) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     var showResetDialog by remember { mutableStateOf(false) }
 

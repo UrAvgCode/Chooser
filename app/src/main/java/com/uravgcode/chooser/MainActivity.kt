@@ -15,15 +15,25 @@
 
 package com.uravgcode.chooser
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.datastore.core.DataStore
+import androidx.datastore.dataStore
 import com.uravgcode.chooser.navigation.presentation.Navigation
+import com.uravgcode.chooser.settings.data.Settings
+import com.uravgcode.chooser.settings.data.SettingsSerializer
 import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.ui.theme.ChooserTheme
 
 class MainActivity : ComponentActivity() {
+    private val Context.dataStore: DataStore<Settings> by dataStore(
+        fileName = "settings.json",
+        serializer = SettingsSerializer
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         SettingsManager.init(this)
@@ -31,7 +41,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ChooserTheme {
-                Navigation()
+                Navigation(dataStore)
             }
         }
     }

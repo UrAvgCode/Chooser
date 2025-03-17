@@ -24,15 +24,17 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.datastore.core.DataStore
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.uravgcode.chooser.chooser.presentation.ChooserScreen
 import com.uravgcode.chooser.navigation.domain.Screen
+import com.uravgcode.chooser.settings.data.Settings
 import com.uravgcode.chooser.settings.presentation.SettingsScreen
 
 @Composable
-fun Navigation() {
+fun Navigation(dataStore: DataStore<Settings>) {
     val navController = rememberNavController()
 
     NavHost(
@@ -44,12 +46,14 @@ fun Navigation() {
     ) {
         composable<Screen.Chooser> {
             ChooserScreen(
-                onNavigate = { navController.navigate(Screen.Settings) }
+                onNavigate = { navController.navigate(Screen.Settings) },
+                dataStore = dataStore
             )
         }
         composable<Screen.Settings> {
             SettingsScreen(
-                onNavigateBack = { navController.popBackStack() }
+                onNavigateBack = { navController.popBackStack() },
+                dataStore = dataStore
             )
         }
     }
