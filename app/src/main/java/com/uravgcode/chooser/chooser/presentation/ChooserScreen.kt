@@ -73,11 +73,14 @@ fun ChooserScreen(onNavigate: () -> Unit) {
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
     ) { padding ->
-        val buttonTopPadding = if (SettingsManager.edgeToEdgeEnabled) {
-            24.dp
-        } else {
-            max(padding.calculateTopPadding(), 24.dp)
-        } + SettingsManager.additionalTopPadding.dp
+        val buttonTopPadding = remember {
+            val minTopPadding = 24.dp
+            if (SettingsManager.edgeToEdgeEnabled) {
+                minTopPadding
+            } else {
+                max(padding.calculateTopPadding(), minTopPadding)
+            } + SettingsManager.additionalTopPadding.dp
+        }
 
         AndroidView(
             factory = { context ->
