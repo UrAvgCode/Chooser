@@ -1,0 +1,11 @@
+Improvements
+- improved settings names for button padding 
+- added transition animations between screens
+- enabled predictive back gesture support
+
+Fixed
+- fixed unintended navigation on orientation change
+
+Development
+- migrated to compose navigation
+- updated dependencies

@@ -1,0 +1,11 @@
+Verbesserungen
+- verbesserte Einstellungsnamen für Button-Padding
+- Übergangsanimationen zwischen Bildschirmen hinzugefügt
+- Unterstützung für vorausschauende Zurück-Touch-Geste aktiviert
+
+Behobene Fehler
+- unbeabsichtigte Navigation bei Orientierungsänderung behoben
+
+Entwicklung
+- Umstellung auf Compose Navigation
+- Abhängigkeiten aktualisiert
