@@ -28,8 +28,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -43,10 +43,13 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.chooser.domain.Chooser
+import com.uravgcode.chooser.chooser.domain.circle.Circle
+import com.uravgcode.chooser.chooser.domain.circle.GroupCircle
+import com.uravgcode.chooser.chooser.domain.circle.OrderCircle
+import com.uravgcode.chooser.chooser.domain.manager.SoundManager
 import com.uravgcode.chooser.chooser.domain.model.Mode
 import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
 import com.uravgcode.chooser.settings.data.Settings
-import com.uravgcode.chooser.settings.domain.SettingsManager
 import kotlinx.coroutines.launch
 
 @Composable
@@ -54,37 +57,46 @@ fun ChooserScreen(
     onNavigate: () -> Unit,
     dataStore: DataStore<Settings>
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val settings by dataStore.data.collectAsState(initial = Settings())
+
     var isVisible by remember { mutableStateOf(true) }
+    val snackbarHostState = remember(settings.showSettingsHint) { SnackbarHostState() }
 
-    var chooserMode by remember { mutableStateOf(SettingsManager.mode) }
-    var chooserCount by remember { mutableIntStateOf(SettingsManager.count) }
-
-    val scope = rememberCoroutineScope()
-    val snackbarHostState = remember { SnackbarHostState() }
-    LaunchedEffect(Unit) {
-        if (SettingsManager.showSettingsHint) {
-            scope.launch {
+    LaunchedEffect(settings.showSettingsHint) {
+        if (settings.showSettingsHint) {
+            coroutineScope.launch {
                 snackbarHostState.showSnackbar(
                     message = "Long Press the Mode Icon to Open Settings",
                     actionLabel = "OK",
-                    duration = SnackbarDuration.Long
+                    duration = SnackbarDuration.Short
                 )
+                dataStore.updateData { it.copy(showSettingsHint = false) }
             }
-            SettingsManager.showSettingsHint = false
         }
+    }
+
+    LaunchedEffect(settings) {
+        SoundManager.soundEnabled = settings.soundEnabled
+        Chooser.vibrationEnabled = settings.vibrationEnabled
+        Chooser.circleSizeFactor = settings.circleSizeFactor
+
+        Circle.circleLifetime = settings.circleLifetime
+        GroupCircle.circleLifetime = settings.groupCircleLifetime
+        OrderCircle.circleLifetime = settings.orderCircleLifetime
     }
 
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
     ) { padding ->
-        val buttonTopPadding = remember {
+        val buttonTopPadding = remember(settings.fullScreen, settings.additionalButtonPadding) {
             val minTopPadding = 24.dp
-            if (SettingsManager.edgeToEdgeEnabled) {
+            if (settings.fullScreen) {
                 minTopPadding
             } else {
                 max(padding.calculateTopPadding(), minTopPadding)
-            } + SettingsManager.additionalTopPadding.dp
+            } + settings.additionalButtonPadding.dp
         }
 
         AndroidView(
@@ -96,8 +108,8 @@ fun ChooserScreen(
             },
             modifier = Modifier.fillMaxSize(),
             update = { view ->
-                view.mode = chooserMode
-                view.count = chooserCount
+                view.mode = settings.mode
+                view.count = settings.count
             },
         )
 
@@ -106,17 +118,21 @@ fun ChooserScreen(
             topPadding = buttonTopPadding,
             onClick = {
                 if (isVisible) {
-                    chooserMode = chooserMode.next()
-                    chooserCount = chooserMode.initialCount()
-                    SettingsManager.mode = chooserMode
-                    SettingsManager.count = chooserCount
+                    coroutineScope.launch {
+                        dataStore.updateData {
+                            it.copy(
+                                mode = settings.mode.next(),
+                                count = settings.mode.next().initialCount()
+                            )
+                        }
+                    }
                 }
             },
             onLongClick = onNavigate,
             visible = isVisible,
             content = {
                 Icon(
-                    painter = painterResource(id = chooserMode.drawable()),
+                    painter = painterResource(id = settings.mode.drawable()),
                     contentDescription = "Mode",
                 )
             },
@@ -127,14 +143,19 @@ fun ChooserScreen(
             topPadding = buttonTopPadding,
             onClick = {
                 if (isVisible) {
-                    chooserCount = chooserMode.nextCount(chooserCount)
-                    SettingsManager.count = chooserCount
+                    coroutineScope.launch {
+                        dataStore.updateData {
+                            it.copy(
+                                count = settings.mode.nextCount(settings.count)
+                            )
+                        }
+                    }
                 }
             },
-            visible = chooserMode != Mode.ORDER && isVisible,
+            visible = settings.mode != Mode.ORDER && isVisible,
             content = {
                 Text(
-                    text = chooserCount.toString(),
+                    text = settings.count.toString(),
                     fontSize = 36.sp
                 )
             },

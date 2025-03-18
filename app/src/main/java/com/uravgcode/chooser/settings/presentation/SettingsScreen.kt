@@ -28,18 +28,17 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.settings.data.Settings
-import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.settings.presentation.component.ResetDialog
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
 import com.uravgcode.chooser.settings.presentation.component.SettingsTopAppBar
@@ -47,6 +46,7 @@ import com.uravgcode.chooser.settings.presentation.row.SettingsRowPaddingSlider
 import com.uravgcode.chooser.settings.presentation.row.SettingsRowPercentSlider
 import com.uravgcode.chooser.settings.presentation.row.SettingsRowSwitch
 import com.uravgcode.chooser.settings.presentation.row.SettingsRowTimeSlider
+import kotlinx.coroutines.launch
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,26 +54,19 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit,
     dataStore: DataStore<Settings>
 ) {
+    val coroutineScope = rememberCoroutineScope()
+    val settings by dataStore.data.collectAsState(initial = Settings())
+
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     var showResetDialog by remember { mutableStateOf(false) }
-
-    var isSoundEnabled by remember { mutableStateOf(SettingsManager.soundEnabled) }
-    var isVibrationEnabled by remember { mutableStateOf(SettingsManager.vibrationEnabled) }
-
-    var isEdgeToEdgeEnabled by remember { mutableStateOf(SettingsManager.edgeToEdgeEnabled) }
-    var additionalTopPadding by remember { mutableFloatStateOf(SettingsManager.additionalTopPadding) }
-    var circleSizeFactor by remember { mutableFloatStateOf(SettingsManager.circleSizeFactor) }
-
-    var circleLifetime by remember { mutableLongStateOf(SettingsManager.circleLifetime) }
-    var groupCircleLifetime by remember { mutableLongStateOf(SettingsManager.groupCircleLifetime) }
-    var orderCircleLifetime by remember { mutableLongStateOf(SettingsManager.orderCircleLifetime) }
 
     ResetDialog(
         showResetDialog = showResetDialog,
         onDismiss = { showResetDialog = false },
         onReset = {
-            SettingsManager.reset()
-            onNavigateBack()
+            coroutineScope.launch {
+                dataStore.updateData { Settings() }
+            }
         }
     )
 
@@ -101,18 +94,20 @@ fun SettingsScreen(
                 )
                 SettingsRowSwitch(
                     title = "Enable Sound",
-                    isChecked = isSoundEnabled,
+                    isChecked = settings.soundEnabled,
                     onCheckedChange = { isChecked ->
-                        isSoundEnabled = isChecked
-                        SettingsManager.soundEnabled = isChecked
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(soundEnabled = isChecked) }
+                        }
                     }
                 )
                 SettingsRowSwitch(
                     title = "Enable Vibration",
-                    isChecked = isVibrationEnabled,
+                    isChecked = settings.vibrationEnabled,
                     onCheckedChange = { isChecked ->
-                        isVibrationEnabled = isChecked
-                        SettingsManager.vibrationEnabled = isChecked
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(vibrationEnabled = isChecked) }
+                        }
                     }
                 )
             }
@@ -121,28 +116,31 @@ fun SettingsScreen(
                 SettingsSeparator("Display Settings")
                 SettingsRowSwitch(
                     title = "Full Screen Mode",
-                    isChecked = isEdgeToEdgeEnabled,
+                    isChecked = settings.fullScreen,
                     onCheckedChange = { isChecked ->
-                        isEdgeToEdgeEnabled = isChecked
-                        SettingsManager.edgeToEdgeEnabled = isChecked
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(fullScreen = isChecked) }
+                        }
                     }
                 )
                 SettingsRowPaddingSlider(
                     title = "Additional Button Padding",
-                    value = additionalTopPadding,
+                    value = settings.additionalButtonPadding,
                     onValueChange = { sliderValue ->
-                        additionalTopPadding = sliderValue
-                        SettingsManager.additionalTopPadding = sliderValue
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(additionalButtonPadding = sliderValue) }
+                        }
                     },
                     valueRange = 0f..50f,
                     steps = 9
                 )
                 SettingsRowPercentSlider(
                     title = "Circle Size",
-                    value = circleSizeFactor,
+                    value = settings.circleSizeFactor,
                     onValueChange = { sliderValue ->
-                        circleSizeFactor = sliderValue
-                        SettingsManager.circleSizeFactor = sliderValue
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(circleSizeFactor = sliderValue) }
+                        }
                     },
                     valueRange = 0.5f..1.5f,
                     steps = 9
@@ -153,30 +151,33 @@ fun SettingsScreen(
                 SettingsSeparator("Circle Lifetimes")
                 SettingsRowTimeSlider(
                     title = "Circle Lifetime",
-                    value = circleLifetime,
+                    value = settings.circleLifetime,
                     onValueChange = { sliderValue ->
-                        circleLifetime = sliderValue
-                        SettingsManager.circleLifetime = sliderValue
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(circleLifetime = sliderValue) }
+                        }
                     },
                     valueRange = 0L..3000L,
                     steps = 5,
                 )
                 SettingsRowTimeSlider(
                     title = "Group Circle Lifetime",
-                    value = groupCircleLifetime,
+                    value = settings.groupCircleLifetime,
                     onValueChange = { sliderValue ->
-                        groupCircleLifetime = sliderValue
-                        SettingsManager.groupCircleLifetime = sliderValue
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(groupCircleLifetime = sliderValue) }
+                        }
                     },
                     valueRange = 0L..3000L,
                     steps = 5,
                 )
                 SettingsRowTimeSlider(
                     title = "Order Circle Lifetime",
-                    value = orderCircleLifetime,
+                    value = settings.orderCircleLifetime,
                     onValueChange = { sliderValue ->
-                        orderCircleLifetime = sliderValue
-                        SettingsManager.orderCircleLifetime = sliderValue
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(orderCircleLifetime = sliderValue) }
+                        }
                     },
                     valueRange = 0L..3000L,
                     steps = 5,

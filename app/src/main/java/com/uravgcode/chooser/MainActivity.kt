@@ -25,7 +25,6 @@ import androidx.datastore.dataStore
 import com.uravgcode.chooser.navigation.presentation.Navigation
 import com.uravgcode.chooser.settings.data.Settings
 import com.uravgcode.chooser.settings.data.SettingsSerializer
-import com.uravgcode.chooser.settings.domain.SettingsManager
 import com.uravgcode.chooser.ui.theme.ChooserTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,7 +35,6 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        SettingsManager.init(this)
 
         enableEdgeToEdge()
         setContent {
