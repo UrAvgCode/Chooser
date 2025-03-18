@@ -13,7 +13,7 @@
  * @description SettingsManager manages the application settings.
  */
 
-package com.uravgcode.chooser.settings.domain
+package com.uravgcode.chooser.settings.data
 
 import android.app.Activity.MODE_PRIVATE
 import android.content.Context
@@ -26,7 +26,7 @@ import com.uravgcode.chooser.chooser.domain.circle.OrderCircle
 import com.uravgcode.chooser.chooser.domain.manager.SoundManager
 import com.uravgcode.chooser.chooser.domain.model.Mode
 
-object SettingsManager {
+object LegacySettingsManager {
     private lateinit var preferences: SharedPreferences
 
     fun init(context: Context) {
