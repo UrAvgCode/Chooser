@@ -14,7 +14,7 @@
  * It is the base class for the other circle types.
  */
 
-package com.uravgcode.chooser.chooser.domain.circle
+package com.uravgcode.chooser.chooser.presentation.circle
 
 import android.graphics.Canvas
 import android.graphics.Color

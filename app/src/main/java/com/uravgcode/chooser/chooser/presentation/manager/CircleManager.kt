@@ -13,12 +13,12 @@
  * @description CircleManager manages a map of all the circles.
  */
 
-package com.uravgcode.chooser.chooser.domain.manager
+package com.uravgcode.chooser.chooser.presentation.manager
 
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import com.uravgcode.chooser.chooser.domain.circle.Circle
+import com.uravgcode.chooser.chooser.presentation.circle.Circle
 
 class CircleManager : MutableMap<Int, Circle> {
     private val blackPaint = Paint().apply { color = Color.BLACK }

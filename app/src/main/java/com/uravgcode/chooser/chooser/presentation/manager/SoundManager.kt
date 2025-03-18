@@ -13,7 +13,7 @@
  * @description SoundManager manages the application sounds.
  */
 
-package com.uravgcode.chooser.chooser.domain.manager
+package com.uravgcode.chooser.chooser.presentation.manager
 
 import android.content.Context
 import android.media.AudioAttributes

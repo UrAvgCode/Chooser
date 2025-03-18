@@ -13,7 +13,7 @@
  * @description GroupCircle is the circle that is drawn in the group mode.
  */
 
-package com.uravgcode.chooser.chooser.domain.circle
+package com.uravgcode.chooser.chooser.presentation.circle
 
 import android.graphics.Color
 import android.os.Handler

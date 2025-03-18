@@ -13,7 +13,7 @@
  * @description OrderCircle is the circle that is drawn in the order mode.
  */
 
-package com.uravgcode.chooser.chooser.domain.circle
+package com.uravgcode.chooser.chooser.presentation.circle
 
 import android.graphics.Canvas
 import android.graphics.Color

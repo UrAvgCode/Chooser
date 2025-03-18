@@ -13,7 +13,7 @@
  * @description Chooser is the main view of the application.
  */
 
-package com.uravgcode.chooser.chooser.domain
+package com.uravgcode.chooser.chooser.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -33,16 +33,14 @@ import android.view.MotionEvent.ACTION_POINTER_DOWN
 import android.view.MotionEvent.ACTION_POINTER_UP
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
-import com.uravgcode.chooser.chooser.domain.circle.Circle
-import com.uravgcode.chooser.chooser.domain.circle.GroupCircle
-import com.uravgcode.chooser.chooser.domain.circle.OrderCircle
-import com.uravgcode.chooser.chooser.domain.entity.Number
-import com.uravgcode.chooser.chooser.domain.manager.CircleManager
-import com.uravgcode.chooser.chooser.domain.manager.ColorManager
-import com.uravgcode.chooser.chooser.domain.manager.SoundManager
-import com.uravgcode.chooser.chooser.domain.model.Mode.GROUP
-import com.uravgcode.chooser.chooser.domain.model.Mode.ORDER
-import com.uravgcode.chooser.chooser.domain.model.Mode.SINGLE
+import com.uravgcode.chooser.chooser.domain.Mode
+import com.uravgcode.chooser.chooser.presentation.circle.Circle
+import com.uravgcode.chooser.chooser.presentation.circle.GroupCircle
+import com.uravgcode.chooser.chooser.presentation.circle.OrderCircle
+import com.uravgcode.chooser.chooser.presentation.component.Number
+import com.uravgcode.chooser.chooser.presentation.manager.CircleManager
+import com.uravgcode.chooser.chooser.presentation.manager.ColorManager
+import com.uravgcode.chooser.chooser.presentation.manager.SoundManager
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
@@ -72,7 +70,7 @@ class Chooser(
     private var blackRadius = 0f
     private var blackSpeed = 1f
 
-    var mode = SINGLE
+    var mode = Mode.SINGLE
     var count = 1
 
     init {
@@ -85,7 +83,7 @@ class Chooser(
 
         circles.update(deltaTime)
 
-        if (winnerChosen && mode == SINGLE) {
+        if (winnerChosen && mode == Mode.SINGLE) {
             blackSpeed += deltaTime * 0.04f * sign(blackSpeed)
             blackRadius = max(
                 blackRadius + blackSpeed * deltaTime,
@@ -147,9 +145,9 @@ class Chooser(
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
-        SINGLE -> Circle(x, y, circleSize * circleSizeFactor * scale, colorManager.nextColor())
-        GROUP -> GroupCircle(x, y, circleSize * circleSizeFactor * scale)
-        ORDER -> OrderCircle(x, y, circleSize * circleSizeFactor * scale, colorManager.nextColor())
+        Mode.SINGLE -> Circle(x, y, circleSize * circleSizeFactor * scale, colorManager.nextColor())
+        Mode.GROUP -> GroupCircle(x, y, circleSize * circleSizeFactor * scale)
+        Mode.ORDER -> OrderCircle(x, y, circleSize * circleSizeFactor * scale, colorManager.nextColor())
     }
 
     private fun resetGame() {
@@ -170,9 +168,9 @@ class Chooser(
                 }, 150)
             },
             when (mode) {
-                SINGLE -> Circle.circleLifetime
-                GROUP -> GroupCircle.circleLifetime
-                ORDER -> OrderCircle.circleLifetime
+                Mode.SINGLE -> Circle.Companion.circleLifetime
+                Mode.GROUP -> GroupCircle.Companion.circleLifetime
+                Mode.ORDER -> OrderCircle.Companion.circleLifetime
             }
         )
     }
@@ -181,9 +179,9 @@ class Chooser(
         if (circles.size <= count) return
 
         when (mode) {
-            SINGLE -> chooseFinger()
-            GROUP -> chooseGroup()
-            ORDER -> chooseOrder()
+            Mode.SINGLE -> chooseFinger()
+            Mode.GROUP -> chooseGroup()
+            Mode.ORDER -> chooseOrder()
         }
 
         winnerChosen = true

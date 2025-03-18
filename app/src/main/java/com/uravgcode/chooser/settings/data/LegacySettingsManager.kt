@@ -19,12 +19,12 @@ import android.app.Activity.MODE_PRIVATE
 import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import com.uravgcode.chooser.chooser.domain.Chooser
-import com.uravgcode.chooser.chooser.domain.circle.Circle
-import com.uravgcode.chooser.chooser.domain.circle.GroupCircle
-import com.uravgcode.chooser.chooser.domain.circle.OrderCircle
-import com.uravgcode.chooser.chooser.domain.manager.SoundManager
-import com.uravgcode.chooser.chooser.domain.model.Mode
+import com.uravgcode.chooser.chooser.presentation.Chooser
+import com.uravgcode.chooser.chooser.presentation.circle.Circle
+import com.uravgcode.chooser.chooser.presentation.circle.GroupCircle
+import com.uravgcode.chooser.chooser.presentation.circle.OrderCircle
+import com.uravgcode.chooser.chooser.presentation.manager.SoundManager
+import com.uravgcode.chooser.chooser.domain.Mode
 
 object LegacySettingsManager {
     private lateinit var preferences: SharedPreferences

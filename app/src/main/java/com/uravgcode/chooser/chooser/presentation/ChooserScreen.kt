@@ -42,12 +42,11 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.datastore.core.DataStore
-import com.uravgcode.chooser.chooser.domain.Chooser
-import com.uravgcode.chooser.chooser.domain.circle.Circle
-import com.uravgcode.chooser.chooser.domain.circle.GroupCircle
-import com.uravgcode.chooser.chooser.domain.circle.OrderCircle
-import com.uravgcode.chooser.chooser.domain.manager.SoundManager
-import com.uravgcode.chooser.chooser.domain.model.Mode
+import com.uravgcode.chooser.chooser.presentation.circle.Circle
+import com.uravgcode.chooser.chooser.presentation.circle.GroupCircle
+import com.uravgcode.chooser.chooser.presentation.circle.OrderCircle
+import com.uravgcode.chooser.chooser.presentation.manager.SoundManager
+import com.uravgcode.chooser.chooser.domain.Mode
 import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
 import com.uravgcode.chooser.settings.data.Settings
 import kotlinx.coroutines.launch

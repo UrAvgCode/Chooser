@@ -13,7 +13,7 @@
  * @description Mode represents the different modes of the application.
  */
 
-package com.uravgcode.chooser.chooser.domain.model
+package com.uravgcode.chooser.chooser.domain
 
 import com.uravgcode.chooser.R
 

@@ -13,7 +13,7 @@
  * @description ColorManager manages the color palette of the circles.
  */
 
-package com.uravgcode.chooser.chooser.domain.manager
+package com.uravgcode.chooser.chooser.presentation.manager
 
 import android.graphics.Color
 import kotlin.random.Random
