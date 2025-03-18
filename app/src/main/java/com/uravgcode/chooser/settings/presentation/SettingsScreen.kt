@@ -38,7 +38,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
-import com.uravgcode.chooser.settings.data.Settings
+import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.presentation.component.ResetDialog
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
 import com.uravgcode.chooser.settings.presentation.component.SettingsTopAppBar
@@ -52,10 +52,10 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 fun SettingsScreen(
     onNavigateBack: () -> Unit,
-    dataStore: DataStore<Settings>
+    dataStore: DataStore<SettingsData>
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val settings by dataStore.data.collectAsState(initial = Settings())
+    val settings by dataStore.data.collectAsState(initial = SettingsData())
 
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
     var showResetDialog by remember { mutableStateOf(false) }
@@ -65,7 +65,7 @@ fun SettingsScreen(
         onDismiss = { showResetDialog = false },
         onReset = {
             coroutineScope.launch {
-                dataStore.updateData { Settings() }
+                dataStore.updateData { SettingsData() }
             }
         }
     )

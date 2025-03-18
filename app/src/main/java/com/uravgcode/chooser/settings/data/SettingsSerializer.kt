@@ -20,14 +20,14 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-object SettingsSerializer : Serializer<Settings> {
-    override val defaultValue: Settings
-        get() = Settings()
+object SettingsSerializer : Serializer<SettingsData> {
+    override val defaultValue: SettingsData
+        get() = SettingsData()
 
-    override suspend fun readFrom(input: InputStream): Settings {
+    override suspend fun readFrom(input: InputStream): SettingsData {
         return try {
             Json.decodeFromString(
-                deserializer = Settings.serializer(),
+                deserializer = SettingsData.serializer(),
                 string = input.readBytes().decodeToString()
             )
         } catch (e: Exception) {
@@ -37,13 +37,13 @@ object SettingsSerializer : Serializer<Settings> {
     }
 
     override suspend fun writeTo(
-        settings: Settings,
+        settingsData: SettingsData,
         output: OutputStream
     ) {
         output.write(
             Json.encodeToString(
-                serializer = Settings.serializer(),
-                value = settings
+                serializer = SettingsData.serializer(),
+                value = settingsData
             ).encodeToByteArray()
         )
     }

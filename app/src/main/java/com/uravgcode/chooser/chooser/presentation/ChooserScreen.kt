@@ -48,16 +48,16 @@ import com.uravgcode.chooser.chooser.presentation.circle.OrderCircle
 import com.uravgcode.chooser.chooser.presentation.manager.SoundManager
 import com.uravgcode.chooser.chooser.domain.Mode
 import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
-import com.uravgcode.chooser.settings.data.Settings
+import com.uravgcode.chooser.settings.data.SettingsData
 import kotlinx.coroutines.launch
 
 @Composable
 fun ChooserScreen(
     onNavigate: () -> Unit,
-    dataStore: DataStore<Settings>
+    dataStore: DataStore<SettingsData>
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val settings by dataStore.data.collectAsState(initial = Settings())
+    val settings by dataStore.data.collectAsState(initial = SettingsData())
 
     var isVisible by remember { mutableStateOf(true) }
     val snackbarHostState = remember(settings.showSettingsHint) { SnackbarHostState() }

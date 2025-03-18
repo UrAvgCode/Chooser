@@ -19,7 +19,7 @@ import com.uravgcode.chooser.chooser.domain.Mode
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Settings(
+data class SettingsData(
     val mode: Mode = Mode.SINGLE,
     val count: Int = 1,
 

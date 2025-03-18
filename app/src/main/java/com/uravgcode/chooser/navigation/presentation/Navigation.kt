@@ -30,11 +30,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.uravgcode.chooser.chooser.presentation.ChooserScreen
 import com.uravgcode.chooser.navigation.domain.Screen
-import com.uravgcode.chooser.settings.data.Settings
+import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.presentation.SettingsScreen
 
 @Composable
-fun Navigation(dataStore: DataStore<Settings>) {
+fun Navigation(dataStore: DataStore<SettingsData>) {
     val navController = rememberNavController()
 
     NavHost(
