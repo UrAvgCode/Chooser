@@ -1,11 +1,9 @@
 package com.uravgcode.chooser.tutorial.presentation.component
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,18 +28,15 @@ fun ModeButtonExplanation(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.padding(16.dp)
         ) {
-            Box(
-                modifier = Modifier
-                    .size(56.dp)
-                    .padding(8.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.single_icon),
-                    contentDescription = null,
-                    modifier = Modifier.size(28.dp)
-                )
-            }
+            DummyButton(
+                content = {
+                    Icon(
+                        painter = painterResource(id = R.drawable.single_icon),
+                        contentDescription = null,
+                    )
+                },
+                radius = 56.dp
+            )
 
             Spacer(modifier = Modifier.height(8.dp))
 
