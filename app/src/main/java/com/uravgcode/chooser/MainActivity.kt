@@ -20,12 +20,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.uravgcode.chooser.navigation.presentation.Navigation
+import com.uravgcode.chooser.settings.data.migrateSettings
 import com.uravgcode.chooser.settings.data.settingsDataStore
 import com.uravgcode.chooser.ui.theme.ChooserTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        migrateSettings(this, settingsDataStore)
 
         enableEdgeToEdge()
         setContent {

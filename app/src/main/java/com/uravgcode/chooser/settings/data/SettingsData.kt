@@ -20,6 +20,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SettingsData(
+    val showSettingsHint: Boolean = true,
+
     val mode: Mode = Mode.SINGLE,
     val count: Int = 1,
 
@@ -33,6 +35,4 @@ data class SettingsData(
     val circleLifetime: Long = 1000L,
     val groupCircleLifetime: Long = 1000L,
     val orderCircleLifetime: Long = 1500L,
-
-    val showSettingsHint: Boolean = true,
 )
