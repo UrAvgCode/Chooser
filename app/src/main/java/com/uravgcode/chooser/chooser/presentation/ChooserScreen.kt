@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -115,6 +116,7 @@ fun ChooserScreen(
                 Icon(
                     painter = painterResource(id = settings.mode.drawable()),
                     contentDescription = "Mode",
+                    modifier = Modifier.size(36.dp)
                 )
             },
         )
