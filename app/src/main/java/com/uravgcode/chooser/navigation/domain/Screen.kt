@@ -19,6 +19,9 @@ import kotlinx.serialization.Serializable
 
 sealed class Screen {
     @Serializable
+    data object Tutorial : Screen()
+
+    @Serializable
     data object Chooser : Screen()
 
     @Serializable

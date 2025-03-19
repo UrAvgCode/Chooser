@@ -20,7 +20,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SettingsData(
-    val showSettingsHint: Boolean = true,
+    val hasSeenTutorial: Boolean = false,
 
     val mode: Mode = Mode.SINGLE,
     val count: Int = 1,

@@ -22,6 +22,8 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.datastore.core.DataStore
@@ -32,18 +34,33 @@ import com.uravgcode.chooser.chooser.presentation.ChooserScreen
 import com.uravgcode.chooser.navigation.domain.Screen
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.presentation.SettingsScreen
+import com.uravgcode.chooser.tutorial.presentation.TutorialScreen
+import kotlinx.coroutines.flow.map
 
 @Composable
 fun Navigation(dataStore: DataStore<SettingsData>) {
     val navController = rememberNavController()
 
+    val hasSeenTutorial by dataStore.data.map { it.hasSeenTutorial }.collectAsState(initial = true)
+    val startDestination = if (hasSeenTutorial) Screen.Chooser else Screen.Tutorial
+
     NavHost(
         navController = navController,
-        startDestination = Screen.Chooser,
+        startDestination = startDestination,
         modifier = Modifier.background(Color.Black),
         enterTransition = { fadeIn(spring()) + scaleIn(initialScale = 1.1f) },
         exitTransition = { fadeOut(spring()) + scaleOut(targetScale = 1.1f) }
     ) {
+        composable<Screen.Tutorial> {
+            TutorialScreen(
+                onComplete = {
+                    navController.navigate(Screen.Chooser) {
+                        popUpTo(Screen.Tutorial) { inclusive = true }
+                    }
+                },
+                dataStore = dataStore
+            )
+        }
         composable<Screen.Chooser> {
             ChooserScreen(
                 onNavigate = { navController.navigate(Screen.Settings) },

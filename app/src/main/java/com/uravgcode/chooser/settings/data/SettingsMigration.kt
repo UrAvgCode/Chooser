@@ -34,8 +34,6 @@ fun migrateSettings(
     runBlocking {
         dataStore.updateData {
             SettingsData(
-                showSettingsHint = preferences.getBoolean("show_settings_hint", true),
-
                 mode = Mode.entries[preferences.getInt("mode", 0)],
                 count = preferences.getInt("count", 1),
 

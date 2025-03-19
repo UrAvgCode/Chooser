@@ -22,9 +22,6 @@ import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,12 +39,12 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.datastore.core.DataStore
+import com.uravgcode.chooser.chooser.domain.Mode
+import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
 import com.uravgcode.chooser.chooser.presentation.circle.Circle
 import com.uravgcode.chooser.chooser.presentation.circle.GroupCircle
 import com.uravgcode.chooser.chooser.presentation.circle.OrderCircle
 import com.uravgcode.chooser.chooser.presentation.manager.SoundManager
-import com.uravgcode.chooser.chooser.domain.Mode
-import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
 import com.uravgcode.chooser.settings.data.SettingsData
 import kotlinx.coroutines.launch
 
@@ -60,20 +57,6 @@ fun ChooserScreen(
     val settings by dataStore.data.collectAsState(initial = SettingsData())
 
     var isVisible by remember { mutableStateOf(true) }
-    val snackbarHostState = remember(settings.showSettingsHint) { SnackbarHostState() }
-
-    LaunchedEffect(settings.showSettingsHint) {
-        if (settings.showSettingsHint) {
-            coroutineScope.launch {
-                snackbarHostState.showSnackbar(
-                    message = "Long Press the Mode Icon to Open Settings",
-                    actionLabel = "OK",
-                    duration = SnackbarDuration.Short
-                )
-                dataStore.updateData { it.copy(showSettingsHint = false) }
-            }
-        }
-    }
 
     LaunchedEffect(settings) {
         SoundManager.soundEnabled = settings.soundEnabled
@@ -86,7 +69,6 @@ fun ChooserScreen(
     }
 
     Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         contentWindowInsets = WindowInsets.safeDrawing.only(WindowInsetsSides.Top),
     ) { padding ->
         val buttonTopPadding = remember(settings.fullScreen, settings.additionalButtonPadding) {
