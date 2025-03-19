@@ -4,9 +4,11 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -23,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.tutorial.presentation.component.PageIndicator
-import com.uravgcode.chooser.tutorial.presentation.page.ButtonsPage
+import com.uravgcode.chooser.tutorial.presentation.page.ButtonPage
 import com.uravgcode.chooser.tutorial.presentation.page.GroupModePage
 import com.uravgcode.chooser.tutorial.presentation.page.OrderModePage
 import com.uravgcode.chooser.tutorial.presentation.page.SingleModePage
@@ -39,7 +41,9 @@ fun TutorialScreen(
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { 5 })
 
-    Scaffold { padding ->
+    Scaffold(
+        contentWindowInsets = WindowInsets.safeDrawing,
+    ) { padding ->
         Column(
             modifier = Modifier.padding(padding),
             verticalArrangement = Arrangement.Center
@@ -54,7 +58,7 @@ fun TutorialScreen(
                 ) {
                     when (page) {
                         0 -> WelcomePage()
-                        1 -> ButtonsPage()
+                        1 -> ButtonPage()
                         2 -> SingleModePage()
                         3 -> GroupModePage()
                         4 -> OrderModePage()
