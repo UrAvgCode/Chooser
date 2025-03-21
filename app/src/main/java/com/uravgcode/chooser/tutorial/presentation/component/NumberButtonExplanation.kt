@@ -29,8 +29,9 @@ fun NumberButtonExplanation(
             DummyButton(
                 content = {
                     Text(
-                        text = "2",
-                        fontSize = 36.sp
+                        text = "1",
+                        fontSize = 38.sp,
+                        textAlign = TextAlign.Center,
                     )
                 },
                 radius = 56.dp

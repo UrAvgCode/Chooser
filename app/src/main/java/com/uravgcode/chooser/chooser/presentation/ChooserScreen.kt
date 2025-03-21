@@ -35,6 +35,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
@@ -116,7 +117,7 @@ fun ChooserScreen(
                 Icon(
                     painter = painterResource(id = settings.mode.drawable()),
                     contentDescription = "Mode",
-                    modifier = Modifier.size(36.dp)
+                    modifier = Modifier.size(38.dp)
                 )
             },
         )
@@ -139,7 +140,8 @@ fun ChooserScreen(
             content = {
                 Text(
                     text = settings.count.toString(),
-                    fontSize = 36.sp
+                    fontSize = 38.sp,
+                    textAlign = TextAlign.Center,
                 )
             },
         )

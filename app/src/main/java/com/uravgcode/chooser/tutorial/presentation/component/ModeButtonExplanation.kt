@@ -34,7 +34,7 @@ fun ModeButtonExplanation(
                     Icon(
                         painter = painterResource(id = R.drawable.single_icon),
                         contentDescription = null,
-                        modifier = Modifier.size(36.dp),
+                        modifier = Modifier.size(38.dp),
                     )
                 },
                 radius = 56.dp
