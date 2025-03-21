@@ -1,9 +1,9 @@
 package com.uravgcode.chooser.tutorial.presentation.page
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -47,10 +47,10 @@ fun GroupModePage() {
             textAlign = TextAlign.Center
         )
 
-        Icon(
-            painter = painterResource(id = R.drawable.group_icon),
+        Image(
+            painter = painterResource(id = R.drawable.group_preview),
             contentDescription = null,
-            modifier = Modifier.fillMaxSize(0.5f),
+            modifier = Modifier.size(256.dp),
         )
 
         Text(
