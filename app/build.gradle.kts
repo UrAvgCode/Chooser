@@ -70,6 +70,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
 
+    implementation(libs.androidx.animation.graphics)
+
     implementation(libs.androidx.navigation.compose)
 
     debugImplementation(libs.androidx.ui.tooling)

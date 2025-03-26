@@ -1,0 +1,18 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/group_preview">
+    <target
+        android:name="blue_circle_fill"
+        android:animation="@animator/fill_color_white_to_blue" />
+    <target
+        android:name="blue_circle_stroke"
+        android:animation="@animator/stroke_color_white_to_blue" />
+    <target
+        android:name="orange_circle_fill"
+        android:animation="@animator/fill_color_white_to_orange" />
+    <target
+        android:name="orange_circle_stroke"
+        android:animation="@animator/stroke_color_white_to_orange" />
+    <target
+        android:name="circle_arc"
+        android:animation="@animator/stroke_color_black_to_white" />
+</animated-vector>
