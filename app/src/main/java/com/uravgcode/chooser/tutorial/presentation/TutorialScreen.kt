@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
+import com.uravgcode.chooser.tutorial.domain.Page
 import com.uravgcode.chooser.tutorial.presentation.component.PageIndicator
 import com.uravgcode.chooser.tutorial.presentation.page.ButtonPage
 import com.uravgcode.chooser.tutorial.presentation.page.ModePage
@@ -38,7 +39,7 @@ fun TutorialScreen(
     dataStore: DataStore<SettingsData>
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { 5 })
+    val pagerState = rememberPagerState(pageCount = { Page.entries.size })
 
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -55,12 +56,10 @@ fun TutorialScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
-                    when (page) {
-                        0 -> WelcomePage()
-
-                        1 -> ButtonPage()
-
-                        2 -> ModePage(
+                    when (Page.entries[page]) {
+                        Page.WELCOME -> WelcomePage()
+                        Page.BUTTON -> ButtonPage()
+                        Page.SINGLE_MODE -> ModePage(
                             iconId = R.drawable.single_icon,
                             previewId = R.drawable.single_preview_animated,
                             title = "Single Mode",
@@ -68,7 +67,7 @@ fun TutorialScreen(
                             previewDescription = "Perfect for making quick decisions or selecting a winner"
                         )
 
-                        3 -> ModePage(
+                        Page.GROUP_MODE -> ModePage(
                             iconId = R.drawable.group_icon,
                             previewId = R.drawable.group_preview_animated,
                             title = "Group Mode",
@@ -76,7 +75,7 @@ fun TutorialScreen(
                             previewDescription = "Great for forming teams or groups"
                         )
 
-                        4 -> ModePage(
+                        Page.ORDER_MODE -> ModePage(
                             iconId = R.drawable.order_icon,
                             previewId = R.drawable.order_preview_animated,
                             title = "Order Mode",
