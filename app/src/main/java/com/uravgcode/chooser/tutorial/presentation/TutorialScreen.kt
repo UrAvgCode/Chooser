@@ -31,6 +31,7 @@ import com.uravgcode.chooser.tutorial.presentation.page.ButtonPage
 import com.uravgcode.chooser.tutorial.presentation.page.ModePage
 import com.uravgcode.chooser.tutorial.presentation.page.WelcomePage
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 @Composable
 @OptIn(ExperimentalFoundationApi::class)
@@ -56,6 +57,9 @@ fun TutorialScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
+                    val isPageFullyVisible = pagerState.currentPage == page &&
+                        pagerState.currentPageOffsetFraction.absoluteValue < 0.1f
+
                     when (Page.entries[page]) {
                         Page.WELCOME -> WelcomePage()
                         Page.BUTTON -> ButtonPage()
@@ -64,7 +68,8 @@ fun TutorialScreen(
                             previewId = R.drawable.single_preview_animated,
                             title = "Single Mode",
                             description = "Chooses a random finger from all placed on screen",
-                            previewDescription = "Perfect for making quick decisions or selecting a winner"
+                            previewDescription = "Perfect for making quick decisions or selecting a winner",
+                            isVisible = isPageFullyVisible,
                         )
 
                         Page.GROUP_MODE -> ModePage(
@@ -72,7 +77,8 @@ fun TutorialScreen(
                             previewId = R.drawable.group_preview_animated,
                             title = "Group Mode",
                             description = "Divides all fingers into equal teams",
-                            previewDescription = "Great for forming teams or groups"
+                            previewDescription = "Great for forming teams or groups",
+                            isVisible = isPageFullyVisible,
                         )
 
                         Page.ORDER_MODE -> ModePage(
@@ -80,7 +86,8 @@ fun TutorialScreen(
                             previewId = R.drawable.order_preview_animated,
                             title = "Order Mode",
                             description = "Assigns a random order to all fingers",
-                            previewDescription = "Perfect for determining turn order in games"
+                            previewDescription = "Perfect for determining turn order in games",
+                            isVisible = isPageFullyVisible,
                         )
                     }
                 }

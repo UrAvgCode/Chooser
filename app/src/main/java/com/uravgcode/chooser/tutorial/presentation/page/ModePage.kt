@@ -39,13 +39,16 @@ fun ModePage(
     title: String,
     description: String,
     previewDescription: String,
+    isVisible: Boolean = true,
 ) {
     val image = AnimatedImageVector.animatedVectorResource(previewId)
     var atEnd by remember { mutableStateOf(false) }
 
-    LaunchedEffect(Unit) {
-        delay(300)
-        atEnd = true
+    LaunchedEffect(isVisible) {
+        if (isVisible) {
+            delay(600)
+            atEnd = true
+        }
     }
 
     Column(
