@@ -2,5 +2,5 @@
     android:drawable="@drawable/single_preview">
     <target
         android:name="disappearing_circle"
-        android:animation="@animator/shrink_fade_out" />
+        android:animation="@animator/fade_out_shrinking" />
 </animated-vector>

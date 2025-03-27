@@ -1,0 +1,27 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/order_preview">
+    <target
+        android:name="number_1"
+        android:animation="@animator/fade_in_full_1" />
+    <target
+        android:name="shadow_number_1"
+        android:animation="@animator/fade_in_partial_1" />
+    <target
+        android:name="number_2"
+        android:animation="@animator/fade_in_full_2" />
+    <target
+        android:name="shadow_number_2"
+        android:animation="@animator/fade_in_partial_2" />
+    <target
+        android:name="number_3"
+        android:animation="@animator/fade_in_full_3" />
+    <target
+        android:name="shadow_number_3"
+        android:animation="@animator/fade_in_partial_3" />
+    <target
+        android:name="number_4"
+        android:animation="@animator/fade_in_full_4" />
+    <target
+        android:name="shadow_number_4"
+        android:animation="@animator/fade_in_partial_4" />
+</animated-vector>

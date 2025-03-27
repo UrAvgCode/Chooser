@@ -1,6 +1,5 @@
 package com.uravgcode.chooser.tutorial.presentation.page
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.R
+import com.uravgcode.chooser.tutorial.presentation.animation.AnimatedPreview
 
 @Composable
 fun OrderModePage() {
@@ -47,11 +47,7 @@ fun OrderModePage() {
             textAlign = TextAlign.Center
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.order_preview),
-            contentDescription = null,
-            modifier = Modifier.size(256.dp),
-        )
+        AnimatedPreview(R.drawable.order_preview_animated)
 
         Text(
             text = "Perfect for determining turn order in games",
