@@ -1,0 +1,6 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/single_preview">
+    <target
+        android:name="disappearing_circle"
+        android:animation="@animator/shrink_fade_out" />
+</animated-vector>

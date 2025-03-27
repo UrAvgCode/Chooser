@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.uravgcode.chooser.R
-import com.uravgcode.chooser.tutorial.presentation.animation.AnimatedGroupPreview
+import com.uravgcode.chooser.tutorial.presentation.animation.AnimatedPreview
 
 @Composable
 fun GroupModePage() {
@@ -47,7 +47,7 @@ fun GroupModePage() {
             textAlign = TextAlign.Center
         )
 
-        AnimatedGroupPreview()
+        AnimatedPreview(R.drawable.group_preview_animated)
 
         Text(
             text = "Great for forming teams or groups",
