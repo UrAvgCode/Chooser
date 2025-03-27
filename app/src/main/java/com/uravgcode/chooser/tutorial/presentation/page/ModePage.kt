@@ -1,5 +1,6 @@
 package com.uravgcode.chooser.tutorial.presentation.page
 
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,11 +17,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.uravgcode.chooser.R
 import com.uravgcode.chooser.tutorial.presentation.animation.AnimatedPreview
 
 @Composable
-fun OrderModePage() {
+fun ModePage(
+    @DrawableRes iconId: Int,
+    @DrawableRes previewId: Int,
+    title: String,
+    description: String,
+    previewDescription: String
+) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -30,27 +36,27 @@ fun OrderModePage() {
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
-                painter = painterResource(id = R.drawable.order_icon),
+                painter = painterResource(iconId),
                 contentDescription = null,
                 modifier = Modifier
                     .size(38.dp)
                     .padding(end = 8.dp),
             )
             Text(
-                text = "Order Mode",
+                text = title,
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
         }
         Text(
-            text = "Assigns a random order to all fingers",
+            text = description,
             textAlign = TextAlign.Center
         )
 
-        AnimatedPreview(R.drawable.order_preview_animated)
+        AnimatedPreview(previewId)
 
         Text(
-            text = "Perfect for determining turn order in games",
+            text = previewDescription,
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center
         )

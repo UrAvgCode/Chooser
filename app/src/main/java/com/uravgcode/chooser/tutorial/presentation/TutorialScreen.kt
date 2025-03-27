@@ -23,12 +23,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
+import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.tutorial.presentation.component.PageIndicator
 import com.uravgcode.chooser.tutorial.presentation.page.ButtonPage
-import com.uravgcode.chooser.tutorial.presentation.page.GroupModePage
-import com.uravgcode.chooser.tutorial.presentation.page.OrderModePage
-import com.uravgcode.chooser.tutorial.presentation.page.SingleModePage
+import com.uravgcode.chooser.tutorial.presentation.page.ModePage
 import com.uravgcode.chooser.tutorial.presentation.page.WelcomePage
 import kotlinx.coroutines.launch
 
@@ -58,10 +57,32 @@ fun TutorialScreen(
                 ) {
                     when (page) {
                         0 -> WelcomePage()
+
                         1 -> ButtonPage()
-                        2 -> SingleModePage()
-                        3 -> GroupModePage()
-                        4 -> OrderModePage()
+
+                        2 -> ModePage(
+                            iconId = R.drawable.single_icon,
+                            previewId = R.drawable.single_preview_animated,
+                            title = "Single Mode",
+                            description = "Chooses a random finger from all placed on screen",
+                            previewDescription = "Perfect for making quick decisions or selecting a winner"
+                        )
+
+                        3 -> ModePage(
+                            iconId = R.drawable.group_icon,
+                            previewId = R.drawable.group_preview_animated,
+                            title = "Group Mode",
+                            description = "Divides all fingers into equal teams",
+                            previewDescription = "Great for forming teams or groups"
+                        )
+
+                        4 -> ModePage(
+                            iconId = R.drawable.order_icon,
+                            previewId = R.drawable.order_preview_animated,
+                            title = "Order Mode",
+                            description = "Assigns a random order to all fingers",
+                            previewDescription = "Perfect for determining turn order in games"
+                        )
                     }
                 }
             }
