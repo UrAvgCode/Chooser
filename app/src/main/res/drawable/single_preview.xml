@@ -3,6 +3,17 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
+    <path
+        android:fillColor="#2988cc"
+        android:pathData="M-0,0h108v108h-108z" />
+    <group
+        android:name="black_radius"
+        android:pivotX="75"
+        android:pivotY="41">
+        <path
+            android:fillColor="#000"
+            android:pathData="M75,41m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0" />
+    </group>
     <group
         android:name="disappearing_circle"
         android:pivotX="75"

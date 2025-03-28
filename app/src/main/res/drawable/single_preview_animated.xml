@@ -3,4 +3,7 @@
     <target
         android:name="disappearing_circle"
         android:animation="@animator/fade_out_shrinking" />
+    <target
+        android:name="black_radius"
+        android:animation="@animator/fade_in_shrinking" />
 </animated-vector>
