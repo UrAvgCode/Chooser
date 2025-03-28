@@ -3,7 +3,7 @@
     <objectAnimator
         android:duration="250"
         android:propertyName="strokeColor"
-        android:valueFrom="#fff"
-        android:valueTo="#ce6d29"
+        android:valueFrom="@color/white"
+        android:valueTo="@color/orange"
         android:valueType="colorType" />
 </set>

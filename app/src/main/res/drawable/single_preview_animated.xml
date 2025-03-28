@@ -1,7 +1,13 @@
 <animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:drawable="@drawable/single_preview">
     <target
-        android:name="disappearing_circle"
+        android:name="red_circle"
+        android:animation="@animator/fade_out_shrinking" />
+    <target
+        android:name="green_circle"
+        android:animation="@animator/fade_out_shrinking" />
+    <target
+        android:name="yellow_circle"
         android:animation="@animator/fade_out_shrinking" />
     <target
         android:name="black_radius"

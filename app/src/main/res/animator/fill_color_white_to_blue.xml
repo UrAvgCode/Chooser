@@ -3,7 +3,7 @@
     <objectAnimator
         android:duration="250"
         android:propertyName="fillColor"
-        android:valueFrom="#fff"
-        android:valueTo="#2b88cc"
+        android:valueFrom="@color/white"
+        android:valueTo="@color/blue"
         android:valueType="colorType" />
 </set>
