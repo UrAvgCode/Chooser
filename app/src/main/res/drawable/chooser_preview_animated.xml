@@ -1,0 +1,15 @@
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/chooser_preview">
+    <target
+        android:name="green_circle"
+        android:animation="@animator/fade_in_growing_1" />
+    <target
+        android:name="blue_circle"
+        android:animation="@animator/fade_in_growing_2" />
+    <target
+        android:name="yellow_circle"
+        android:animation="@animator/fade_in_growing_3" />
+    <target
+        android:name="red_circle"
+        android:animation="@animator/fade_in_growing_4" />
+</animated-vector>
