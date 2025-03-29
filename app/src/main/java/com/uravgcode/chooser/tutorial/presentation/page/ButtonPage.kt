@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -22,19 +21,16 @@ import com.uravgcode.chooser.tutorial.presentation.component.NumberButtonExplana
 @Composable
 fun ButtonPage() {
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = "How to Use",
-            style = MaterialTheme.typography.headlineMedium,
+            modifier = Modifier.padding(bottom = 8.dp),
+            style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
-        Spacer(modifier = Modifier.padding(8.dp))
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -62,10 +58,9 @@ fun ButtonPage() {
             }
         }
 
-        Spacer(modifier = Modifier.padding(8.dp))
         Text(
             text = "Long press on the Mode button to access settings",
-            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(top = 8.dp),
             textAlign = TextAlign.Center
         )
     }

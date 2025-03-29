@@ -54,7 +54,9 @@ fun TutorialScreen(
                 modifier = Modifier.weight(1f)
             ) { page ->
                 Box(
-                    modifier = Modifier.fillMaxSize(),
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     val isPageFullyVisible = pagerState.currentPage == page &&
