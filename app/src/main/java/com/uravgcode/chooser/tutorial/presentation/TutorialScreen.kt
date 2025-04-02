@@ -27,9 +27,7 @@ import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.tutorial.domain.Page
 import com.uravgcode.chooser.tutorial.presentation.component.PageIndicator
-import com.uravgcode.chooser.tutorial.presentation.page.ButtonPage
-import com.uravgcode.chooser.tutorial.presentation.page.ModePage
-import com.uravgcode.chooser.tutorial.presentation.page.WelcomePage
+import com.uravgcode.chooser.tutorial.presentation.component.TutorialPage
 import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
@@ -63,32 +61,43 @@ fun TutorialScreen(
                         pagerState.currentPageOffsetFraction.absoluteValue < 0.1f
 
                     when (Page.entries[page]) {
-                        Page.WELCOME -> WelcomePage()
-                        Page.BUTTON -> ButtonPage()
-                        Page.SINGLE_MODE -> ModePage(
+                        Page.WELCOME -> TutorialPage(
+                            previewId = R.drawable.chooser_preview_animated,
+                            title = "Welcome to Chooser",
+                            description = "Place your fingers on the screen and let the app choose for you",
+                            isVisible = isPageFullyVisible,
+                        )
+
+                        Page.BUTTON -> TutorialPage(
+                            previewId = R.drawable.button_preview_animated,
+                            title = "How to Use",
+                            description = "Mode Button: Switch between Single, Group, and Order modes\n" +
+                                "Number Button: Change the number of winners or groups\n" +
+                                "Settings: Long press Mode button for settings",
+                            isVisible = true,
+                        )
+
+                        Page.SINGLE_MODE -> TutorialPage(
                             iconId = R.drawable.single_icon,
                             previewId = R.drawable.single_preview_animated,
                             title = "Single Mode",
                             description = "Chooses a random finger from all placed on screen",
-                            previewDescription = "Perfect for making quick decisions or selecting a winner",
                             isVisible = isPageFullyVisible,
                         )
 
-                        Page.GROUP_MODE -> ModePage(
+                        Page.GROUP_MODE -> TutorialPage(
                             iconId = R.drawable.group_icon,
                             previewId = R.drawable.group_preview_animated,
                             title = "Group Mode",
                             description = "Divides all fingers into equal teams",
-                            previewDescription = "Great for forming teams or groups",
                             isVisible = isPageFullyVisible,
                         )
 
-                        Page.ORDER_MODE -> ModePage(
+                        Page.ORDER_MODE -> TutorialPage(
                             iconId = R.drawable.order_icon,
                             previewId = R.drawable.order_preview_animated,
                             title = "Order Mode",
                             description = "Assigns a random order to all fingers",
-                            previewDescription = "Perfect for determining turn order in games",
                             isVisible = isPageFullyVisible,
                         )
                     }

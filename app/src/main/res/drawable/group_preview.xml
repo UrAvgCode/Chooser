@@ -1,14 +1,14 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
     <group
         android:pivotX="13"
         android:pivotY="13"
         android:rotation="270"
-        android:translateX="20"
-        android:translateY="8">
+        android:translateX="30"
+        android:translateY="18">
         <path
             android:name="orange_circle_fill"
             android:fillColor="@color/white"
@@ -38,8 +38,8 @@
     <group
         android:pivotX="13"
         android:pivotY="13"
-        android:translateX="62"
-        android:translateY="28">
+        android:translateX="72"
+        android:translateY="38">
         <path
             android:name="orange_circle_fill"
             android:fillColor="@color/white"
@@ -70,8 +70,8 @@
         android:pivotX="13"
         android:pivotY="13"
         android:rotation="90"
-        android:translateX="20"
-        android:translateY="54">
+        android:translateX="30"
+        android:translateY="64">
         <path
             android:name="blue_circle_fill"
             android:fillColor="@color/white"
@@ -102,8 +102,8 @@
         android:pivotX="13"
         android:pivotY="13"
         android:rotation="180"
-        android:translateX="62"
-        android:translateY="74">
+        android:translateX="72"
+        android:translateY="84">
         <path
             android:name="blue_circle_fill"
             android:fillColor="@color/white"

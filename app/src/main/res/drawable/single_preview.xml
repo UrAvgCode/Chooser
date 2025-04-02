@@ -1,25 +1,25 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="108dp"
-    android:height="108dp"
-    android:viewportWidth="108"
-    android:viewportHeight="108">
+    android:width="128dp"
+    android:height="128dp"
+    android:viewportWidth="128"
+    android:viewportHeight="128">
     <group
         android:name="black_radius"
         android:pivotX="75"
         android:pivotY="41"
-        android:scaleX="4.1875"
-        android:scaleY="4.1875">
+        android:scaleX="8.47"
+        android:scaleY="8.47">
         <path
-            android:fillColor="@color/blue"
-            android:pathData="M0,0L0,108L108,108L108,0L0,0zM75,17A24,24 0,0 1,99 41A24,24 0,0 1,75 65A24,24 0,0 1,51 41A24,24 0,0 1,75 17z" />
+            android:fillColor="#2988cc"
+            android:pathData="M0,0L0,128L128,128L128,0L0,0zM85,27C98.25,27 109,37.75 109,51C109,64.25 98.25,75 85,75C71.75,75 61,64.25 61,51C61,37.75 71.75,27 85,27z" />
     </group>
     <group
         android:name="red_circle"
         android:pivotX="13"
         android:pivotY="13"
         android:rotation="270"
-        android:translateX="20"
-        android:translateY="8">
+        android:translateX="30"
+        android:translateY="18">
         <path
             android:fillColor="@color/red"
             android:pathData="M13,13m-8.5,0a8.5,8.5 0,1 1,17 0a8.5,8.5 0,1 1,-17 0" />
@@ -46,8 +46,8 @@
         android:name="blue_circle"
         android:pivotX="13"
         android:pivotY="13"
-        android:translateX="62"
-        android:translateY="28">
+        android:translateX="72"
+        android:translateY="38">
         <path
             android:fillColor="@color/blue"
             android:pathData="M13,13m-8.5,0a8.5,8.5 0,1 1,17 0a8.5,8.5 0,1 1,-17 0" />
@@ -75,8 +75,8 @@
         android:pivotX="13"
         android:pivotY="13"
         android:rotation="90"
-        android:translateX="20"
-        android:translateY="54">
+        android:translateX="30"
+        android:translateY="64">
         <path
             android:fillColor="@color/green"
             android:pathData="M13,13m-8.5,0a8.5,8.5 0,1 1,17 0a8.5,8.5 0,1 1,-17 0" />
@@ -104,8 +104,8 @@
         android:pivotX="13"
         android:pivotY="13"
         android:rotation="180"
-        android:translateX="62"
-        android:translateY="74">
+        android:translateX="72"
+        android:translateY="84">
         <path
             android:fillColor="@color/yellow"
             android:pathData="M13,13m-8.5,0a8.5,8.5 0,1 1,17 0a8.5,8.5 0,1 1,-17 0" />
