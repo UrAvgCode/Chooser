@@ -1,13 +1,18 @@
 package com.uravgcode.chooser.tutorial.presentation.component
 
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.pager.PagerState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
@@ -21,19 +26,23 @@ fun PageIndicator(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         repeat(pagerState.pageCount) { index ->
-            val isSelected = index == pagerState.currentPage
+            val isSelected = pagerState.currentPage == index
+
+            val width by animateDpAsState(
+                targetValue = if (isSelected) 18.dp else 8.dp,
+            )
+
+            val alpha by animateFloatAsState(
+                targetValue = if (isSelected) 1f else 0.5f,
+            )
+
             Box(
                 modifier = Modifier
-                    .size(
-                        width = if (isSelected) 24.dp else 8.dp,
-                        height = 8.dp
-                    )
+                    .width(width)
+                    .height(8.dp)
                     .background(
-                        color = if (isSelected)
-                            MaterialTheme.colorScheme.primary
-                        else
-                            MaterialTheme.colorScheme.primary.copy(alpha = 0.5f),
-                        shape = MaterialTheme.shapes.small
+                        color = MaterialTheme.colorScheme.primary.copy(alpha = alpha),
+                        shape = CircleShape
                     )
             )
         }
