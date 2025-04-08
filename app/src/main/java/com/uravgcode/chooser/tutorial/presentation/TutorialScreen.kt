@@ -23,9 +23,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
-import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
-import com.uravgcode.chooser.tutorial.domain.Page
+import com.uravgcode.chooser.tutorial.domain.pagerContent
 import com.uravgcode.chooser.tutorial.presentation.component.PageIndicator
 import com.uravgcode.chooser.tutorial.presentation.component.TutorialPage
 import kotlinx.coroutines.launch
@@ -38,7 +37,7 @@ fun TutorialScreen(
     dataStore: DataStore<SettingsData>
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val pagerState = rememberPagerState(pageCount = { Page.entries.size })
+    val pagerState = rememberPagerState(pageCount = { pagerContent.size })
 
     Scaffold(
         contentWindowInsets = WindowInsets.safeDrawing,
@@ -60,56 +59,13 @@ fun TutorialScreen(
                     val isPageFullyVisible = pagerState.currentPage == page &&
                         pagerState.currentPageOffsetFraction.absoluteValue < 0.1f
 
-                    when (Page.entries[page]) {
-                        Page.WELCOME -> TutorialPage(
-                            previewId = R.drawable.chooser_preview_animated,
-                            title = "Welcome to Chooser",
-                            description = "Make quick, unbiased decisions with a touch. Place multiple fingers on screen, wait a brief moment, and Chooser will do the rest.",
-                            isVisible = isPageFullyVisible,
-                        )
-
-                        Page.BUTTON -> TutorialPage(
-                            previewId = R.drawable.button_preview_animated,
-                            title = "How to Use",
-                            description = """
-                                <p>
-                                  <b>Mode Button</b><br>
-                                  Switch between Single, Group, and Order modes.
-                                  <b>Long press</b> to access additional settings.
-                                </p>
-                                <br>
-                                <p>
-                                  <b>Number Button</b><br>
-                                  Adjust how many fingers to select or groups to create.
-                                </p>
-                            """,
-                            isVisible = true,
-                        )
-
-                        Page.SINGLE_MODE -> TutorialPage(
-                            iconId = R.drawable.single_icon,
-                            previewId = R.drawable.single_preview_animated,
-                            title = "Single Mode",
-                            description = "Selects a random finger from all touching the screen.",
-                            isVisible = isPageFullyVisible,
-                        )
-
-                        Page.GROUP_MODE -> TutorialPage(
-                            iconId = R.drawable.group_icon,
-                            previewId = R.drawable.group_preview_animated,
-                            title = "Group Mode",
-                            description = "Divides all fingers into balanced teams or groups.",
-                            isVisible = isPageFullyVisible,
-                        )
-
-                        Page.ORDER_MODE -> TutorialPage(
-                            iconId = R.drawable.order_icon,
-                            previewId = R.drawable.order_preview_animated,
-                            title = "Order Mode",
-                            description = "Creates a random sequence of all fingers on screen.",
-                            isVisible = isPageFullyVisible,
-                        )
-                    }
+                    TutorialPage(
+                        iconId = pagerContent[page].iconId,
+                        previewId = pagerContent[page].previewId,
+                        title = pagerContent[page].title,
+                        description = pagerContent[page].description,
+                        isVisible = isPageFullyVisible,
+                    )
                 }
             }
 
