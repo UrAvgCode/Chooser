@@ -24,6 +24,7 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.datastore.core.DataStore
@@ -36,10 +37,12 @@ import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.presentation.SettingsScreen
 import com.uravgcode.chooser.tutorial.presentation.TutorialScreen
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 @Composable
 fun Navigation(dataStore: DataStore<SettingsData>) {
     val navController = rememberNavController()
+    val coroutineScope = rememberCoroutineScope()
 
     val hasSeenTutorial by dataStore.data.map { it.hasSeenTutorial }.collectAsState(initial = true)
     val startDestination = if (hasSeenTutorial) Screen.Chooser else Screen.Tutorial
@@ -54,11 +57,15 @@ fun Navigation(dataStore: DataStore<SettingsData>) {
         composable<Screen.Tutorial> {
             TutorialScreen(
                 onComplete = {
-                    navController.navigate(Screen.Chooser) {
-                        popUpTo(Screen.Tutorial) { inclusive = true }
+                    coroutineScope.launch {
+                        dataStore.updateData {
+                            it.copy(hasSeenTutorial = true)
+                        }
+                        navController.navigate(Screen.Chooser) {
+                            popUpTo(Screen.Tutorial) { inclusive = true }
+                        }
                     }
-                },
-                dataStore = dataStore
+                }
             )
         }
         composable<Screen.Chooser> {
