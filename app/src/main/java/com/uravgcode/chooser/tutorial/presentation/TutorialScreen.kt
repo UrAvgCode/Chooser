@@ -64,16 +64,25 @@ fun TutorialScreen(
                         Page.WELCOME -> TutorialPage(
                             previewId = R.drawable.chooser_preview_animated,
                             title = "Welcome to Chooser",
-                            description = "Place your fingers on the screen and let the app choose for you",
+                            description = "Make quick, unbiased decisions with a touch. Place multiple fingers on screen, wait a brief moment, and Chooser will do the rest.",
                             isVisible = isPageFullyVisible,
                         )
 
                         Page.BUTTON -> TutorialPage(
                             previewId = R.drawable.button_preview_animated,
                             title = "How to Use",
-                            description = "Mode Button: Switch between Single, Group, and Order modes\n" +
-                                "Number Button: Change the number of winners or groups\n" +
-                                "Settings: Long press Mode button for settings",
+                            description = """
+                                <p>
+                                  <b>Mode Button</b><br>
+                                  Switch between Single, Group, and Order modes.
+                                  <b>Long press</b> to access additional settings.
+                                </p>
+                                <br>
+                                <p>
+                                  <b>Number Button</b><br>
+                                  Adjust how many fingers to select or groups to create.
+                                </p>
+                            """,
                             isVisible = true,
                         )
 
@@ -81,7 +90,7 @@ fun TutorialScreen(
                             iconId = R.drawable.single_icon,
                             previewId = R.drawable.single_preview_animated,
                             title = "Single Mode",
-                            description = "Chooses a random finger from all placed on screen",
+                            description = "Selects a random finger from all touching the screen.",
                             isVisible = isPageFullyVisible,
                         )
 
@@ -89,7 +98,7 @@ fun TutorialScreen(
                             iconId = R.drawable.group_icon,
                             previewId = R.drawable.group_preview_animated,
                             title = "Group Mode",
-                            description = "Divides all fingers into equal teams",
+                            description = "Divides all fingers into balanced teams or groups.",
                             isVisible = isPageFullyVisible,
                         )
 
@@ -97,7 +106,7 @@ fun TutorialScreen(
                             iconId = R.drawable.order_icon,
                             previewId = R.drawable.order_preview_animated,
                             title = "Order Mode",
-                            description = "Assigns a random order to all fingers",
+                            description = "Creates a random sequence of all fingers on screen.",
                             isVisible = isPageFullyVisible,
                         )
                     }
