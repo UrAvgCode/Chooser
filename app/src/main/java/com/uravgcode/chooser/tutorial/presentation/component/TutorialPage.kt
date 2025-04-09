@@ -55,13 +55,16 @@ fun TutorialPage(
     }
 
     Column(
+        modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Surface(
             shape = CircleShape,
             color = MaterialTheme.colorScheme.surfaceContainerLowest,
-            modifier = Modifier.aspectRatio(1f)
+            modifier = Modifier
+                .aspectRatio(1f)
+                .weight(weight = 1f, fill = false),
         ) {
             Image(
                 painter = rememberAnimatedVectorPainter(image, atEnd),

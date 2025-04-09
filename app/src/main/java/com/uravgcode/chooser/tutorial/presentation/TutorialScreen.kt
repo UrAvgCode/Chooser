@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
@@ -17,10 +16,14 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -41,7 +44,9 @@ fun TutorialScreen(onComplete: () -> Unit) {
         contentWindowInsets = WindowInsets.safeDrawing,
     ) { padding ->
         Column(
-            modifier = Modifier.padding(padding),
+            modifier = Modifier
+                .padding(padding)
+                .padding(horizontal = 16.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Box(
@@ -49,35 +54,33 @@ fun TutorialScreen(onComplete: () -> Unit) {
             ) {
                 TextButton(
                     onClick = { onComplete() },
-                    modifier = Modifier
-                        .align(Alignment.TopEnd)
-                        .padding(end = 16.dp)
+                    modifier = Modifier.align(Alignment.TopEnd)
                 ) {
-                    Text("Skip")
+                    Text(
+                        text = "Skip",
+                        style = MaterialTheme.typography.bodyLarge,
+                    )
                 }
             }
 
             HorizontalPager(
                 state = pagerState,
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(1f),
             ) { page ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    val isPageFullyVisible = pagerState.currentPage == page &&
-                        pagerState.currentPageOffsetFraction.absoluteValue < 0.1f
-
-                    TutorialPage(
-                        iconId = pagerContent[page].iconId,
-                        previewId = pagerContent[page].previewId,
-                        title = pagerContent[page].title,
-                        description = pagerContent[page].description,
-                        isVisible = isPageFullyVisible,
-                    )
+                val isPageFullyVisible by remember {
+                    derivedStateOf {
+                        pagerState.currentPage == page &&
+                            pagerState.currentPageOffsetFraction.absoluteValue < 0.1f
+                    }
                 }
+
+                TutorialPage(
+                    iconId = pagerContent[page].iconId,
+                    previewId = pagerContent[page].previewId,
+                    title = pagerContent[page].title,
+                    description = pagerContent[page].description,
+                    isVisible = isPageFullyVisible,
+                )
             }
 
             Box(
@@ -89,9 +92,7 @@ fun TutorialScreen(onComplete: () -> Unit) {
                             pagerState.animateScrollToPage(pagerState.currentPage - 1)
                         }
                     },
-                    modifier = Modifier
-                        .align(Alignment.CenterStart)
-                        .padding(start = 16.dp)
+                    modifier = Modifier.align(Alignment.CenterStart)
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -114,9 +115,7 @@ fun TutorialScreen(onComplete: () -> Unit) {
                             onComplete()
                         }
                     },
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .padding(end = 16.dp)
+                    modifier = Modifier.align(Alignment.CenterEnd)
                 ) {
                     Icon(
                         imageVector = if (pagerState.currentPage < pagerState.pageCount - 1)
