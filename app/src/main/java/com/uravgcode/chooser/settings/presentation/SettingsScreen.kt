@@ -65,7 +65,7 @@ fun SettingsScreen(
         onDismiss = { showResetDialog = false },
         onReset = {
             coroutineScope.launch {
-                dataStore.updateData { SettingsData() }
+                dataStore.updateData { SettingsData(hasSeenTutorial = true) }
             }
         }
     )
