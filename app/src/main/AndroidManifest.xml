@@ -6,11 +6,11 @@
         android:label="Chooser"
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher"
-        android:theme="@style/Chooser"
+        android:theme="@style/Theme.Chooser"
         android:enableOnBackInvokedCallback="true"
         tools:targetApi="35">
         <activity
-            android:name="com.uravgcode.chooser.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
