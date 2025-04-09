@@ -44,13 +44,13 @@ fun TutorialScreen(onComplete: () -> Unit) {
         contentWindowInsets = WindowInsets.safeDrawing,
     ) { padding ->
         Column(
-            modifier = Modifier
-                .padding(padding)
-                .padding(horizontal = 16.dp),
+            modifier = Modifier.padding(padding),
             verticalArrangement = Arrangement.Center
         ) {
             Box(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             ) {
                 TextButton(
                     onClick = { onComplete() },
@@ -84,7 +84,9 @@ fun TutorialScreen(onComplete: () -> Unit) {
             }
 
             Box(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp),
             ) {
                 IconButton(
                     onClick = {
