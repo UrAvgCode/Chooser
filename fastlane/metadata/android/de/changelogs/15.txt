@@ -1,0 +1,6 @@
+Funktionen
+- Beim ersten Start der App öffnet sich ein Tutorial, das die wichtigsten Funktionen vorstellt
+
+Entwicklung
+- Einstellungen auf DataStore umgestellt
+- Abhängigkeiten aktualisiert

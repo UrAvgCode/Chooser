@@ -1,0 +1,6 @@
+Features
+- added a tutorial that automatically launches on first app start to introduce core features
+
+Development
+- migrated settings to datastore
+- updated dependencies
