@@ -15,7 +15,6 @@
 
 package com.uravgcode.chooser.tutorial.presentation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -50,7 +49,6 @@ import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @Composable
-@OptIn(ExperimentalFoundationApi::class)
 fun TutorialScreen(onComplete: () -> Unit) {
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { pagerContent.size })
