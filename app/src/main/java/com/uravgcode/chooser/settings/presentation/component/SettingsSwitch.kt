@@ -10,10 +10,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * @author UrAvgCode
- * @description SettingsRowSwitch is a component that provides a toggle switch for settings.
+ * @description SettingsSwitch is a component that provides a toggle switch for settings.
  */
 
-package com.uravgcode.chooser.settings.presentation.row
+package com.uravgcode.chooser.settings.presentation.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingsRowSwitch(
+fun SettingsSwitch(
     title: String,
     isChecked: Boolean,
     onCheckedChange: (Boolean) -> Unit

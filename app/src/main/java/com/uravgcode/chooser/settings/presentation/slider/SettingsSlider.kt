@@ -10,10 +10,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * @author UrAvgCode
- * @description SettingsRowSwitch is a component that provides a settings slider for time values.
+ * @description SettingsSlider is a reusable slider component for the settings screen.
  */
 
-package com.uravgcode.chooser.settings.presentation.row
+package com.uravgcode.chooser.settings.presentation.slider
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -25,32 +25,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun SettingsRowTimeSlider(
+fun SettingsSlider(
     title: String,
-    value: Long,
-    onValueChange: (Long) -> Unit,
-    valueRange: LongRange,
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    valueRange: ClosedFloatingPointRange<Float>,
     steps: Int,
+    valueFormatter: (Float) -> String,
 ) {
-    val floatValue = value.toFloat()
-    val floatRange = valueRange.first.toFloat()..valueRange.last.toFloat()
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp)
     ) {
         Text(
-            text = "$title: ${"%.1f".format(value * 0.001)}s",
-            modifier = Modifier
-                .padding(vertical = 8.dp)
+            text = "$title: ${valueFormatter(value)}",
+            modifier = Modifier.padding(vertical = 8.dp)
         )
         Slider(
-            value = floatValue,
-            onValueChange = { newValue -> onValueChange(newValue.toLong()) },
-            valueRange = floatRange,
+            value = value,
+            onValueChange = onValueChange,
+            valueRange = valueRange,
             steps = steps,
-            modifier = Modifier.padding(horizontal = 16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp),
         )
     }
 }

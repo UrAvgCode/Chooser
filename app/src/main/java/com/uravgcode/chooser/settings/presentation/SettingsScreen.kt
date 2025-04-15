@@ -32,15 +32,15 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.settings.data.SettingsData
-import com.uravgcode.chooser.settings.presentation.button.SettingsButtonExport
-import com.uravgcode.chooser.settings.presentation.button.SettingsButtonImport
-import com.uravgcode.chooser.settings.presentation.button.SettingsButtonReset
+import com.uravgcode.chooser.settings.presentation.button.ExportButton
+import com.uravgcode.chooser.settings.presentation.button.ImportButton
+import com.uravgcode.chooser.settings.presentation.button.ResetButton
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
+import com.uravgcode.chooser.settings.presentation.component.SettingsSwitch
 import com.uravgcode.chooser.settings.presentation.component.SettingsTopAppBar
-import com.uravgcode.chooser.settings.presentation.row.SettingsRowPaddingSlider
-import com.uravgcode.chooser.settings.presentation.row.SettingsRowPercentSlider
-import com.uravgcode.chooser.settings.presentation.row.SettingsRowSwitch
-import com.uravgcode.chooser.settings.presentation.row.SettingsRowTimeSlider
+import com.uravgcode.chooser.settings.presentation.slider.PaddingSlider
+import com.uravgcode.chooser.settings.presentation.slider.PercentSlider
+import com.uravgcode.chooser.settings.presentation.slider.TimeSlider
 import kotlinx.coroutines.launch
 
 @Composable
@@ -76,7 +76,7 @@ fun SettingsScreen(
                     heading = "General Settings",
                     showDivider = false,
                 )
-                SettingsRowSwitch(
+                SettingsSwitch(
                     title = "Enable Sound",
                     isChecked = settings.soundEnabled,
                     onCheckedChange = { isChecked ->
@@ -85,7 +85,7 @@ fun SettingsScreen(
                         }
                     }
                 )
-                SettingsRowSwitch(
+                SettingsSwitch(
                     title = "Enable Vibration",
                     isChecked = settings.vibrationEnabled,
                     onCheckedChange = { isChecked ->
@@ -98,7 +98,7 @@ fun SettingsScreen(
 
             item {
                 SettingsSeparator("Display Settings")
-                SettingsRowSwitch(
+                SettingsSwitch(
                     title = "Full Screen Mode",
                     isChecked = settings.fullScreen,
                     onCheckedChange = { isChecked ->
@@ -107,7 +107,7 @@ fun SettingsScreen(
                         }
                     }
                 )
-                SettingsRowPaddingSlider(
+                PaddingSlider(
                     title = "Additional Button Padding",
                     value = settings.additionalButtonPadding,
                     onValueChange = { sliderValue ->
@@ -118,7 +118,7 @@ fun SettingsScreen(
                     valueRange = 0f..50f,
                     steps = 9
                 )
-                SettingsRowPercentSlider(
+                PercentSlider(
                     title = "Circle Size",
                     value = settings.circleSizeFactor,
                     onValueChange = { sliderValue ->
@@ -133,7 +133,7 @@ fun SettingsScreen(
 
             item {
                 SettingsSeparator("Circle Lifetimes")
-                SettingsRowTimeSlider(
+                TimeSlider(
                     title = "Circle Lifetime",
                     value = settings.circleLifetime,
                     onValueChange = { sliderValue ->
@@ -144,7 +144,7 @@ fun SettingsScreen(
                     valueRange = 0L..3000L,
                     steps = 5,
                 )
-                SettingsRowTimeSlider(
+                TimeSlider(
                     title = "Group Circle Lifetime",
                     value = settings.groupCircleLifetime,
                     onValueChange = { sliderValue ->
@@ -155,7 +155,7 @@ fun SettingsScreen(
                     valueRange = 0L..3000L,
                     steps = 5,
                 )
-                SettingsRowTimeSlider(
+                TimeSlider(
                     title = "Order Circle Lifetime",
                     value = settings.orderCircleLifetime,
                     onValueChange = { sliderValue ->
@@ -170,9 +170,9 @@ fun SettingsScreen(
 
             item {
                 SettingsSeparator()
-                SettingsButtonImport(dataStore)
-                SettingsButtonExport(dataStore)
-                SettingsButtonReset(dataStore)
+                ImportButton(dataStore)
+                ExportButton(dataStore)
+                ResetButton(dataStore)
             }
         }
     }

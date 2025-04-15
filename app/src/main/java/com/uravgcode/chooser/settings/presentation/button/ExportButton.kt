@@ -10,7 +10,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * @author UrAvgCode
- * @description SettingsButtonImport provides functionality to import settings from a previously exported file.
+ * @description ExportButton provides functionality to export settings to a file.
  */
 
 package com.uravgcode.chooser.settings.presentation.button
@@ -24,33 +24,33 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.core.DataStore
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.data.SettingsSerializer
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsButtonImport(dataStore: DataStore<SettingsData>) {
+fun ExportButton(dataStore: DataStore<SettingsData>) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
 
     val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.OpenDocument()
+        contract = ActivityResultContracts.CreateDocument("application/json")
     ) { uri ->
         uri?.let {
             scope.launch {
                 try {
-                    context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                        val imported = SettingsSerializer.readFrom(inputStream)
-                        dataStore.updateData { imported }
+                    context.contentResolver.openOutputStream(uri)?.use { outputStream ->
+                        SettingsSerializer.writeTo(dataStore.data.first(), outputStream)
                     }
-                    Toast.makeText(context, "Settings imported successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Settings exported successfully", Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
-                    Toast.makeText(context, "Failed to import settings: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Failed to export settings: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     SettingsButton(
-        text = "Import Settings",
-        onClick = { launcher.launch(arrayOf("application/json")) }
+        text = "Export Settings",
+        onClick = { launcher.launch("settings.json") }
     )
 }

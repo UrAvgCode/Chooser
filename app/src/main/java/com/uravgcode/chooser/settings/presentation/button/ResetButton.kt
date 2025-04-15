@@ -10,7 +10,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  *
  * @author UrAvgCode
- * @description SettingsButtonReset allows users to restore all settings to their default values.
+ * @description ResetButton allows users to restore all settings to their default values.
  */
 
 package com.uravgcode.chooser.settings.presentation.button
@@ -29,7 +29,7 @@ import com.uravgcode.chooser.settings.data.SettingsData
 import kotlinx.coroutines.launch
 
 @Composable
-fun SettingsButtonReset(dataStore: DataStore<SettingsData>) {
+fun ResetButton(dataStore: DataStore<SettingsData>) {
     val coroutineScope = rememberCoroutineScope()
     var showResetDialog by remember { mutableStateOf(false) }
 
