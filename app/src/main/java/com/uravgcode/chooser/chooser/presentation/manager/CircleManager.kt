@@ -45,7 +45,7 @@ class CircleManager : MutableMap<Int, Circle> {
         }
     }
 
-    fun update(deltaTime: Int) {
+    fun update(deltaTime: Long) {
         activeCircles.forEach { (_, circle) -> circle.update(deltaTime) }
         deadCircles.forEach { it.update(deltaTime) }
         deadCircles.removeAll { it.isMarkedForDeletion() }

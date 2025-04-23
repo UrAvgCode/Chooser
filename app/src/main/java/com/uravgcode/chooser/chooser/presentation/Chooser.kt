@@ -54,7 +54,7 @@ class Chooser(
 
     private val screenHeight = resources.displayMetrics.heightPixels
     private val scale = resources.displayMetrics.density
-    private var lastTime = System.currentTimeMillis()
+    private var previousTime = System.currentTimeMillis()
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -78,8 +78,9 @@ class Chooser(
     }
 
     override fun onDraw(canvas: Canvas) {
-        val deltaTime = (System.currentTimeMillis() - lastTime).toInt()
-        lastTime = System.currentTimeMillis()
+        val currentTime = System.currentTimeMillis()
+        val deltaTime = currentTime - previousTime
+        previousTime = currentTime
 
         circles.update(deltaTime)
 
@@ -175,9 +176,9 @@ class Chooser(
                 }, 150)
             },
             when (mode) {
-                Mode.SINGLE -> Circle.Companion.circleLifetime
-                Mode.GROUP -> GroupCircle.Companion.circleLifetime
-                Mode.ORDER -> OrderCircle.Companion.circleLifetime
+                Mode.SINGLE -> Circle.circleLifetime
+                Mode.GROUP -> GroupCircle.circleLifetime
+                Mode.ORDER -> OrderCircle.circleLifetime
             }
         )
     }
@@ -257,9 +258,10 @@ class Chooser(
         soundManager.playFingerUp()
         vibrate(40)
 
-        handler.postDelayed({
-            chooseOrder(number + 1)
-        }, (min(3000 / circles.size, 800).toLong()))
+        handler.postDelayed(
+            { chooseOrder(number + 1) },
+            min(3000L / circles.size, 800L)
+        )
     }
 
     private fun vibrate(millis: Long) {

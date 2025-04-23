@@ -31,7 +31,7 @@ class GroupCircle(x: Float, y: Float, radius: Float) : Circle(x, y, radius, Colo
         ringPaintLight.color = grayStroke
     }
 
-    override fun update(deltaTime: Int) {
+    override fun update(deltaTime: Long) {
         super.update(deltaTime)
         if (color == corePaint.color || blend > 1f) return
 

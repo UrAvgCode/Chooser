@@ -61,7 +61,7 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
 
     protected var timeMillis = 0L
 
-    open fun update(deltaTime: Int) {
+    open fun update(deltaTime: Long) {
         val radius = coreRadius + radiusVariance * sin(timeMillis * 0.006f)
         val innerRadius = radius * 0.6f
         val strokeWidth = radius * 0.19f
