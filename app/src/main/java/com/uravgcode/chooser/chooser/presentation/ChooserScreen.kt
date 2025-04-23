@@ -65,6 +65,10 @@ fun ChooserScreen(
         Chooser.vibrationEnabled = settings.vibrationEnabled
         Chooser.circleSizeFactor = settings.circleSizeFactor
 
+        Chooser.singleDelay = settings.singleDelay
+        Chooser.groupDelay = settings.groupDelay
+        Chooser.orderDelay = settings.orderDelay
+
         Circle.circleLifetime = settings.circleLifetime
         GroupCircle.circleLifetime = settings.groupCircleLifetime
         OrderCircle.circleLifetime = settings.orderCircleLifetime

@@ -132,6 +132,43 @@ fun SettingsScreen(
             }
 
             item {
+                SettingsSeparator("Selection Delays")
+                TimeSlider(
+                    title = "Single Mode Delay",
+                    value = settings.singleDelay,
+                    onValueChange = { sliderValue ->
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(singleDelay = sliderValue) }
+                        }
+                    },
+                    valueRange = 0L..5000L,
+                    steps = 9,
+                )
+                TimeSlider(
+                    title = "Group Mode Delay",
+                    value = settings.groupDelay,
+                    onValueChange = { sliderValue ->
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(groupDelay = sliderValue) }
+                        }
+                    },
+                    valueRange = 0L..5000L,
+                    steps = 9,
+                )
+                TimeSlider(
+                    title = "Order Mode Delay",
+                    value = settings.orderDelay,
+                    onValueChange = { sliderValue ->
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(orderDelay = sliderValue) }
+                        }
+                    },
+                    valueRange = 0L..5000L,
+                    steps = 9,
+                )
+            }
+
+            item {
                 SettingsSeparator("Circle Lifetimes")
                 TimeSlider(
                     title = "Circle Lifetime",

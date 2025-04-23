@@ -126,7 +126,14 @@ class Chooser(
         soundManager.playFingerDown()
         circles[pointerId] = createCircle(event.getX(actionIndex), event.getY(actionIndex))
         handler.removeCallbacksAndMessages(null)
-        handler.postDelayed({ selectWinner() }, 3000)
+        handler.postDelayed(
+            { selectWinner() },
+            when (mode) {
+                Mode.SINGLE -> singleDelay
+                Mode.GROUP -> groupDelay
+                Mode.ORDER -> orderDelay
+            }
+        )
     }
 
     private fun handleActionMove(event: MotionEvent) {
@@ -273,5 +280,9 @@ class Chooser(
     companion object {
         var vibrationEnabled = true
         var circleSizeFactor = 1.0f
+
+        var singleDelay = 3000L
+        var groupDelay = 3000L
+        var orderDelay = 3000L
     }
 }

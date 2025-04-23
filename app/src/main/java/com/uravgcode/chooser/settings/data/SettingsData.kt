@@ -32,6 +32,10 @@ data class SettingsData(
     val additionalButtonPadding: Float = 0.0f,
     val circleSizeFactor: Float = 1.0f,
 
+    val singleDelay: Long = 3000L,
+    val groupDelay: Long = 3000L,
+    val orderDelay: Long = 3000L,
+
     val circleLifetime: Long = 1000L,
     val groupCircleLifetime: Long = 1000L,
     val orderCircleLifetime: Long = 1500L,
