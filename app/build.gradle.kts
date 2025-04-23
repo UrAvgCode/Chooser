@@ -30,10 +30,6 @@ android {
         }
     }
 
-    dependenciesInfo {
-        includeInApk = false
-    }
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -47,9 +43,8 @@ android {
         compose = true
     }
 
-    @Suppress("UnstableApiUsage")
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.15"
+    dependenciesInfo {
+        includeInApk = false
     }
 }
 
