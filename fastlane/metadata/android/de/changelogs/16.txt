@@ -1,0 +1,10 @@
+Funktionen
+- Auswahlzeit Einstellungen für verschiedene Modi hinzugefügt
+- Import/Export von Einstellungen
+
+Verbesserungen
+- Animierter Splash Screen hinzugefügt
+
+Entwicklung
+- Einstellungen-Migration entfernt
+- Abhängigkeiten aktualisiert

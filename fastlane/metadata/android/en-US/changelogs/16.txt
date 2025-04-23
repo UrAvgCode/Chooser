@@ -1,0 +1,10 @@
+Features
+- added selection delay settings for different modes
+- import/export settings
+
+Improvements
+- added animated splash screen
+
+Development
+- removed settings migration
+- updated dependencies
