@@ -8,7 +8,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:theme="@style/Theme.Chooser"
         android:enableOnBackInvokedCallback="true"
-        tools:targetApi="35">
+        tools:targetApi="36">
         <activity
             android:name=".MainActivity"
             android:exported="true">

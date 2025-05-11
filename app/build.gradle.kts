@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.uravgcode.chooser"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.uravgcode.chooser"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 16
         versionName = "1.4.3"
 
