@@ -1,14 +1,14 @@
 [versions]
-agp = "8.10.0"
-kotlin = "2.1.10"
+agp = "8.10.1"
+kotlin = "2.1.20"
 coreKtx = "1.16.0"
-lifecycleRuntimeKtx = "2.9.0"
+lifecycleRuntimeKtx = "2.9.1"
 
-datastore = "1.1.6"
+datastore = "1.1.7"
 kotlinSerialization = "1.7.3"
 
 activityCompose = "1.10.1"
-composeBom = "2025.05.00"
+composeBom = "2025.06.01"
 navigationCompose = "2.9.0"
 
 splashscreen = "1.0.1"
