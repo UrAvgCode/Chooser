@@ -24,6 +24,7 @@ import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,7 +45,7 @@ fun Navigation(dataStore: DataStore<SettingsData>) {
     val navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
 
-    val hasSeenTutorial by dataStore.data.map { it.hasSeenTutorial }.collectAsState(initial = true)
+    val hasSeenTutorial by remember { dataStore.data.map { it.hasSeenTutorial } }.collectAsState(initial = true)
     val startDestination = if (hasSeenTutorial) Screen.Chooser else Screen.Tutorial
 
     NavHost(
