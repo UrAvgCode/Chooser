@@ -37,13 +37,13 @@ object SettingsSerializer : Serializer<SettingsData> {
     }
 
     override suspend fun writeTo(
-        settingsData: SettingsData,
+        t: SettingsData,
         output: OutputStream
     ) {
         output.write(
             Json.encodeToString(
                 serializer = SettingsData.serializer(),
-                value = settingsData
+                value = t
             ).encodeToByteArray()
         )
     }
