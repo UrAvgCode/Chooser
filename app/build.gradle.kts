@@ -9,8 +9,20 @@ android {
     namespace = "com.uravgcode.chooser"
     compileSdk = 36
 
+    flavorDimensions += "distribution"
+    productFlavors {
+        create("foss") {
+            dimension = "distribution"
+            applicationId = "com.uravgcode.chooser"
+        }
+
+        create("gplay") {
+            dimension = "distribution"
+            applicationId = "com.uravgcode.chooserapp"
+        }
+    }
+
     defaultConfig {
-        applicationId = "com.uravgcode.chooser"
         minSdk = 26
         targetSdk = 36
         versionCode = 17
