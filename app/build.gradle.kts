@@ -9,7 +9,14 @@ android {
     namespace = "com.uravgcode.chooser"
     compileSdk = 36
 
-    flavorDimensions += "distribution"
+    defaultConfig {
+        minSdk = 26
+        targetSdk = 36
+        versionCode = 17
+        versionName = "1.4.4"
+    }
+
+    flavorDimensions.add("distribution")
     productFlavors {
         create("foss") {
             dimension = "distribution"
@@ -20,15 +27,6 @@ android {
             dimension = "distribution"
             applicationId = "com.uravgcode.chooserapp"
         }
-    }
-
-    defaultConfig {
-        minSdk = 26
-        targetSdk = 36
-        versionCode = 17
-        versionName = "1.4.4"
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
