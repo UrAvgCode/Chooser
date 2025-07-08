@@ -16,6 +16,8 @@
 package com.uravgcode.chooser.chooser.presentation.button
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.EaseInBack
+import androidx.compose.animation.core.EaseOutBack
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
@@ -42,11 +44,17 @@ fun AnimatedButton(
             visible = visible,
             enter = slideInVertically(
                 initialOffsetY = { fullHeight -> -2 * fullHeight - topPadding.value.toInt() },
-                animationSpec = tween(durationMillis = 400)
+                animationSpec = tween(
+                    durationMillis = 400,
+                    easing = EaseOutBack
+                )
             ),
             exit = slideOutVertically(
                 targetOffsetY = { fullHeight -> -2 * fullHeight - topPadding.value.toInt() },
-                animationSpec = tween(durationMillis = 400)
+                animationSpec = tween(
+                    durationMillis = 400,
+                    easing = EaseInBack
+                )
             ),
             modifier = Modifier
                 .align(alignment)
