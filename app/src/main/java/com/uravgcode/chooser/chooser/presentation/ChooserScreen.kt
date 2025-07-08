@@ -26,7 +26,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +40,7 @@ import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.datastore.core.DataStore
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.uravgcode.chooser.chooser.domain.Mode
 import com.uravgcode.chooser.chooser.presentation.button.AnimatedButton
 import com.uravgcode.chooser.chooser.presentation.circle.Circle
@@ -56,7 +56,7 @@ fun ChooserScreen(
     dataStore: DataStore<SettingsData>
 ) {
     val coroutineScope = rememberCoroutineScope()
-    val settings by dataStore.data.collectAsState(initial = SettingsData())
+    val settings by dataStore.data.collectAsStateWithLifecycle(initialValue = SettingsData())
 
     var isVisible by remember { mutableStateOf(true) }
 

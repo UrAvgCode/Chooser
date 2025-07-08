@@ -49,7 +49,9 @@ import kotlinx.coroutines.launch
 import kotlin.math.absoluteValue
 
 @Composable
-fun TutorialScreen(onComplete: () -> Unit) {
+fun TutorialScreen(
+    onComplete: () -> Unit
+) {
     val coroutineScope = rememberCoroutineScope()
     val pagerState = rememberPagerState(pageCount = { pagerContent.size })
 

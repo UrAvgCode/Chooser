@@ -22,14 +22,13 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.core.DataStore
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -42,11 +41,13 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 @Composable
-fun Navigation(dataStore: DataStore<SettingsData>) {
+fun Navigation(
+    dataStore: DataStore<SettingsData>
+) {
     val navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
 
-    val hasSeenTutorial by remember { dataStore.data.map { it.hasSeenTutorial } }.collectAsState(initial = true)
+    val hasSeenTutorial by dataStore.data.map { it.hasSeenTutorial }.collectAsStateWithLifecycle(initialValue = true)
     val startDestination = if (hasSeenTutorial) Screen.Chooser else Screen.Tutorial
 
     val context = LocalContext.current
