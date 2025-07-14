@@ -1,0 +1,8 @@
+Verbesserungen
+- App-Icon aktualisiert
+- Verbesserte Button-Animation
+
+Entwicklung
+- JVM-Toolchain auf Version 17 aktualisiert
+- Produkt-Flavors hinzugefügt
+- Abhängigkeiten aktualisiert

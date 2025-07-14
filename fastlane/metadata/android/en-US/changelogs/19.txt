@@ -1,0 +1,8 @@
+Improvements
+- updated app icon
+- improved button animation
+
+Development
+- jvm toolchain 17
+- added product flavors
+- update dependencies
