@@ -119,7 +119,10 @@ class Chooser(
     }
 
     private fun handleActionDown(event: MotionEvent, actionIndex: Int, pointerId: Int) {
-        if (winnerChosen) return
+        if (winnerChosen) {
+            resetGame()
+            return
+        }
 
         setButtonVisibility(false)
 
@@ -146,9 +149,15 @@ class Chooser(
     }
 
     private fun handleActionUp(pointerId: Int) {
-        circleManager.remove(pointerId)
-        if (!winnerChosen) soundManager.playFingerUp()
-        if (circleManager.isEmpty()) resetGame()
+        val removed = circleManager.remove(pointerId)
+
+        if (removed != null && !winnerChosen) {
+            soundManager.playFingerUp()
+        }
+
+        if (circleManager.isEmpty()) {
+            resetGame()
+        }
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
@@ -158,6 +167,7 @@ class Chooser(
     }
 
     private fun resetGame() {
+        circleManager.clear()
         colorManager.generateRandomColorPalette(5)
 
         if (!winnerChosen) {
