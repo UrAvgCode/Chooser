@@ -20,29 +20,34 @@ import android.graphics.Color
 import android.graphics.Paint
 import com.uravgcode.chooser.chooser.presentation.circle.Circle
 
-class CircleManager : MutableMap<Int, Circle> {
+class CircleManager {
     private val blackPaint = Paint().apply { color = Color.BLACK }
 
     private val activeCircles = mutableMapOf<Int, Circle>()
     private val deadCircles = mutableListOf<Circle>()
 
-    override val size: Int get() = activeCircles.size
-    override val entries: MutableSet<MutableMap.MutableEntry<Int, Circle>> get() = activeCircles.entries
-    override val keys: MutableSet<Int> get() = activeCircles.keys
-    override val values: MutableCollection<Circle> get() = activeCircles.values
-    override fun get(key: Int): Circle? = activeCircles[key]
-    override fun isEmpty(): Boolean = activeCircles.isEmpty()
-    override fun containsKey(key: Int): Boolean = activeCircles.containsKey(key)
-    override fun containsValue(value: Circle): Boolean = activeCircles.containsValue(value)
-    override fun put(key: Int, value: Circle): Circle? = activeCircles.put(key, value)
-    override fun putAll(from: Map<out Int, Circle>) = activeCircles.putAll(from)
-    override fun clear() = activeCircles.clear()
+    val ids: MutableSet<Int> get() = activeCircles.keys
+    val circles: MutableCollection<Circle> get() = activeCircles.values
 
-    override fun remove(key: Int): Circle? {
+    val count: Int get() = activeCircles.size
+    fun isEmpty(): Boolean = activeCircles.isEmpty()
+
+    fun add(key: Int, value: Circle): Circle? = activeCircles.put(key, value)
+    fun get(key: Int): Circle? = activeCircles[key]
+
+    fun remove(key: Int): Circle? {
         return activeCircles.remove(key)?.also {
             it.removeFinger()
             deadCircles += it
         }
+    }
+
+    fun clear() {
+        activeCircles.values.forEach { circle ->
+            circle.removeFinger()
+            deadCircles.add(circle)
+        }
+        activeCircles.clear()
     }
 
     fun update(deltaTime: Long) {

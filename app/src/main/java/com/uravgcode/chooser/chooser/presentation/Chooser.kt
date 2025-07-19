@@ -44,7 +44,6 @@ import com.uravgcode.chooser.chooser.presentation.manager.SoundManager
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sign
-import kotlin.random.Random
 
 @SuppressLint("ViewConstructor")
 class Chooser(
@@ -60,7 +59,7 @@ class Chooser(
 
     private val colorManager = ColorManager()
     private val soundManager = SoundManager(context)
-    private val circles = CircleManager()
+    private val circleManager = CircleManager()
     private val numbers = mutableListOf<Number>()
 
     private var winnerChosen = false
@@ -82,7 +81,7 @@ class Chooser(
         val deltaTime = currentTime - previousTime
         previousTime = currentTime
 
-        circles.update(deltaTime)
+        circleManager.update(deltaTime)
 
         if (winnerChosen && mode == Mode.SINGLE) {
             blackSpeed += deltaTime * 0.04f * sign(blackSpeed)
@@ -90,10 +89,10 @@ class Chooser(
                 blackRadius + blackSpeed * deltaTime,
                 blackRadiusSize * circleSizeFactor * scale
             )
-            circles.drawBlackCircles(canvas, blackRadius, scale)
+            circleManager.drawBlackCircles(canvas, blackRadius, scale)
         }
 
-        circles.draw(canvas)
+        circleManager.draw(canvas)
 
         numbers.removeIf { number ->
             number.update(deltaTime)
@@ -125,7 +124,7 @@ class Chooser(
         setButtonVisibility(false)
 
         soundManager.playFingerDown()
-        circles[pointerId] = createCircle(event.getX(actionIndex), event.getY(actionIndex))
+        circleManager.add(pointerId, createCircle(event.getX(actionIndex), event.getY(actionIndex)))
         handler.removeCallbacksAndMessages(null)
         handler.postDelayed(
             { selectWinner() },
@@ -139,7 +138,7 @@ class Chooser(
 
     private fun handleActionMove(event: MotionEvent) {
         for (index in 0 until event.pointerCount) {
-            circles[event.getPointerId(index)]?.let { circle ->
+            circleManager.get(event.getPointerId(index))?.let { circle ->
                 circle.x = event.getX(index)
                 circle.y = event.getY(index)
             }
@@ -147,9 +146,9 @@ class Chooser(
     }
 
     private fun handleActionUp(pointerId: Int) {
-        circles.remove(pointerId)
+        circleManager.remove(pointerId)
         if (!winnerChosen) soundManager.playFingerUp()
-        if (circles.isEmpty()) resetGame()
+        if (circleManager.isEmpty()) resetGame()
     }
 
     private fun createCircle(x: Float, y: Float) = when (mode) {
@@ -184,7 +183,7 @@ class Chooser(
     }
 
     private fun selectWinner() {
-        if (circles.size <= count) return
+        if (circleManager.count <= count) return
 
         when (mode) {
             Mode.SINGLE -> chooseFinger()
@@ -196,18 +195,19 @@ class Chooser(
     }
 
     private fun chooseFinger() {
-        val indexList = circles.keys.toMutableList()
-        indexList.shuffle()
+        val ids = circleManager.ids.shuffled()
+        val chosenIds = ids.takeLast(count)
+        val removedIds = ids.dropLast(count)
 
-        indexList.takeLast(count).forEach { index ->
-            circles[index]!!.setWinner()
+        chosenIds.forEach { id ->
+            circleManager.get(id)?.setWinner()
         }
 
-        indexList.dropLast(count).forEach { index ->
-            circles.remove(index)
+        removedIds.forEach { id ->
+            circleManager.remove(id)
         }
 
-        val colors = circles.values.map { it.color }
+        val colors = circleManager.circles.map { it.color }
         setBackgroundColor(colorManager.averageColor(colors))
 
         blackSpeed = -1f
@@ -217,21 +217,21 @@ class Chooser(
     }
 
     private fun chooseGroup() {
-        val indexList = circles.keys.toMutableList()
+        val circles = circleManager.circles.shuffled()
         val teamSize = circles.size / count
         var remainder = circles.size % count
 
         colorManager.generateRandomColorPalette(count)
+        var index = 0
+
         repeat(count) {
             val size = if (remainder-- > 0) teamSize + 1 else teamSize
-
             val color = colorManager.nextColor()
+
             repeat(size) {
-                val randomIndex = Random.nextInt(indexList.size)
-                val circle = circles[indexList[randomIndex]]
-                circle!!.color = color
+                val circle = circles[index++]
+                circle.color = color
                 circle.setWinner()
-                indexList.removeAt(randomIndex)
             }
         }
 
@@ -239,11 +239,9 @@ class Chooser(
     }
 
     private fun chooseOrder(number: Int = 1) {
-        val selectionMap = circles.filterValues { !it.isWinner() }
-        if (selectionMap.isEmpty()) return
-
-        val randomIndex = selectionMap.keys.random()
-        val circle = circles[randomIndex]!!
+        val circles = circleManager.circles.filter { !it.isWinner() }
+        if (circles.isEmpty()) return
+        val circle = circles.random()
 
         circle.setWinner()
         numbers.add(
@@ -260,7 +258,7 @@ class Chooser(
 
         handler.postDelayed(
             { chooseOrder(number + 1) },
-            min(3000L / circles.size, 800L)
+            min(3000L / circleManager.count, 800L)
         )
     }
 
