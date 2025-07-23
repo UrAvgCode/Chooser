@@ -102,6 +102,10 @@ open class Circle(var x: Float, var y: Float, radius: Float, var color: Int) {
         }
     }
 
+    fun removeFingerImmediately() {
+        hasFinger = false
+    }
+
     open fun setWinner() {
         winnerCircle = true
     }

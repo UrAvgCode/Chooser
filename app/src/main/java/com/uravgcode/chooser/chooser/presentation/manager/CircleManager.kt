@@ -38,13 +38,16 @@ class CircleManager {
     fun remove(key: Int): Circle? {
         return activeCircles.remove(key)?.also {
             it.removeFinger()
-            deadCircles += it
+            deadCircles.add(it)
         }
     }
 
     fun clear() {
+        deadCircles.forEach {
+            it.removeFingerImmediately()
+        }
         activeCircles.values.forEach { circle ->
-            circle.removeFinger()
+            circle.removeFingerImmediately()
             deadCircles.add(circle)
         }
         activeCircles.clear()

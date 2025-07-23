@@ -120,7 +120,10 @@ class Chooser(
 
     private fun handleActionDown(event: MotionEvent, actionIndex: Int, pointerId: Int) {
         if (winnerChosen) {
-            if (clearOnTouch) resetGame()
+            if (clearOnTouch) {
+                circleManager.clear()
+                restoreDefaultState()
+            }
             return
         }
 
@@ -167,7 +170,6 @@ class Chooser(
     }
 
     private fun resetGame() {
-        circleManager.clear()
         colorManager.generateRandomColorPalette(5)
 
         if (!winnerChosen) {
@@ -176,20 +178,22 @@ class Chooser(
         }
 
         handler.postDelayed(
-            {
-                blackSpeed = 1f
-                handler.postDelayed({
-                    setButtonVisibility(true)
-                    winnerChosen = false
-                    setBackgroundColor(Color.BLACK)
-                }, 150)
-            },
+            { restoreDefaultState() },
             when (mode) {
                 Mode.SINGLE -> Circle.circleLifetime
                 Mode.GROUP -> GroupCircle.circleLifetime
                 Mode.ORDER -> OrderCircle.circleLifetime
             }
         )
+    }
+
+    private fun restoreDefaultState() {
+        blackSpeed = 1f
+        handler.postDelayed({
+            setButtonVisibility(true)
+            winnerChosen = false
+            setBackgroundColor(Color.BLACK)
+        }, 150)
     }
 
     private fun selectWinner() {
