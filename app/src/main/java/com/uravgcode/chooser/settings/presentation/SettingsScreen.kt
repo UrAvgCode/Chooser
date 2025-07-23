@@ -170,6 +170,15 @@ fun SettingsScreen(
 
             item {
                 SettingsSeparator("Circle Lifetimes")
+                SettingsSwitch(
+                    title = "Clear on Touch",
+                    isChecked = settings.clearOnTouch,
+                    onCheckedChange = { isChecked ->
+                        coroutineScope.launch {
+                            dataStore.updateData { it.copy(clearOnTouch = isChecked) }
+                        }
+                    }
+                )
                 TimeSlider(
                     title = "Circle Lifetime",
                     value = settings.circleLifetime,
@@ -178,8 +187,8 @@ fun SettingsScreen(
                             dataStore.updateData { it.copy(circleLifetime = sliderValue) }
                         }
                     },
-                    valueRange = 0L..3000L,
-                    steps = 5,
+                    valueRange = 0L..5000L,
+                    steps = 9,
                 )
                 TimeSlider(
                     title = "Group Circle Lifetime",
@@ -189,8 +198,8 @@ fun SettingsScreen(
                             dataStore.updateData { it.copy(groupCircleLifetime = sliderValue) }
                         }
                     },
-                    valueRange = 0L..3000L,
-                    steps = 5,
+                    valueRange = 0L..5000L,
+                    steps = 9,
                 )
                 TimeSlider(
                     title = "Order Circle Lifetime",
@@ -200,8 +209,8 @@ fun SettingsScreen(
                             dataStore.updateData { it.copy(orderCircleLifetime = sliderValue) }
                         }
                     },
-                    valueRange = 0L..3000L,
-                    steps = 5,
+                    valueRange = 0L..5000L,
+                    steps = 9,
                 )
             }
 

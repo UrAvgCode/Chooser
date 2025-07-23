@@ -120,7 +120,7 @@ class Chooser(
 
     private fun handleActionDown(event: MotionEvent, actionIndex: Int, pointerId: Int) {
         if (winnerChosen) {
-            resetGame()
+            if (clearOnTouch) resetGame()
             return
         }
 
@@ -294,5 +294,7 @@ class Chooser(
         var singleDelay = 3000L
         var groupDelay = 3000L
         var orderDelay = 3000L
+
+        var clearOnTouch = true
     }
 }

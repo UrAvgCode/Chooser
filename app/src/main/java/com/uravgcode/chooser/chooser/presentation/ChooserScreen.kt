@@ -69,6 +69,7 @@ fun ChooserScreen(
         Chooser.groupDelay = settings.groupDelay
         Chooser.orderDelay = settings.orderDelay
 
+        Chooser.clearOnTouch = settings.clearOnTouch
         Circle.circleLifetime = settings.circleLifetime
         GroupCircle.circleLifetime = settings.groupCircleLifetime
         OrderCircle.circleLifetime = settings.orderCircleLifetime

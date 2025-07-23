@@ -36,7 +36,8 @@ data class SettingsData(
     val groupDelay: Long = 3000L,
     val orderDelay: Long = 3000L,
 
-    val circleLifetime: Long = 1000L,
-    val groupCircleLifetime: Long = 1000L,
-    val orderCircleLifetime: Long = 1500L,
+    val clearOnTouch: Boolean = true,
+    val circleLifetime: Long = 1500L,
+    val groupCircleLifetime: Long = 1500L,
+    val orderCircleLifetime: Long = 2000L,
 )
