@@ -1,0 +1,10 @@
+Verbesserungen
+- Verbesserte Standardeinstellungen
+- Einstellung "Clear on Touch" hinzugefügt
+  - Wenn aktiviert, wird der Bildschirm sofort bei erneutem Berühren geleert
+
+Behobene Fehler
+- "Clear on Touch" behebt das Problem, dass der Bildschirm auf manchen OnePlus-Geräten nicht geleert wird
+
+Entwicklung
+- Abhängigkeiten aktualisiert

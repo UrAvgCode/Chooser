@@ -1,0 +1,10 @@
+Improvements
+- improved default settings
+- added clear on touch setting
+  - When enabled, the screen clears immediately when touched again
+
+Fixed
+- clear on touch fixes screen not clearing on some OnePlus devices
+
+Development
+- update dependencies
