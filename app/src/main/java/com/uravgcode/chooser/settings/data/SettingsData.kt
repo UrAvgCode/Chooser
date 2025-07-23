@@ -28,7 +28,7 @@ data class SettingsData(
     val soundEnabled: Boolean = true,
     val vibrationEnabled: Boolean = true,
 
-    val fullScreen: Boolean = true,
+    val fullScreen: Boolean = false,
     val additionalButtonPadding: Float = 0.0f,
     val circleSizeFactor: Float = 1.0f,
 
