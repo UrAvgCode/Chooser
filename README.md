@@ -30,8 +30,6 @@ It adds an exciting twist to decision-making, making it not only fair but also e
 
 ## Download
 
-[<img src="readme/get-it-on-github.png"
-alt="Get it on Github" height="80"/>](https://github.com/UrAvgCode/Chooser/releases)
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
 alt="Get it on Google Play" height=80/>](https://play.google.com/store/apps/details?id=com.uravgcode.chooserapp)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
