@@ -1,5 +1,5 @@
 [versions]
-agp = "8.11.1"
+agp = "8.12.0"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
 lifecycleRuntimeKtx = "2.9.2"
@@ -9,7 +9,7 @@ kotlinSerialization = "1.9.0"
 
 activityCompose = "1.10.1"
 composeBom = "2025.07.00"
-navigationCompose = "2.9.2"
+navigationCompose = "2.9.3"
 
 splashscreen = "1.0.1"
 
