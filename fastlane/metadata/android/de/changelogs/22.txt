@@ -1,0 +1,5 @@
+Behobene Fehler
+- Problem mit dem F-Droid-Buildserver behoben
+
+Entwicklung
+- Abhängigkeiten aktualisiert

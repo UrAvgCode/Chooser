@@ -1,0 +1,5 @@
+Fixed
+- fix f-droid build
+
+Development
+- update dependencies
