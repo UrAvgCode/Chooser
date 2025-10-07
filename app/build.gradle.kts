@@ -12,8 +12,8 @@ android {
     defaultConfig {
         minSdk = 26
         targetSdk = 36
-        versionCode = 22
-        versionName = "1.4.8"
+        versionCode = 23
+        versionName = "1.4.9"
     }
 
     flavorDimensions.add("distribution")
