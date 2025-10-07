@@ -23,6 +23,7 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -47,7 +48,8 @@ fun Navigation(
     val navController = rememberNavController()
     val coroutineScope = rememberCoroutineScope()
 
-    val hasSeenTutorial by dataStore.data.map { it.hasSeenTutorial }.collectAsStateWithLifecycle(initialValue = true)
+    val hasSeenTutorialFlow = remember { dataStore.data.map { it.hasSeenTutorial } }
+    val hasSeenTutorial by hasSeenTutorialFlow.collectAsStateWithLifecycle(initialValue = true)
     val startDestination = if (hasSeenTutorial) Screen.Chooser else Screen.Tutorial
 
     val context = LocalContext.current
@@ -90,3 +92,4 @@ fun Navigation(
         }
     }
 }
+
