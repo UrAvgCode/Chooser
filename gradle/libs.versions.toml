@@ -1,17 +1,17 @@
 [versions]
-agp = "8.11.2"
-kotlin = "2.2.20"
+agp = "9.0.0-rc01"
+kotlin = "2.3.0"
 coreKtx = "1.17.0"
-lifecycleRuntimeKtx = "2.9.4"
+lifecycleRuntimeKtx = "2.10.0"
 
-datastore = "1.1.7"
+datastore = "1.2.0"
 kotlinSerialization = "1.9.0"
 
-activityCompose = "1.11.0"
-composeBom = "2025.09.01"
-navigationCompose = "2.9.5"
+activityCompose = "1.12.2"
+composeBom = "2025.12.01"
+navigationCompose = "2.9.6"
 
-splashscreen = "1.0.1"
+splashscreen = "1.2.0"
 
 
 [libraries]
@@ -42,6 +42,5 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
