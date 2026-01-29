@@ -65,10 +65,10 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
         }
     }
 
-    override fun setWinner() {
+    fun setWinner(orderNumber: Int) {
         winnerCircle = true
         coreRadius *= 1.2f
-        number = ++counter
+        number = orderNumber
     }
 
     override fun removeFinger() {
@@ -76,7 +76,6 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
             val handler = Handler(Looper.getMainLooper())
             handler.postDelayed({
                 hasFinger = false
-                counter--
             }, circleLifetime)
         } else {
             hasFinger = false
@@ -84,7 +83,6 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
     }
 
     companion object {
-        private var counter = 0
         var circleLifetime = 1500L
     }
 }

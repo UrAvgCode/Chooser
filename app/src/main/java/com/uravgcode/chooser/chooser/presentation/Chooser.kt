@@ -253,11 +253,14 @@ class Chooser(
     }
 
     private fun chooseOrder(number: Int = 1) {
-        val circles = circleManager.circles.filter { !it.isWinner() }
+        val circles = circleManager.circles
+            .filter { !it.isWinner() && it is OrderCircle }
+            .map { it as OrderCircle }
+
         if (circles.isEmpty()) return
         val circle = circles.random()
 
-        circle.setWinner()
+        circle.setWinner(number)
         numbers.add(
             Number(
                 circle.x,
