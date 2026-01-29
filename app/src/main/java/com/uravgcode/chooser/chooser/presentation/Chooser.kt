@@ -284,13 +284,11 @@ class Chooser(
         val effect = VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val systemService = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE)
-            val vibratorManager = systemService as VibratorManager
-            vibratorManager.vibrate(CombinedVibration.createParallel(effect))
+            val vibratorManager = context.getSystemService(VibratorManager::class.java)
+            vibratorManager?.vibrate(CombinedVibration.createParallel(effect))
         } else {
-            @Suppress("DEPRECATION")
-            val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-            vibrator.vibrate(effect)
+            val vibrator = context.getSystemService(Vibrator::class.java)
+            vibrator?.vibrate(effect)
         }
     }
 
