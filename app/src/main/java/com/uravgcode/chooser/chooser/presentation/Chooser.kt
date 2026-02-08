@@ -254,29 +254,22 @@ class Chooser(
 
     private fun chooseOrder(number: Int = 1) {
         val circles = circleManager.circles
-            .filter { !it.isWinner() && it is OrderCircle }
-            .map { it as OrderCircle }
+            .filter { !it.isWinner() }
+            .filterIsInstance<OrderCircle>()
 
-        if (circles.isEmpty()) return
-        val circle = circles.random()
+        val circle = circles.randomOrNull() ?: return
 
-        circle.setWinner(number)
-        numbers.add(
-            Number(
-                circle.x,
-                circle.y - circleSize * circleSizeFactor * scale,
-                circle.color,
-                number,
-                circleSize * circleSizeFactor * scale
-            )
-        )
+        circle.setWinner()
+        circle.setNumber(number)
+
+        val radius = circleSize * circleSizeFactor * scale
+        numbers.add(Number(circle.x, circle.y - radius, circle.color, number, radius))
+
         soundManager.playFingerUp()
         vibrate(40)
 
-        handler.postDelayed(
-            { chooseOrder(number + 1) },
-            min(3000L / circleManager.count, 800L)
-        )
+        val delay = min(3000L / circleManager.count, 800L)
+        handler.postDelayed({ chooseOrder(number + 1) }, delay)
     }
 
     private fun vibrate(millis: Long) {

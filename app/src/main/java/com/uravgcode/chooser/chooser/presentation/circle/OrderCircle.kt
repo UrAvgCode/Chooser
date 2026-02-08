@@ -65,10 +65,9 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
         }
     }
 
-    fun setWinner(orderNumber: Int) {
+    override fun setWinner() {
         winnerCircle = true
         coreRadius *= 1.2f
-        number = orderNumber
     }
 
     override fun removeFinger() {
@@ -80,6 +79,10 @@ class OrderCircle(x: Float, y: Float, radius: Float, color: Int) : Circle(x, y, 
         } else {
             hasFinger = false
         }
+    }
+
+    fun setNumber(number: Int) {
+        this.number = number
     }
 
     companion object {
