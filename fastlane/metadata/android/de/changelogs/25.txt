@@ -1,0 +1,7 @@
+Behobene Fehler
+- Seltenen Fehler behoben, bei dem das Durchzählen mit zufälligen Zahlen beginnt
+
+Entwicklung
+- AGP 9.1
+- MP3-Dateien durch Opus ersetzt
+- Abhängigkeiten aktualisiert

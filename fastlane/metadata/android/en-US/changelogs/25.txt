@@ -1,0 +1,7 @@
+Fixed
+- fix rare issue where order mode started counting from random numbers
+
+Development
+- agp 9.1
+- replaced mp3 sound files with opus
+- update dependencies
