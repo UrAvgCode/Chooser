@@ -27,7 +27,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
@@ -51,11 +50,6 @@ fun Navigation(
     val hasSeenTutorialFlow = remember { dataStore.data.map { it.hasSeenTutorial } }
     val hasSeenTutorial by hasSeenTutorialFlow.collectAsStateWithLifecycle(initialValue = true)
     val startDestination = if (hasSeenTutorial) Screen.Chooser else Screen.Tutorial
-
-    val context = LocalContext.current
-    if (context.packageName.hashCode() !in setOf(-308935006, 632248383)) {
-        return
-    }
 
     NavHost(
         navController = navController,
