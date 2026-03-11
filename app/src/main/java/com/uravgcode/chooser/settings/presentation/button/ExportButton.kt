@@ -21,16 +21,23 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.datastore.core.DataStore
+import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.data.SettingsSerializer
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
 @Composable
-fun ExportButton(dataStore: DataStore<SettingsData>) {
+fun ExportButton(
+    dataStore: DataStore<SettingsData>
+) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    val successMessage = stringResource(R.string.settings_export_success)
+    val errorMessage = stringResource(R.string.settings_export_failed)
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.CreateDocument("application/json")
@@ -41,16 +48,16 @@ fun ExportButton(dataStore: DataStore<SettingsData>) {
                     context.contentResolver.openOutputStream(uri)?.use { outputStream ->
                         SettingsSerializer.writeTo(dataStore.data.first(), outputStream)
                     }
-                    Toast.makeText(context, "Settings exported successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, successMessage, Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
-                    Toast.makeText(context, "Failed to export settings: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "$errorMessage: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     SettingsButton(
-        text = "Export Settings",
+        text = stringResource(R.string.settings_export),
         onClick = { launcher.launch("settings.json") }
     )
 }

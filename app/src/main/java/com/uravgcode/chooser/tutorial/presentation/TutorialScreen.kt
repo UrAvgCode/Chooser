@@ -41,7 +41,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.uravgcode.chooser.R
 import com.uravgcode.chooser.tutorial.domain.pagerContent
 import com.uravgcode.chooser.tutorial.presentation.component.PageIndicator
 import com.uravgcode.chooser.tutorial.presentation.component.TutorialPage
@@ -72,7 +74,7 @@ fun TutorialScreen(
                     modifier = Modifier.align(Alignment.TopEnd)
                 ) {
                     Text(
-                        text = "Skip",
+                        text = stringResource(R.string.skip),
                         style = MaterialTheme.typography.bodyLarge,
                     )
                 }
@@ -113,7 +115,7 @@ fun TutorialScreen(
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = stringResource(R.string.back)
                     )
                 }
 
@@ -139,7 +141,7 @@ fun TutorialScreen(
                             Icons.AutoMirrored.Filled.ArrowForward
                         else
                             Icons.Default.Check,
-                        contentDescription = "Next"
+                        contentDescription = stringResource(R.string.next)
                     )
                 }
             }

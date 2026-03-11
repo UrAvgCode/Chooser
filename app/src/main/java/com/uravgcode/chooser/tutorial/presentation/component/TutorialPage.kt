@@ -16,7 +16,7 @@
 package com.uravgcode.chooser.tutorial.presentation.component
 
 import androidx.annotation.DrawableRes
-import androidx.compose.animation.graphics.ExperimentalAnimationGraphicsApi
+import androidx.annotation.StringRes
 import androidx.compose.animation.graphics.res.animatedVectorResource
 import androidx.compose.animation.graphics.res.rememberAnimatedVectorPainter
 import androidx.compose.animation.graphics.vector.AnimatedImageVector
@@ -43,6 +43,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.fromHtml
@@ -51,12 +52,11 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
 @Composable
-@OptIn(ExperimentalAnimationGraphicsApi::class)
 fun TutorialPage(
     @DrawableRes iconId: Int? = null,
     @DrawableRes previewId: Int,
-    title: String,
-    description: String,
+    @StringRes title: Int,
+    @StringRes description: Int,
     isVisible: Boolean = true,
 ) {
     val image = AnimatedImageVector.animatedVectorResource(previewId)
@@ -105,13 +105,15 @@ fun TutorialPage(
                 )
             }
             Text(
-                text = title,
+                text = stringResource(title),
                 fontWeight = FontWeight.Bold,
                 style = MaterialTheme.typography.headlineLarge,
             )
         }
         Text(
-            text = AnnotatedString.fromHtml(description),
+            text = AnnotatedString.fromHtml(
+                htmlString = stringResource(description)
+            ),
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 8.dp)
         )

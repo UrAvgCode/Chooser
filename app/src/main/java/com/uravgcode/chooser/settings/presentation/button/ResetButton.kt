@@ -24,12 +24,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.res.stringResource
 import androidx.datastore.core.DataStore
+import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import kotlinx.coroutines.launch
 
 @Composable
-fun ResetButton(dataStore: DataStore<SettingsData>) {
+fun ResetButton(
+    dataStore: DataStore<SettingsData>
+) {
     val coroutineScope = rememberCoroutineScope()
     var showResetDialog by remember { mutableStateOf(false) }
 
@@ -45,23 +49,27 @@ fun ResetButton(dataStore: DataStore<SettingsData>) {
                         }
                     }
                 ) {
-                    Text("Reset")
+                    Text(text = stringResource(R.string.reset))
                 }
             },
             dismissButton = {
                 Button(
                     onClick = { showResetDialog = false }
                 ) {
-                    Text("Cancel")
+                    Text(text = stringResource(R.string.cancel))
                 }
             },
-            title = { Text(text = "Reset Settings") },
-            text = { Text(text = "Are you sure you want to reset all settings to their default values?") },
+            title = {
+                Text(text = stringResource(R.string.settings_reset))
+            },
+            text = {
+                Text(text = stringResource(R.string.settings_reset_confirm))
+            },
         )
     }
 
     SettingsButton(
-        text = "Reset Settings",
+        text = stringResource(R.string.settings_reset),
         onClick = { showResetDialog = true }
     )
 }

@@ -16,10 +16,11 @@
 package com.uravgcode.chooser.tutorial.domain
 
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 
 data class PageData(
     @param:DrawableRes val iconId: Int? = null,
     @param:DrawableRes val previewId: Int,
-    val title: String,
-    val description: String,
+    @param:StringRes val title: Int,
+    @param:StringRes val description: Int,
 )

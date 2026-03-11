@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Einstellungen</string>
+
+    <string name="settings_general">Allgemein</string>
+    <string name="sound">Sound</string>
+    <string name="vibration">Vibration</string>
+
+    <string name="settings_display">Anzeige</string>
+    <string name="full_screen">Vollbild</string>
+    <string name="button_padding">Zusätzlicher Button-Abstand</string>
+    <string name="circle_size">Kreisgröße</string>
+
+    <string name="settings_selection_delays">Auswahlverzögerungen</string>
+    <string name="delay_single_mode">Verzögerung im Einzelmodus</string>
+    <string name="delay_group_mode">Verzögerung im Gruppenmodus</string>
+    <string name="delay_order_mode">Verzögerung im Reihenfolgenmodus</string>
+
+    <string name="settings_circle_lifetimes">Anzeigedauer</string>
+    <string name="clear_on_touch">Bei Berührung zurücksetzen</string>
+    <string name="lifetime_circle">Einzelmodus Anzeigedauer</string>
+    <string name="lifetime_group_circle">Gruppenmodus Anzeigedauer</string>
+    <string name="lifetime_order_circle">Reihenfolgenmodus Anzeigedauer</string>
+
+    <string name="settings_import">Einstellungen importieren</string>
+    <string name="settings_import_success">Einstellungen erfolgreich importiert</string>
+    <string name="settings_import_failed">Import der Einstellungen fehlgeschlagen</string>
+
+    <string name="settings_export">Einstellungen exportieren</string>
+    <string name="settings_export_success">Einstellungen erfolgreich exportiert</string>
+    <string name="settings_export_failed">Export der Einstellungen fehlgeschlagen</string>
+
+    <string name="settings_reset">Einstellungen zurücksetzen</string>
+    <string name="settings_reset_confirm">Möchtest du wirklich alle Einstellungen auf die Standardwerte zurücksetzen?</string>
+    <string name="reset">Zurücksetzen</string>
+    <string name="cancel">Abbrechen</string>
+
+    <string name="skip">Überspringen</string>
+    <string name="back">Zurück</string>
+    <string name="next">Weiter</string>
+
+    <string name="tutorial_welcome_title">Willkommen bei Chooser</string>
+    <string name="tutorial_welcome_text">Treffe schnelle und faire Entscheidungen mit einer Berührung. Lege mehrere Finger auf den Bildschirm, warte einen kurzen Moment, und Chooser erledigt den Rest.</string>
+
+    <string name="tutorial_how_to_use_title">So funktioniert\'s</string>
+    <string name="tutorial_how_to_use_text">
+    <![CDATA[
+    <p>
+        <b>Modus-Button</b><br/>
+        Wechsle zwischen Einzel-, Gruppen- und Reihenfolgemodus.
+        <b>Gedrückt halten</b>, um zusätzliche Einstellungen zu öffnen.
+    </p>
+    <br/>
+    <p>
+        <b>Zahlen-Button</b><br/>
+        Lege fest, wie viele Finger ausgewählt oder wie viele Gruppen erstellt werden sollen.
+    </p>
+    ]]>
+    </string>
+
+    <string name="tutorial_single_mode_title">Einzelmodus</string>
+    <string name="tutorial_single_mode_text">Wählt zufällig einen Finger aus allen Fingern auf dem Bildschirm aus.</string>
+
+    <string name="tutorial_group_mode_title">Gruppenmodus</string>
+    <string name="tutorial_group_mode_text">Teilt alle Finger in gleich große Teams oder Gruppen auf.</string>
+
+    <string name="tutorial_order_mode_title">Reihenfolgemodus</string>
+    <string name="tutorial_order_mode_text">Erstellt eine zufällige Reihenfolge aller Finger auf dem Bildschirm.</string>
+</resources>

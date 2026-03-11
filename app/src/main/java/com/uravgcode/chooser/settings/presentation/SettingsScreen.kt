@@ -28,9 +28,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.datastore.core.DataStore
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.presentation.button.ExportButton
 import com.uravgcode.chooser.settings.presentation.button.ImportButton
@@ -73,11 +75,11 @@ fun SettingsScreen(
         ) {
             item {
                 SettingsSeparator(
-                    heading = "General Settings",
+                    heading = stringResource(R.string.settings_general),
                     showDivider = false,
                 )
                 SettingsSwitch(
-                    title = "Enable Sound",
+                    title = stringResource(R.string.sound),
                     isChecked = settings.soundEnabled,
                     onCheckedChange = { isChecked ->
                         coroutineScope.launch {
@@ -86,7 +88,7 @@ fun SettingsScreen(
                     }
                 )
                 SettingsSwitch(
-                    title = "Enable Vibration",
+                    title = stringResource(R.string.vibration),
                     isChecked = settings.vibrationEnabled,
                     onCheckedChange = { isChecked ->
                         coroutineScope.launch {
@@ -97,9 +99,9 @@ fun SettingsScreen(
             }
 
             item {
-                SettingsSeparator("Display Settings")
+                SettingsSeparator(stringResource(R.string.settings_display))
                 SettingsSwitch(
-                    title = "Full Screen Mode",
+                    title = stringResource(R.string.full_screen),
                     isChecked = settings.fullScreen,
                     onCheckedChange = { isChecked ->
                         coroutineScope.launch {
@@ -108,7 +110,7 @@ fun SettingsScreen(
                     }
                 )
                 PaddingSlider(
-                    title = "Additional Button Padding",
+                    title = stringResource(R.string.button_padding),
                     value = settings.additionalButtonPadding,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -119,7 +121,7 @@ fun SettingsScreen(
                     steps = 9
                 )
                 PercentSlider(
-                    title = "Circle Size",
+                    title = stringResource(R.string.circle_size),
                     value = settings.circleSizeFactor,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -132,9 +134,9 @@ fun SettingsScreen(
             }
 
             item {
-                SettingsSeparator("Selection Delays")
+                SettingsSeparator(stringResource(R.string.settings_selection_delays))
                 TimeSlider(
-                    title = "Single Mode Delay",
+                    title = stringResource(R.string.delay_single_mode),
                     value = settings.singleDelay,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -145,7 +147,7 @@ fun SettingsScreen(
                     steps = 9,
                 )
                 TimeSlider(
-                    title = "Group Mode Delay",
+                    title = stringResource(R.string.delay_group_mode),
                     value = settings.groupDelay,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -156,7 +158,7 @@ fun SettingsScreen(
                     steps = 9,
                 )
                 TimeSlider(
-                    title = "Order Mode Delay",
+                    title = stringResource(R.string.delay_order_mode),
                     value = settings.orderDelay,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -169,9 +171,9 @@ fun SettingsScreen(
             }
 
             item {
-                SettingsSeparator("Circle Lifetimes")
+                SettingsSeparator(stringResource(R.string.settings_circle_lifetimes))
                 SettingsSwitch(
-                    title = "Clear on Touch",
+                    title = stringResource(R.string.clear_on_touch),
                     isChecked = settings.clearOnTouch,
                     onCheckedChange = { isChecked ->
                         coroutineScope.launch {
@@ -180,7 +182,7 @@ fun SettingsScreen(
                     }
                 )
                 TimeSlider(
-                    title = "Circle Lifetime",
+                    title = stringResource(R.string.lifetime_circle),
                     value = settings.circleLifetime,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -191,7 +193,7 @@ fun SettingsScreen(
                     steps = 9,
                 )
                 TimeSlider(
-                    title = "Group Circle Lifetime",
+                    title = stringResource(R.string.lifetime_group_circle),
                     value = settings.groupCircleLifetime,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {
@@ -202,7 +204,7 @@ fun SettingsScreen(
                     steps = 9,
                 )
                 TimeSlider(
-                    title = "Order Circle Lifetime",
+                    title = stringResource(R.string.lifetime_order_circle),
                     value = settings.orderCircleLifetime,
                     onValueChange = { sliderValue ->
                         coroutineScope.launch {

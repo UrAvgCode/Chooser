@@ -20,42 +20,30 @@ import com.uravgcode.chooser.R
 val pagerContent = listOf(
     PageData(
         previewId = R.drawable.chooser_preview_animated,
-        title = "Welcome to Chooser",
-        description = "Make quick, unbiased decisions with a touch. " +
-            "Place multiple fingers on screen, wait a brief moment, and Chooser will do the rest.",
+        title = R.string.tutorial_welcome_title,
+        description = R.string.tutorial_welcome_text,
     ),
     PageData(
         previewId = R.drawable.button_preview_animated,
-        title = "How to Use",
-        description = """
-          <p>
-            <b>Mode Button</b><br>
-            Switch between Single, Group, and Order modes.
-            <b>Long press</b> to access additional settings.
-          </p>
-          <br>
-          <p>
-            <b>Number Button</b><br>
-            Adjust how many fingers to select or groups to create.
-          </p>
-        """,
+        title = R.string.tutorial_how_to_use_title,
+        description = R.string.tutorial_how_to_use_text,
     ),
     PageData(
         iconId = R.drawable.single_icon,
         previewId = R.drawable.single_preview_animated,
-        title = "Single Mode",
-        description = "Selects a random finger from all touching the screen.",
+        title = R.string.tutorial_single_mode_title,
+        description = R.string.tutorial_single_mode_text,
     ),
     PageData(
         iconId = R.drawable.group_icon,
         previewId = R.drawable.group_preview_animated,
-        title = "Group Mode",
-        description = "Divides all fingers into balanced teams or groups.",
+        title = R.string.tutorial_group_mode_title,
+        description = R.string.tutorial_group_mode_text,
     ),
     PageData(
         iconId = R.drawable.order_icon,
         previewId = R.drawable.order_preview_animated,
-        title = "Order Mode",
-        description = "Creates a random sequence of all fingers on screen.",
+        title = R.string.tutorial_order_mode_title,
+        description = R.string.tutorial_order_mode_text,
     ),
 )

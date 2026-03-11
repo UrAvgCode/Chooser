@@ -21,15 +21,22 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.datastore.core.DataStore
+import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.data.SettingsSerializer
 import kotlinx.coroutines.launch
 
 @Composable
-fun ImportButton(dataStore: DataStore<SettingsData>) {
+fun ImportButton(
+    dataStore: DataStore<SettingsData>
+) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+
+    val successMessage = stringResource(R.string.settings_import_success)
+    val errorMessage = stringResource(R.string.settings_import_failed)
 
     val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.OpenDocument()
@@ -41,16 +48,16 @@ fun ImportButton(dataStore: DataStore<SettingsData>) {
                         val imported = SettingsSerializer.readFrom(inputStream)
                         dataStore.updateData { imported }
                     }
-                    Toast.makeText(context, "Settings imported successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, successMessage, Toast.LENGTH_SHORT).show()
                 } catch (e: Exception) {
-                    Toast.makeText(context, "Failed to import settings: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "$errorMessage: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
 
     SettingsButton(
-        text = "Import Settings",
+        text = stringResource(R.string.settings_import),
         onClick = { launcher.launch(arrayOf("application/json")) }
     )
 }
