@@ -20,6 +20,11 @@ android {
         versionName = "1.4.11"
     }
 
+    @Suppress("UnstableApiUsage")
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     flavorDimensions.add("distribution")
     productFlavors {
         create("foss") {

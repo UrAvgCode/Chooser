@@ -5,6 +5,7 @@
     <string name="settings_general">Allgemein</string>
     <string name="sound">Sound</string>
     <string name="vibration">Vibration</string>
+    <string name="language">Sprache</string>
 
     <string name="settings_display">Anzeige</string>
     <string name="full_screen">Vollbild</string>

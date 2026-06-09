@@ -15,6 +15,7 @@
 
 package com.uravgcode.chooser.settings.presentation
 
+import android.os.Build
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -36,6 +37,7 @@ import com.uravgcode.chooser.R
 import com.uravgcode.chooser.settings.data.SettingsData
 import com.uravgcode.chooser.settings.presentation.button.ExportButton
 import com.uravgcode.chooser.settings.presentation.button.ImportButton
+import com.uravgcode.chooser.settings.presentation.button.LanguageButton
 import com.uravgcode.chooser.settings.presentation.button.ResetButton
 import com.uravgcode.chooser.settings.presentation.component.SettingsSeparator
 import com.uravgcode.chooser.settings.presentation.component.SettingsSwitch
@@ -96,6 +98,9 @@ fun SettingsScreen(
                         }
                     }
                 )
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    LanguageButton()
+                }
             }
 
             item {
