@@ -1,0 +1,7 @@
+Funktionen
+- Spracheinstellungen
+- Deutsche Übersetzung
+
+Entwicklung
+- SDK 37
+- Abhängigkeiten aktualisiert

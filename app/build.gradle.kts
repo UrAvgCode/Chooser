@@ -16,8 +16,8 @@ android {
     defaultConfig {
         minSdk = 26
         targetSdk = 37
-        versionCode = 25
-        versionName = "1.4.11"
+        versionCode = 26
+        versionName = "1.5.0"
     }
 
     @Suppress("UnstableApiUsage")

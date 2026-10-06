@@ -1,0 +1,7 @@
+Features
+- language options in settings
+- german translation
+
+Development
+- target and compile sdk 37
+- update dependencies
